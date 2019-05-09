@@ -22,7 +22,7 @@ public class Mutualite {
     }
 
     public void setLibelle(String libelle) throws ChampsVideException, CaracteresLimiteException {
-        if(libelle == null){
+        if(libelle.isEmpty()){
             throw new ChampsVideException("Libellé");
         }
         if(libelle.length() > 50){
@@ -32,7 +32,7 @@ public class Mutualite {
     }
 
     public void setAffiliationPolitique(String affiliationPolitique) throws ChampsVideException, CaracteresLimiteException {
-        if(affiliationPolitique == null){
+        if(affiliationPolitique.isEmpty()){
             throw new ChampsVideException("Affiliation politique");
         }
         if(affiliationPolitique.length() > 50){
@@ -42,7 +42,7 @@ public class Mutualite {
     }
 
     public void setDiminutif(String diminutif) throws ChampsVideException, CaracteresLimiteException {
-        if(diminutif == null){
+        if(diminutif.isEmpty()){
             throw new ChampsVideException("Diminutif");
         }
         if(diminutif.length() > 50){

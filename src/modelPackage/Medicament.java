@@ -31,7 +31,7 @@ public class Medicament {
     }
 
     public void setCodeCNK(String codeCNK) throws ChampsVideException, CodeInvalideException, FormatNombreException {
-        if(codeCNK == null){
+        if(codeCNK.isEmpty()){
             throw new ChampsVideException("Code CNK");
         }
         if(codeCNK.length() != 7) {
@@ -54,7 +54,7 @@ public class Medicament {
     }
 
     public void setFirme(String firme) throws ChampsVideException, CaracteresLimiteException {
-        if(firme == null){
+        if(firme.isEmpty()){
             throw new ChampsVideException("Firme");
         }
         if(firme.length() > 50){

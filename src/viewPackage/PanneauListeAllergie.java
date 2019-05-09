@@ -145,7 +145,7 @@ public class PanneauListeAllergie extends JPanel{
                     if(indiceLigneSelectionnee == -1){
                         throw new AucuneSelectionException();
                     }
-                    if(nomField.getText().isEmpty()){
+                    if(nomField.getText() == null){
                         throw new ChampsVideException("Nom");
                     }
                     if(nomField.getText().length() > 50){

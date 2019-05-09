@@ -22,7 +22,7 @@ public class Allergie {
     }
 
     public void setLibelle(String libelle) throws ChampsVideException, CaracteresLimiteException {
-        if(libelle == null){
+        if(libelle.isEmpty()){
             throw new ChampsVideException("Libellé");
         }
         if(libelle.length() > 50){
@@ -32,7 +32,7 @@ public class Allergie {
     }
 
     public void setSymptome(String symptome) throws ChampsVideException, CaracteresLimiteException {
-        if(symptome == null){
+        if(symptome.isEmpty()){
             throw new ChampsVideException("Symptôme");
         }
         if(libelle.length() > 250){
@@ -42,7 +42,7 @@ public class Allergie {
     }
 
     public void setConditionnement(String conditionnement) throws ChampsVideException, CaracteresLimiteException {
-        if(conditionnement == null){
+        if(conditionnement.isEmpty()){
             throw new ChampsVideException("Conditionnement");
         }
         if(libelle.length() > 250){
