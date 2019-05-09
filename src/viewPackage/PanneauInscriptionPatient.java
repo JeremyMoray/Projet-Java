@@ -65,7 +65,7 @@ public class PanneauInscriptionPatient extends JPanel{
         gbc.gridy = 3;
         this.add(prenomLabel, gbc);
 
-        nbEnfantsLabel = new JLabel("NbEnfants*");
+        nbEnfantsLabel = new JLabel("Nb. d'enfants*");
         nbEnfantsLabel.setFont(new Font("Arial", Font.BOLD, 15));
         gbc.gridy = 4;
         this.add(nbEnfantsLabel, gbc);

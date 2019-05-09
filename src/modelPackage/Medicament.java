@@ -94,7 +94,6 @@ public class Medicament {
     }
 
     public void setTauxRemboursement(double tauxRemboursement) throws FormatNombreException {
-
         try{
             if(tauxRemboursement < 0||tauxRemboursement > 100){
                 throw new FormatNombreException("Taux de remboursement");

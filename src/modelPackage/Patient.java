@@ -2,6 +2,7 @@ package modelPackage;
 
 import exceptionPackage.*;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Patient {
@@ -87,31 +88,60 @@ public class Patient {
         this.prenom = prenom;
     }
 
-    public void setNbEnfants(Integer nbEnfants) {
+    public void setNbEnfants(Integer nbEnfants) throws ChampsVideException, FormatNombreException{
+        if(nbEnfants == null){
+            throw new ChampsVideException("Nb. d'enfants");
+        }
+        try{
+            if(nbEnfants < 0){
+                throw new FormatNombreException("Nb. d'enfants");
+            }
+        }
+        catch(NumberFormatException exception){
+            throw new FormatNombreException("Nb. d'enfants");
+        }
         this.nbEnfants = nbEnfants;
     }
 
-    public void setDateNaissance(GregorianCalendar dateNaissance) {
+    public void setDateNaissance(GregorianCalendar dateNaissance) throws ChampsVideException{
+        if(dateNaissance == null){
+            throw new ChampsVideException("Date de naissance");
+        }
         this.dateNaissance = dateNaissance;
     }
 
-    public void setNumTelFixe(String numTelFixe) {
+    public void setNumTelFixe(String numTelFixe) throws CaracteresLimiteException {
+        if(numTelFixe.length() > 20){
+            throw new CaracteresLimiteException("Numéro tel. fixe");
+        }
         this.numTelFixe = numTelFixe;
     }
 
-    public void setNumTelMobile(String numTelMobile) {
+    public void setNumTelMobile(String numTelMobile) throws CaracteresLimiteException {
+        if(numTelMobile.length() > 20){
+            throw new CaracteresLimiteException("Numéro tel. mobile");
+        }
         this.numTelMobile = numTelMobile;
     }
 
-    public void setRemarque(String remarque) {
+    public void setRemarque(String remarque) throws CaracteresLimiteException {
+        if(numTelMobile.length() > 250){
+            throw new CaracteresLimiteException("Remarque");
+        }
         this.remarque = remarque;
     }
 
-    public void setASurveiller(String aSurveiller) {
+    public void setASurveiller(String aSurveiller) throws CaracteresLimiteException {
+        if(aSurveiller.length() > 250){
+            throw new CaracteresLimiteException("A surveiller");
+        }
         this.aSurveiller = aSurveiller;
     }
 
-    public void setConseils(String conseils) {
+    public void setConseils(String conseils) throws CaracteresLimiteException {
+        if(conseils.length() > 250){
+            throw new CaracteresLimiteException("Conseils");
+        }
         this.conseils = conseils;
     }
 
@@ -127,15 +157,29 @@ public class Patient {
         this.acharnementTherapeuthique = acharnementTherapeuthique;
     }
 
-    public void setCauseDecesPere(String causeDecesPere) {
+    public void setCauseDecesPere(String causeDecesPere) throws CaracteresLimiteException{
+        if(causeDecesPere.length() > 250){
+            throw new CaracteresLimiteException("A surveiller");
+        }
         this.causeDecesPere = causeDecesPere;
     }
 
-    public void setCauseDecesMere(String causeDecesMere) {
+    public void setCauseDecesMere(String causeDecesMere) throws CaracteresLimiteException{
+        if(causeDecesMere.length() > 250){
+            throw new CaracteresLimiteException("A surveiller");
+        }
         this.causeDecesMere = causeDecesMere;
     }
 
-    public void setPrimeAnuelle(double primeAnuelle) {
+    public void setPrimeAnuelle(double primeAnuelle) throws FormatNombreException{
+        try{
+            if(primeAnuelle < 0){
+                throw new FormatNombreException("Taux de remboursement");
+            }
+        }
+        catch(NumberFormatException exception){
+            throw new FormatNombreException("Taux de remboursement");
+        }
         this.primeAnuelle = primeAnuelle;
     }
 
