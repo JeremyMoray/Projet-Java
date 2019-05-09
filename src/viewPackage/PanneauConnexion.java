@@ -1,9 +1,7 @@
 package viewPackage;
 
 import controllerPackage.ApplicationController;
-import exceptionPackage.AccesDBException;
-import exceptionPackage.ChampsVideException;
-import exceptionPackage.ConnexionException;
+import exceptionPackage.*;
 import modelPackage.Soignant;
 
 import javax.swing.*;
@@ -112,6 +110,15 @@ public class PanneauConnexion extends JPanel{
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
                 catch(ConnexionException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch(CaracteresLimiteException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch(FormatNombreException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (CodeInvalideException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             }

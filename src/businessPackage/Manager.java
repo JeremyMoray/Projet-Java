@@ -21,11 +21,11 @@ public class Manager {
         dao.addSoignant(soignant);
     }
 
-    public Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException{
+    public Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException{
         return dao.getSoignant(numNat, motDePasse);
     }
 
-    public Soignant getSoignant(Integer soignant_id) throws AccesDBException {
+    public Soignant getSoignant(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException {
         return dao.getSoignant(soignant_id);
     }
 

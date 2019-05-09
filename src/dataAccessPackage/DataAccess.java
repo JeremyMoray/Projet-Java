@@ -8,8 +8,8 @@ public interface DataAccess {
 
     void closeConnection() throws AccesDBException;
     void addSoignant(Soignant soignant) throws AccesDBException, ChampsExistantException;
-    Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException;
-    Soignant getSoignant(Integer soignant_id) throws AccesDBException;
+    Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException;
+    Soignant getSoignant(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException;
     void updateSoignant(Soignant soignant, Integer soignant_id) throws AccesDBException, ChampsExistantException;
     void deleteSoignant(Integer soignant_id) throws AccesDBException;
 

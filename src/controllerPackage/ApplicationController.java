@@ -21,11 +21,11 @@ public class ApplicationController {
         manager.addSoignant(soignant);
     }
 
-    public Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException{
+    public Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException{
         return manager.getSoignant(numNat, motDePasse);
     }
 
-    public Soignant getSoignant(Integer soignant_id) throws AccesDBException {
+    public Soignant getSoignant(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException {
         return manager.getSoignant(soignant_id);
     }
 

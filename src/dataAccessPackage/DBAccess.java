@@ -55,7 +55,7 @@ public class DBAccess implements DataAccess{
         }
     }
 
-    public Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException{
+    public Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException{
         try{
             Connection connection = SingletonConnection.getInstance();
             String sql = "select * from soignant where numeroNational = ? and motDePasse = ?";
@@ -86,7 +86,7 @@ public class DBAccess implements DataAccess{
         }
     }
 
-    public Soignant getSoignant(Integer soignant_id) throws AccesDBException {
+    public Soignant getSoignant(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException {
         try{
             Connection connection = SingletonConnection.getInstance();
             String sql = "select * from soignant where soignant_id = ?";
