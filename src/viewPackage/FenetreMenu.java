@@ -12,7 +12,7 @@ public class FenetreMenu extends JFrame{
 
     private static final int WINDOWWIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
     private static final int WINDOWHEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
-    private static final Color BORDER_THEME = Color.RED;
+    private static final Color BORDER_THEME = new Color(0xFF3F46);
     private ApplicationController controller;
 
     public FenetreMenu(){
