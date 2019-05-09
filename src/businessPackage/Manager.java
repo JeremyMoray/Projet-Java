@@ -85,6 +85,10 @@ public class Manager {
         dao.updateMedicament(medicament);
     }
 
+    public void addPatient(Patient patient) throws AccesDBException {
+        dao.addPatient(patient);
+    }
+
     public void setDao(DBAccess dao) {
         this.dao = dao;
     }

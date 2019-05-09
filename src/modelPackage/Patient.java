@@ -125,22 +125,28 @@ public class Patient {
     }
 
     public void setRemarque(String remarque) throws CaracteresLimiteException {
-        if(numTelMobile.length() > 250){
-            throw new CaracteresLimiteException("Remarque");
+        if(remarque != null){
+            if(remarque.length() > 250){
+                throw new CaracteresLimiteException("Remarque");
+            }
         }
         this.remarque = remarque;
     }
 
     public void setASurveiller(String aSurveiller) throws CaracteresLimiteException {
-        if(aSurveiller.length() > 250){
-            throw new CaracteresLimiteException("A surveiller");
+        if(aSurveiller != null){
+            if(aSurveiller.length() > 250){
+                throw new CaracteresLimiteException("A surveiller");
+            }
         }
         this.aSurveiller = aSurveiller;
     }
 
     public void setConseils(String conseils) throws CaracteresLimiteException {
-        if(conseils.length() > 250){
-            throw new CaracteresLimiteException("Conseils");
+        if(conseils != null) {
+            if (conseils.length() > 250) {
+                throw new CaracteresLimiteException("Conseils");
+            }
         }
         this.conseils = conseils;
     }
@@ -158,15 +164,19 @@ public class Patient {
     }
 
     public void setCauseDecesPere(String causeDecesPere) throws CaracteresLimiteException{
-        if(causeDecesPere.length() > 250){
-            throw new CaracteresLimiteException("A surveiller");
+        if(causeDecesPere != null) {
+            if (causeDecesPere.length() > 250) {
+                throw new CaracteresLimiteException("Cause décès père");
+            }
         }
         this.causeDecesPere = causeDecesPere;
     }
 
     public void setCauseDecesMere(String causeDecesMere) throws CaracteresLimiteException{
-        if(causeDecesMere.length() > 250){
-            throw new CaracteresLimiteException("A surveiller");
+        if(causeDecesMere != null) {
+            if (causeDecesMere.length() > 250) {
+                throw new CaracteresLimiteException("Cause décès mère");
+            }
         }
         this.causeDecesMere = causeDecesMere;
     }
@@ -174,11 +184,11 @@ public class Patient {
     public void setPrimeAnuelle(double primeAnuelle) throws FormatNombreException{
         try{
             if(primeAnuelle < 0){
-                throw new FormatNombreException("Taux de remboursement");
+                throw new FormatNombreException("Prime anuelle");
             }
         }
         catch(NumberFormatException exception){
-            throw new FormatNombreException("Taux de remboursement");
+            throw new FormatNombreException("Prime anuelle");
         }
         this.primeAnuelle = primeAnuelle;
     }

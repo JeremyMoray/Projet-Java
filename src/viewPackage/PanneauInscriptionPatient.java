@@ -2,6 +2,7 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 import exceptionPackage.*;
+import modelPackage.Mutualite;
 import modelPackage.Patient;
 import modelPackage.Soignant;
 
@@ -9,6 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.zip.DataFormatException;
 
 public class PanneauInscriptionPatient extends JPanel{
 
@@ -20,12 +27,11 @@ public class PanneauInscriptionPatient extends JPanel{
             remarqueField, aSurveillerField, conseilsField, causeDecesPereField, causeDecesMereField, primeAnuelleField;
 
     private DatePanel datePanel;
-
     private JCheckBox donnerEtatBox, besoinAvalBox, acharnementTherapeuthiqueBox;
-
     private JComboBox mutualites;
-
     private JButton inscriptionBouton, reinitialiserBouton, retourBouton;
+    private ArrayList<Mutualite> listeObjetMutualites;
+    private int mutualite_id;
     private Container frameContainer;
     private ApplicationController controller;
     private Patient patient;
@@ -136,6 +142,7 @@ public class PanneauInscriptionPatient extends JPanel{
         this.add(mutualiteLabel, gbc);
 
         numeroNationalField = new JTextField();
+        gbc.weightx = 200;
         gbc.ipadx = 200;
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -203,13 +210,29 @@ public class PanneauInscriptionPatient extends JPanel{
         gbc.gridy = 16;
         this.add(primeAnuelleField, gbc);
 
-        String[ ] values = { "1", "Psychiatre", "Chirurgien", "Autre (Veuillez spécifier)" };
-
-        mutualites = new JComboBox(values);
-        gbc.ipadx = 35;
-        gbc.ipady = 5;
-        gbc.gridy = 17;
-        this.add(mutualites, gbc);
+        try{
+            listeObjetMutualites = controller.getAllMutualites();
+            String[] listeMutualites = new String[listeObjetMutualites.size()];
+            for(int i = 0; i < listeMutualites.length; i++) {
+                listeMutualites[i] = controller.getAllMutualites().get(i).getLibelle() + " (" + controller.getAllMutualites().get(i).getDiminutif() + ")";
+            }
+            mutualites = new JComboBox(listeMutualites);
+            ComboBoxListener mutualiteListener = new ComboBoxListener();
+            mutualites.addItemListener(mutualiteListener);
+            gbc.ipadx = 35;
+            gbc.ipady = 5;
+            gbc.gridy = 17;
+            this.add(mutualites, gbc);
+        }
+        catch (AccesDBException exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (ChampsVideException exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (CaracteresLimiteException exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
 
         inscriptionBouton = new JButton("Valider");
         ButtonListener inscriptionListener = new ButtonListener();
@@ -246,7 +269,174 @@ public class PanneauInscriptionPatient extends JPanel{
         public void actionPerformed(ActionEvent event) {
 
             if(event.getSource() == inscriptionBouton){
+                try{
+                    if(numeroNationalField.getText().isEmpty()){
+                        throw new ChampsVideException("Numéro national");
+                    }
+                    if(!numeroNationalField.getText().matches("[0-9]*")){
+                        throw new FormatNombreException("Numéro national");
+                    }
+                    if(numeroNationalField.getText().length() != 11){
+                        throw new CodeInvalideException("Numéro national", "Veuillez entrer un numéro national composé de 11 chiffres uniquement");
+                    }
 
+                    if(nomField.getText().isEmpty()){
+                        throw new ChampsVideException("Nom");
+                    }
+                    if(nomField.getText().length() > 30){
+                        throw new CaracteresLimiteException("Nom");
+                    }
+
+                    if(prenomField.getText().isEmpty()){
+                        throw new ChampsVideException("Prénom");
+                    }
+                    if(prenomField.getText().length() > 30){
+                        throw new CaracteresLimiteException("Prénom");
+                    }
+
+                    if(nbEnfantsField.getText().isEmpty()){
+                        throw new ChampsVideException("Nb. d'enfants");
+                    }
+                    try{
+                        if(Integer.parseInt(nbEnfantsField.getText()) < 0){
+                            throw new FormatNombreException("Nb. d'enfants");
+                        }
+                    }
+                    catch(NumberFormatException exception){
+                        throw new FormatNombreException("Nb. d'enfants");
+                    }
+
+                    try{
+                        Integer jour = Integer.parseInt(datePanel.getJourField());
+                        Integer mois = Integer.parseInt(datePanel.getMoisField())-1;
+                        Integer annee = Integer.parseInt(datePanel.getAnneeField());
+
+                        if(jour == null){
+                            throw new ChampsVideException("Date de naissance (Jour)");
+                        }
+                        if(mois == null){
+                            throw new ChampsVideException("Date de naissance (Mois)");
+                        }
+                        if(annee == null){
+                            throw new ChampsVideException("Date de naissance (Annee)");
+                        }
+
+                        Calendar dateActuelle = Calendar.getInstance();
+
+                        if(jour < 0 || jour > 31){
+                            throw new FormatDateException();
+                        }
+                        if(mois < 0 || mois > 31){
+                            throw new FormatDateException();
+                        }
+                        if(annee < 1900 || annee > dateActuelle.get(Calendar.YEAR)){
+                            throw new FormatDateException();
+                        }
+
+                        GregorianCalendar dateNaissance = new GregorianCalendar();
+                        dateNaissance.set(GregorianCalendar.DAY_OF_MONTH, jour);
+                        dateNaissance.set(GregorianCalendar.MONTH, mois);
+                        dateNaissance.set(GregorianCalendar.YEAR, annee);
+
+                        if(dateNaissance.compareTo(dateActuelle) > 0){
+                            throw new FormatDateException();
+                        }
+                    }
+                    catch(NumberFormatException exception){
+                        throw new FormatDateException();
+                    }
+
+                    if(numTelFixeField.getText().length() > 20){
+                        throw new CaracteresLimiteException("Numéro tel. fixe");
+                    }
+
+                    if(numTelMobileField.getText().length() > 20){
+                        throw new CaracteresLimiteException("Numéro tel. mobile");
+                    }
+
+                    if(remarqueField.getText().length() > 250){
+                        throw new CaracteresLimiteException("Remarque");
+                    }
+
+                    if(aSurveillerField.getText().length() > 250){
+                        throw new CaracteresLimiteException("A surveiller");
+                    }
+
+                    if(conseilsField.getText().length() > 250){
+                        throw new CaracteresLimiteException("Conseils");
+                    }
+
+                    if(causeDecesPereField.getText().length() > 250){
+                        throw new CaracteresLimiteException("Cause décès père");
+                    }
+
+                    if(causeDecesMereField.getText().length() > 250){
+                        throw new CaracteresLimiteException("Cause décès mère");
+                    }
+
+                    try{
+                        if(!primeAnuelleField.getText().isEmpty()){
+                            if(Double.parseDouble(primeAnuelleField.getText()) < 0){
+                                throw new FormatNombreException("Prime anuelle");
+                            }
+                        }
+                    }
+                    catch(NumberFormatException exception){
+                        throw new FormatNombreException("Prime anuelle");
+                    }
+
+                    GregorianCalendar dateNaissance = new GregorianCalendar();
+                    dateNaissance.set(GregorianCalendar.DAY_OF_MONTH, Integer.parseInt(datePanel.getJourField()));
+                    dateNaissance.set(GregorianCalendar.MONTH, Integer.parseInt(datePanel.getMoisField()));
+                    dateNaissance.set(GregorianCalendar.YEAR, Integer.parseInt(datePanel.getAnneeField()));
+
+                    patient = new Patient(
+                            null,
+                            numeroNationalField.getText(),
+                            nomField.getText(),
+                            prenomField.getText(),
+                            Integer.parseInt(nbEnfantsField.getText()),
+                            dateNaissance,
+                            numTelFixeField.getText(),
+                            numTelMobileField.getText(),
+                            (remarqueField.getText().isEmpty()?null:remarqueField.getText()),
+                            (aSurveillerField.getText().isEmpty()?null:aSurveillerField.getText()),
+                            (conseilsField.getText().isEmpty()?null:conseilsField.getText()),
+                            donnerEtatBox.isSelected(),
+                            besoinAvalBox.isSelected(),
+                            acharnementTherapeuthiqueBox.isSelected(),
+                            (causeDecesPereField.getText().isEmpty()?null:causeDecesPereField.getText()),
+                            (causeDecesMereField.getText().isEmpty()?null:causeDecesMereField.getText()),
+                            (primeAnuelleField.getText().isEmpty()?0:Double.parseDouble(primeAnuelleField.getText())),
+                            mutualite_id
+                    );
+
+                    controller.addPatient(patient);
+
+                    frameContainer.removeAll();
+                    frameContainer.add(new MenuUtilisateur(frameContainer, utilisateur));
+                    frameContainer.revalidate();
+                    frameContainer.repaint();
+                    JOptionPane.showMessageDialog(null, "Le patient a été ajouté", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                }
+                catch (AccesDBException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (ChampsVideException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (CaracteresLimiteException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (FormatNombreException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (CodeInvalideException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (FormatDateException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
             }
 
             if(event.getSource() == reinitialiserBouton){
@@ -258,6 +448,15 @@ public class PanneauInscriptionPatient extends JPanel{
                 frameContainer.add(new PageConnexion(frameContainer));
                 frameContainer.revalidate();
                 frameContainer.repaint();
+            }
+        }
+    }
+
+    private class ComboBoxListener implements ItemListener {
+        public void itemStateChanged( ItemEvent event){
+            mutualite_id = listeObjetMutualites.get(mutualites.getSelectedIndex()).getId();
+            if(mutualite_id == 0){
+                mutualite_id = 1;
             }
         }
     }

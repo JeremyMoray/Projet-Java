@@ -451,4 +451,41 @@ public class DBAccess implements DataAccess{
             throw new AccesDBException(exception.getMessage());
         }
     }
+
+    public void addPatient(Patient patient) throws AccesDBException {
+        try {
+            Connection connection = SingletonConnection.getInstance();
+
+            String sql = "INSERT INTO patient values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+
+            statement.setNull(1, Types.INTEGER);
+            statement.setString(2, patient.getNumeroNational());
+            statement.setString(3, patient.getNom());
+            statement.setString(4, patient.getPrenom());
+            statement.setInt(5, patient.getNbEnfants());
+            statement.setDate(6, new java.sql.Date(patient.getDateNaissance().getTimeInMillis()));
+            statement.setString(7, patient.getNumTelFixe());
+            statement.setString(8, patient.getNumTelMobile());
+            statement.setString(9, patient.getRemarque());
+            statement.setString(10, patient.getASurveiller());
+            statement.setString(11, patient.getConseils());
+            statement.setBoolean(12, patient.isDonnerEtat());
+            statement.setBoolean(13, patient.isBesoinAval());
+            statement.setBoolean(14, patient.isAcharnementTherapeuthique());
+            statement.setString(15, patient.getCauseDecesPere());
+            statement.setString(16, patient.getCauseDecesMere());
+            statement.setDouble(17, patient.getPrimeAnuelle());
+            System.out.println(patient.getMutualite_id());
+            statement.setInt(18, patient.getMutualite_id());
+
+            statement.executeUpdate();
+
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
 }
