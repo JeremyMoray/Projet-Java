@@ -1,5 +1,7 @@
 package modelPackage;
 
+import exceptionPackage.*;
+
 import java.util.GregorianCalendar;
 
 public class Patient {
@@ -27,7 +29,7 @@ public class Patient {
                    GregorianCalendar dateNaissance, String numTelFixe, String numTelMobile, String remarque,
                    String aSurveiller, String conseils, boolean donnerEtat, boolean besoinAval,
                    boolean acharnementTherapeuthique, String causeDecesPere, String causeDecesMere,
-                   double primeAnuelle, Integer mutualite_id) {
+                   double primeAnuelle, Integer mutualite_id) throws ChampsVideException, FormatNombreException, CodeInvalideException, CaracteresLimiteException{
         setPatient_id(patient_id);
         setNumeroNational(numeroNational);
         setNom(nom);
@@ -52,15 +54,36 @@ public class Patient {
         this.patient_id = patient_id;
     }
 
-    public void setNumeroNational(String numeroNational) {
+    public void setNumeroNational(String numeroNational) throws ChampsVideException, FormatNombreException, CodeInvalideException{
+        if(numeroNational.isEmpty()){
+            throw new ChampsVideException("Numéro national");
+        }
+        if(!numeroNational.matches("[0-9]*")){
+            throw new FormatNombreException("Numéro national");
+        }
+        if(numeroNational.length() != 11){
+            throw new CodeInvalideException("Numéro national", "Veuillez entrer un numéro national composé de 11 chiffres uniquement");
+        }
         this.numeroNational = numeroNational;
     }
 
-    public void setNom(String nom) {
+    public void setNom(String nom) throws ChampsVideException, CaracteresLimiteException{
+        if(nom.isEmpty()){
+            throw new ChampsVideException("Nom");
+        }
+        if(nom.length() > 30){
+            throw new CaracteresLimiteException("Nom");
+        }
         this.nom = nom;
     }
 
-    public void setPrenom(String prenom) {
+    public void setPrenom(String prenom) throws ChampsVideException, CaracteresLimiteException{
+        if(prenom.isEmpty()){
+            throw new ChampsVideException("Prénom");
+        }
+        if(prenom.length() > 30){
+            throw new CaracteresLimiteException("Prénom");
+        }
         this.prenom = prenom;
     }
 

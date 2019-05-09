@@ -1,6 +1,7 @@
 package viewPackage;
 
 import controllerPackage.ApplicationController;
+import exceptionPackage.*;
 import modelPackage.Patient;
 import modelPackage.Soignant;
 
@@ -18,7 +19,7 @@ public class PanneauInscriptionPatient extends JPanel{
     private JTextField numeroNationalField, nomField, prenomField, nbEnfantsField, numTelFixeField, numTelMobileField,
             remarqueField, aSurveillerField, conseilsField, causeDecesPereField, causeDecesMereField, primeAnuelleField;
 
-    private JFormattedTextField dateNaissanceField;
+    private DatePanel datePanel;
 
     private JCheckBox donnerEtatBox, besoinAvalBox, acharnementTherapeuthiqueBox;
 
@@ -152,11 +153,13 @@ public class PanneauInscriptionPatient extends JPanel{
         gbc.gridy = 4;
         this.add(nbEnfantsField, gbc);
 
-        dateNaissanceField = new JFormattedTextField();
+        datePanel = new DatePanel();
+        gbc.ipadx = 0;
         gbc.gridy = 5;
-        this.add(dateNaissanceField, gbc);
+        this.add(datePanel, gbc);
 
-        numTelFixeField = new JFormattedTextField();
+        numTelFixeField = new JTextField();
+        gbc.ipadx = 200;
         gbc.gridy = 6;
         this.add(numTelFixeField, gbc);
 
