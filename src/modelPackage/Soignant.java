@@ -82,7 +82,7 @@ public class Soignant {
     }
 
     public void setNumeroINAMI(String numeroINAMI) throws FormatNombreException, CodeInvalideException{
-        if(!numeroINAMI.isEmpty()){
+        if(numeroINAMI != null){
             if(!numeroINAMI.matches("[0-9]+")){
                 throw new FormatNombreException("Numéro INAMI");
             }
