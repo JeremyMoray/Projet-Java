@@ -8,6 +8,7 @@ import modelPackage.Patient;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class AllPatientsModel extends AbstractTableModel {
     private ArrayList<String> columnNames;
@@ -106,16 +107,46 @@ public class AllPatientsModel extends AbstractTableModel {
                 c = String.class;
                 break;
             case 4:
-                c = String.class;
+                c = Integer.class;
                 break;
             case 5:
-                c = String.class;
+                c = GregorianCalendar.class;
                 break;
             case 6:
                 c = String.class;
                 break;
             case 7:
+                c = String.class;
+                break;
+            case 8:
+                c = String.class;
+                break;
+            case 9:
+                c = String.class;
+                break;
+            case 10:
+                c = String.class;
+                break;
+            case 11:
+                c = Boolean.class;
+                break;
+            case 12:
+                c = Boolean.class;
+                break;
+            case 13:
+                c = Boolean.class;
+                break;
+            case 14:
+                c = String.class;
+                break;
+            case 15:
+                c = String.class;
+                break;
+            case 16:
                 c = Double.class;
+                break;
+            case 17:
+                c = Integer.class;
                 break;
             default:
                 c = String.class;
@@ -134,7 +165,7 @@ public class AllPatientsModel extends AbstractTableModel {
             switch (columnIndex) {
                 case 1:
                     if (aValue instanceof String) {
-                        patient.setCodeCNK(aValue.toString());
+                        patient.setNumeroNational(aValue.toString());
                     }
                     break;
                 case 2:
@@ -144,27 +175,77 @@ public class AllPatientsModel extends AbstractTableModel {
                     break;
                 case 3:
                     if (aValue instanceof String) {
-                        patient.setFirme(aValue.toString());
+                        patient.setPrenom(aValue.toString());
                     }
                     break;
                 case 4:
-                    if (aValue instanceof String) {
-                        patient.setPrincipeActif(aValue.toString());
+                    if (aValue instanceof Integer) {
+                        patient.setNbEnfants(Integer.parseInt(aValue.toString()));
                     }
                     break;
                 case 5:
-                    if (aValue instanceof String) {
-                        patient.setCodeATC(aValue.toString());
+                    if (aValue instanceof GregorianCalendar) {
+                        patient.setDateNaissance((GregorianCalendar)aValue);
                     }
                     break;
                 case 6:
                     if (aValue instanceof String) {
-                        patient.setCaracteristique(aValue.toString());
+                        patient.setNumTelFixe(aValue.toString());
                     }
                     break;
                 case 7:
+                    if (aValue instanceof String) {
+                        patient.setNumTelMobile(aValue.toString());
+                    }
+                    break;
+                case 8:
+                    if (aValue instanceof String) {
+                        patient.setRemarque(aValue.toString());
+                    }
+                    break;
+                case 9:
+                    if (aValue instanceof String) {
+                        patient.setASurveiller(aValue.toString());
+                    }
+                    break;
+                case 10:
+                    if (aValue instanceof String) {
+                        patient.setConseils(aValue.toString());
+                    }
+                    break;
+                case 11:
+                    if (aValue instanceof Boolean) {
+                        patient.setDonnerEtat(aValue.toString().equals("true"));
+                    }
+                    break;
+                case 12:
+                    if (aValue instanceof Boolean) {
+                        patient.setBesoinAval(aValue.toString().equals("true"));
+                    }
+                    break;
+                case 13:
+                    if (aValue instanceof Boolean) {
+                        patient.setAcharnementTherapeuthique(aValue.toString().equals("true"));
+                    }
+                    break;
+                case 14:
+                    if (aValue instanceof String) {
+                        patient.setCauseDecesPere(aValue.toString());
+                    }
+                    break;
+                case 15:
+                    if (aValue instanceof String) {
+                        patient.setCauseDecesMere(aValue.toString());
+                    }
+                    break;
+                case 16:
                     if (aValue instanceof Double) {
-                        patient.setTauxRemboursement(Double.parseDouble(aValue.toString()));
+                        patient.setPrimeAnuelle(Double.parseDouble(aValue.toString()));
+                    }
+                    break;
+                case 17:
+                    if (aValue instanceof Integer) {
+                        patient.setMutualite_id(Integer.parseInt(aValue.toString()));
                     }
                     break;
             }
