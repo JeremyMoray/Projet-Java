@@ -31,7 +31,7 @@ public class PanneauInscriptionPatient extends JPanel{
     private JComboBox mutualites;
     private JButton inscriptionBouton, reinitialiserBouton, retourBouton;
     private ArrayList<Mutualite> listeObjetMutualites;
-    private int mutualite_id;
+    private Integer mutualite_id;
     private Container frameContainer;
     private ApplicationController controller;
     private Patient patient;
@@ -217,8 +217,11 @@ public class PanneauInscriptionPatient extends JPanel{
                 listeMutualites[i] = controller.getAllMutualites().get(i).getLibelle() + " (" + controller.getAllMutualites().get(i).getDiminutif() + ")";
             }
             mutualites = new JComboBox(listeMutualites);
-            ComboBoxListener mutualiteListener = new ComboBoxListener();
-            mutualites.addItemListener(mutualiteListener);
+            if(listeMutualites.length != 0){
+                mutualite_id = listeObjetMutualites.get(mutualites.getSelectedIndex()).getId();
+                ComboBoxListener mutualiteListener = new ComboBoxListener();
+                mutualites.addItemListener(mutualiteListener);
+            }
             gbc.ipadx = 35;
             gbc.ipady = 5;
             gbc.gridy = 17;
@@ -455,9 +458,6 @@ public class PanneauInscriptionPatient extends JPanel{
     private class ComboBoxListener implements ItemListener {
         public void itemStateChanged( ItemEvent event){
             mutualite_id = listeObjetMutualites.get(mutualites.getSelectedIndex()).getId();
-            if(mutualite_id == 0){
-                mutualite_id = 1;
-            }
         }
     }
 }

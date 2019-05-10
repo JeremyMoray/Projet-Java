@@ -478,8 +478,12 @@ public class DBAccess implements DataAccess{
             statement.setString(15, patient.getCauseDecesPere());
             statement.setString(16, patient.getCauseDecesMere());
             statement.setDouble(17, patient.getPrimeAnuelle());
-            System.out.println(patient.getMutualite_id());
-            statement.setInt(18, patient.getMutualite_id());
+            if(patient.getMutualite_id() == null){
+                statement.setNull(18, Types.INTEGER);
+            }
+            else{
+                statement.setInt(18, patient.getMutualite_id());
+            }
 
             statement.executeUpdate();
 
