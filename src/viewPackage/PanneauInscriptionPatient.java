@@ -443,7 +443,27 @@ public class PanneauInscriptionPatient extends JPanel{
             }
 
             if(event.getSource() == reinitialiserBouton){
-
+                numeroNationalField.setText("");
+                nomField.setText("");
+                prenomField.setText("");
+                nbEnfantsField.setText("");
+                datePanel.setJourField("");
+                datePanel.setMoisField("");
+                datePanel.setAnneeField("");
+                numTelFixeField.setText("");
+                numTelMobileField.setText("");
+                remarqueField.setText("");
+                aSurveillerField.setText("");
+                conseilsField.setText("");
+                donnerEtatBox.setSelected(false);
+                besoinAvalBox.setSelected(false);
+                acharnementTherapeuthiqueBox.setSelected(false);
+                causeDecesPereField.setText("");
+                causeDecesMereField.setText("");
+                primeAnuelleField.setText("");
+                if(listeObjetMutualites.size() != 0){
+                    mutualites.setSelectedItem(listeObjetMutualites.get(0).getLibelle() + " (" + listeObjetMutualites.get(0).getDiminutif() + ")");
+                }
             }
 
             if(event.getSource() == retourBouton){

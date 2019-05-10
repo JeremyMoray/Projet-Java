@@ -45,4 +45,16 @@ public class DatePanel extends JPanel{
     public String getAnneeField() {
         return anneeField.getText();
     }
+
+    public void setJourField(String jour) {
+        this.jourField.setText(jour);
+    }
+
+    public void setMoisField(String mois) {
+        this.moisField.setText(mois);
+    }
+
+    public void setAnneeField(String annee) {
+        this.anneeField.setText(annee);
+    }
 }
