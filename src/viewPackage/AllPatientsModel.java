@@ -9,13 +9,13 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class AllPatientModel extends AbstractTableModel {
+public class AllPatientsModel extends AbstractTableModel {
     private ArrayList<String> columnNames;
     private ArrayList<Patient> patients;
     private ApplicationController controller;
     private Mutualite mutualite;
 
-    public AllPatientModel(ArrayList<Patient> patients) {
+    public AllPatientsModel(ArrayList<Patient> patients) {
         columnNames = new ArrayList<>();
         columnNames.add("Id");
         columnNames.add("Numéro national");
@@ -188,5 +188,6 @@ public class AllPatientModel extends AbstractTableModel {
         this.controller = controller;
     }
 }
+
 
 
