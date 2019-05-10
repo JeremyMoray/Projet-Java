@@ -15,7 +15,6 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.zip.DataFormatException;
 
 public class PanneauInscriptionPatient extends JPanel{
 

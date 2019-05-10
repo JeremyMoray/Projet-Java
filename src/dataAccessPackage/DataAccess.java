@@ -15,6 +15,7 @@ public interface DataAccess {
 
     void addMutualite(Mutualite mutualite) throws AccesDBException;
     ArrayList<Mutualite> getAllMutualites() throws AccesDBException, ChampsVideException, CaracteresLimiteException;
+    Mutualite getMutualite(Integer mutualite_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException;
     void deleteMutualite(Integer mutualite_id) throws AccesDBException;
     void updateMutualite(Mutualite mutualite) throws AccesDBException;
 

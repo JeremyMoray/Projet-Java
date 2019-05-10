@@ -372,41 +372,5 @@ public class PanneauListeMedicament extends JPanel{
         caracteristiqueField.setEditable(false);
         tauxRemboursementField.setEditable(false);
     }
-
-    /*
-    Source : https://stackoverflow.com/questions/41170648/resize-a-jtable-vertically-based-on-its-content
-
-    public void resizeColumnWidth(JTable table) {
-        final TableColumnModel columnModel = table.getColumnModel();
-        for (int column = 0; column < table.getColumnCount(); column++) {
-            int width = 15;
-            for (int row = 0; row < table.getRowCount(); row++) {
-                TableCellRenderer renderer = table.getCellRenderer(row, column);
-                Component comp = table.prepareRenderer(renderer, row, column);
-                width = Math.max(comp.getPreferredSize().width +1 , width);
-            }
-            if(width > 300)
-                width=300;
-            columnModel.getColumn(column).setPreferredWidth(width);
-        }
-    }
-
-    Source : https://stackoverflow.com/questions/1783607/auto-adjust-the-height-of-rows-in-a-jtable?rq=1
-    private void updateRowHeights(JTable table)
-    {
-        for (int row = 0; row < table.getRowCount(); row++)
-        {
-            int rowHeight = table.getRowHeight();
-
-            for (int column = 0; column < table.getColumnCount(); column++)
-            {
-                Component comp = table.prepareRenderer(table.getCellRenderer(row, column), row, column);
-                rowHeight = Math.max(rowHeight, comp.getPreferredSize().height);
-            }
-
-            table.setRowHeight(row, rowHeight);
-        }
-    }
-    */
 }
 

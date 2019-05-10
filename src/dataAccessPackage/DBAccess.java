@@ -222,6 +222,31 @@ public class DBAccess implements DataAccess{
         }
     }
 
+    public Mutualite getMutualite(Integer mutualite_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException {
+        try{
+            Connection connection = SingletonConnection.getInstance();
+            String sql = "select * from mutualite where mutualite_id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            ResultSet data = statement.executeQuery();
+
+            data.next();
+
+            Mutualite mutualite = new Mutualite(
+                    data.getInt(1),
+                    data.getString(2),
+                    data.getString(3),
+                    data.getString(4)
+                );
+
+            return mutualite;
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
     public void deleteMutualite(Integer mutualite_id) throws AccesDBException {
         try {
             Connection connection = SingletonConnection.getInstance();

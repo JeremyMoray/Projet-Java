@@ -45,6 +45,10 @@ public class Manager {
         return dao.getAllMutualites( );
     }
 
+    public Mutualite getMutualite(Integer mutualite_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException {
+        return dao.getMutualite(mutualite_id);
+    }
+
     public void deleteMutualite(Integer mutualite_id) throws AccesDBException {
         dao.deleteMutualite(mutualite_id);
     }

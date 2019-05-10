@@ -45,6 +45,10 @@ public class ApplicationController {
         return manager.getAllMutualites();
     }
 
+    public Mutualite getMutualite(Integer mutualite_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException {
+        return manager.getMutualite(mutualite_id);
+    }
+
     public void deleteMutualite(Integer mutualite_id) throws AccesDBException {
         manager.deleteMutualite(mutualite_id);
     }
