@@ -81,6 +81,8 @@ public class MenuUtilisateur extends JPanel{
         patient.addSeparator();
 
         chercherPatient = new JMenuItem("Chercher un patient");
+        ListeListener listePatientListener = new ListeListener();
+        chercherPatient.addActionListener(listePatientListener);
         patient.add(chercherPatient);
 
         patient.addSeparator();
@@ -242,6 +244,13 @@ public class MenuUtilisateur extends JPanel{
     private  class ListeListener implements ActionListener
     {
         public void actionPerformed (ActionEvent event) {
+            if(event.getSource() == chercherPatient){
+                MenuUtilisateur.this.removeAll();
+                MenuUtilisateur.this.add(new PanneauListePatient(frameContainer, utilisateur), gbc);
+                MenuUtilisateur.this.revalidate();
+                MenuUtilisateur.this.repaint();
+            }
+
             if(event.getSource() == listeMutualite){
                 MenuUtilisateur.this.removeAll();
                 MenuUtilisateur.this.add(new PanneauListeMutualite(frameContainer, utilisateur), gbc);

@@ -93,6 +93,10 @@ public class Manager {
         dao.addPatient(patient);
     }
 
+    public ArrayList<Patient> getAllPatients(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
+        return dao.getAllPatients(soignant_id);
+    }
+
     public void setDao(DBAccess dao) {
         this.dao = dao;
     }

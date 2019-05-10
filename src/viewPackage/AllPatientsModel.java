@@ -37,6 +37,7 @@ public class AllPatientsModel extends AbstractTableModel {
         columnNames.add("Prime anuelle");
         columnNames.add("Mutualité");
         this.patients = patients;
+        setController(new ApplicationController());
     }
 
     public int getColumnCount() {
@@ -215,17 +216,17 @@ public class AllPatientsModel extends AbstractTableModel {
                     break;
                 case 11:
                     if (aValue instanceof Boolean) {
-                        patient.setDonnerEtat(aValue.toString().equals("true"));
+                        patient.setDonnerEtat(aValue.toString().equals("1"));
                     }
                     break;
                 case 12:
                     if (aValue instanceof Boolean) {
-                        patient.setBesoinAval(aValue.toString().equals("true"));
+                        patient.setBesoinAval(aValue.toString().equals("1"));
                     }
                     break;
                 case 13:
                     if (aValue instanceof Boolean) {
-                        patient.setAcharnementTherapeuthique(aValue.toString().equals("true"));
+                        patient.setAcharnementTherapeuthique(aValue.toString().equals("1"));
                     }
                     break;
                 case 14:

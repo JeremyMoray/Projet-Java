@@ -517,4 +517,51 @@ public class DBAccess implements DataAccess{
             throw new AccesDBException(exception.getMessage());
         }
     }
+
+    public ArrayList<Patient> getAllPatients(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
+        try{
+            Connection connection = SingletonConnection.getInstance();
+            String sql = "select * from patient";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            ResultSet data = statement.executeQuery();
+
+            ArrayList<Patient> patients = new ArrayList<>();
+
+            GregorianCalendar calendar = new GregorianCalendar();
+
+            while(data.next()) {
+
+                calendar.setTime(data.getDate(6));
+
+                Patient patient = new Patient(
+                        data.getInt(1),
+                        data.getString(2),
+                        data.getString(3),
+                        data.getString(4),
+                        data.getInt(5),
+                        calendar,
+                        data.getString(7),
+                        data.getString(8),
+                        data.getString(9),
+                        data.getString(10),
+                        data.getString(11),
+                        data.getBoolean(12),
+                        data.getBoolean(13),
+                        data.getBoolean(14),
+                        data.getString(15),
+                        data.getString(16),
+                        data.getDouble(17),
+                        data.getInt(18)
+                );
+                patients.add(patient);
+            }
+
+            return patients;
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
 }
