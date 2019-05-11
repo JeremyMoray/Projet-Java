@@ -31,7 +31,7 @@ public class AllPatientsModel extends AbstractTableModel {
         columnNames.add("Conseils");
         columnNames.add("Donner l'état");
         columnNames.add("Besoin d'aval");
-        columnNames.add("Archarnement thérapeuthique");
+        columnNames.add("Archarnement thérapeutique");
         columnNames.add("Cause décès du père");
         columnNames.add("Cause décès de la mère");
         columnNames.add("Prime anuelle");
@@ -81,7 +81,7 @@ public class AllPatientsModel extends AbstractTableModel {
             case 10 : return patient.getConseils();
             case 11 : return patient.isDonnerEtat();
             case 12 : return patient.isBesoinAval();
-            case 13 : return patient.isAcharnementTherapeuthique();
+            case 13 : return patient.isAcharnementTherapeutique();
             case 14 : return patient.getCauseDecesPere();
             case 15 : return patient.getCauseDecesMere();
             case 16 : return patient.getPrimeAnuelle();
@@ -226,7 +226,7 @@ public class AllPatientsModel extends AbstractTableModel {
                     break;
                 case 13:
                     if (aValue instanceof Boolean) {
-                        patient.setAcharnementTherapeuthique(aValue.toString().equals("1"));
+                        patient.setAcharnementTherapeutique(aValue.toString().equals("1"));
                     }
                     break;
                 case 14:

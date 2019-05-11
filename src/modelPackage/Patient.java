@@ -20,7 +20,7 @@ public class Patient {
     private String conseils;
     private boolean donnerEtat;
     private boolean besoinAval;
-    private boolean acharnementTherapeuthique;
+    private boolean acharnementTherapeutique;
     private String causeDecesPere;
     private String causeDecesMere;
     private double primeAnuelle;
@@ -29,7 +29,7 @@ public class Patient {
     public Patient(Integer patient_id, String numeroNational, String nom, String prenom, Integer nbEnfants,
                    GregorianCalendar dateNaissance, String numTelFixe, String numTelMobile, String remarque,
                    String aSurveiller, String conseils, boolean donnerEtat, boolean besoinAval,
-                   boolean acharnementTherapeuthique, String causeDecesPere, String causeDecesMere,
+                   boolean acharnementTherapeutique, String causeDecesPere, String causeDecesMere,
                    double primeAnuelle, Integer mutualite_id) throws ChampsVideException, FormatNombreException, CodeInvalideException, CaracteresLimiteException{
         setPatient_id(patient_id);
         setNumeroNational(numeroNational);
@@ -44,7 +44,7 @@ public class Patient {
         setConseils(conseils);
         setDonnerEtat(donnerEtat);
         setBesoinAval(besoinAval);
-        setAcharnementTherapeuthique(acharnementTherapeuthique);
+        setAcharnementTherapeutique(acharnementTherapeutique);
         setCauseDecesPere(causeDecesPere);
         setCauseDecesMere(causeDecesMere);
         setPrimeAnuelle(primeAnuelle);
@@ -159,8 +159,8 @@ public class Patient {
         this.besoinAval = besoinAval;
     }
 
-    public void setAcharnementTherapeuthique(boolean acharnementTherapeuthique) {
-        this.acharnementTherapeuthique = acharnementTherapeuthique;
+    public void setAcharnementTherapeutique(boolean acharnementTherapeutique) {
+        this.acharnementTherapeutique = acharnementTherapeutique;
     }
 
     public void setCauseDecesPere(String causeDecesPere) throws CaracteresLimiteException{
@@ -249,8 +249,8 @@ public class Patient {
         return besoinAval;
     }
 
-    public boolean isAcharnementTherapeuthique() {
-        return acharnementTherapeuthique;
+    public boolean isAcharnementTherapeutique() {
+        return acharnementTherapeutique;
     }
 
     public String getCauseDecesPere() {

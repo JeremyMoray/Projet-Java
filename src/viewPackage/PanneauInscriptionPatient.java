@@ -20,13 +20,13 @@ public class PanneauInscriptionPatient extends JPanel{
 
     private JLabel patientLabel, numeroNationalLabel, nomLabel, prenomLabel, nbEnfantsLabel, dateNaissanceLabel, numTelFixeLabel,
             numTelMobileLabel, remarqueLabel, aSurveillerLabel, conseilsLabel, donnerEtatLabel, besoinAvalLabel,
-            acharnementTherapeuthiqueLabel, causeDecesPereLabel, causeDecesMereLabel, primeAnuelleLabel, mutualiteLabel;
+            acharnementTherapeutiqueLabel, causeDecesPereLabel, causeDecesMereLabel, primeAnuelleLabel, mutualiteLabel;
 
     private JTextField numeroNationalField, nomField, prenomField, nbEnfantsField, numTelFixeField, numTelMobileField,
             remarqueField, aSurveillerField, conseilsField, causeDecesPereField, causeDecesMereField, primeAnuelleField;
 
     private DatePanel datePanel;
-    private JCheckBox donnerEtatBox, besoinAvalBox, acharnementTherapeuthiqueBox;
+    private JCheckBox donnerEtatBox, besoinAvalBox, acharnementTherapeutiqueBox;
     private JComboBox mutualites;
     private JButton inscriptionBouton, reinitialiserBouton, retourBouton;
     private ArrayList<Mutualite> listeObjetMutualites;
@@ -115,10 +115,10 @@ public class PanneauInscriptionPatient extends JPanel{
         gbc.gridy = 12;
         this.add(besoinAvalLabel, gbc);
 
-        acharnementTherapeuthiqueLabel = new JLabel("Archanement thérapeuthique*");
-        acharnementTherapeuthiqueLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        acharnementTherapeutiqueLabel = new JLabel("Archanement thérapeutique*");
+        acharnementTherapeutiqueLabel.setFont(new Font("Arial", Font.BOLD, 15));
         gbc.gridy = 13;
-        this.add(acharnementTherapeuthiqueLabel, gbc);
+        this.add(acharnementTherapeutiqueLabel, gbc);
 
         causeDecesPereLabel = new JLabel("(Cause décès du père)");
         causeDecesPereLabel.setFont(new Font("Arial", Font.BOLD, 15));
@@ -192,9 +192,9 @@ public class PanneauInscriptionPatient extends JPanel{
         gbc.gridy = 12;
         this.add(besoinAvalBox, gbc);
 
-        acharnementTherapeuthiqueBox = new JCheckBox();
+        acharnementTherapeutiqueBox = new JCheckBox();
         gbc.gridy = 13;
-        this.add(acharnementTherapeuthiqueBox, gbc);
+        this.add(acharnementTherapeutiqueBox, gbc);
 
         causeDecesPereField = new JTextField(1);
         gbc.gridy = 14;
@@ -220,7 +220,7 @@ public class PanneauInscriptionPatient extends JPanel{
                 ComboBoxListener mutualiteListener = new ComboBoxListener();
                 mutualites.addItemListener(mutualiteListener);
             }
-            gbc.ipadx = 35;
+            gbc.ipadx = 0;
             gbc.ipady = 5;
             gbc.gridy = 17;
             this.add(mutualites, gbc);
@@ -412,7 +412,7 @@ public class PanneauInscriptionPatient extends JPanel{
                             (conseilsField.getText().isEmpty()?null:conseilsField.getText()),
                             donnerEtatBox.isSelected(),
                             besoinAvalBox.isSelected(),
-                            acharnementTherapeuthiqueBox.isSelected(),
+                            acharnementTherapeutiqueBox.isSelected(),
                             (causeDecesPereField.getText().isEmpty()?null:causeDecesPereField.getText()),
                             (causeDecesMereField.getText().isEmpty()?null:causeDecesMereField.getText()),
                             (primeAnuelleField.getText().isEmpty()?0:Double.parseDouble(primeAnuelleField.getText())),
@@ -462,7 +462,7 @@ public class PanneauInscriptionPatient extends JPanel{
                 conseilsField.setText("");
                 donnerEtatBox.setSelected(false);
                 besoinAvalBox.setSelected(false);
-                acharnementTherapeuthiqueBox.setSelected(false);
+                acharnementTherapeutiqueBox.setSelected(false);
                 causeDecesPereField.setText("");
                 causeDecesMereField.setText("");
                 primeAnuelleField.setText("");

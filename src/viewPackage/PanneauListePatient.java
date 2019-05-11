@@ -2,62 +2,59 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 import exceptionPackage.*;
+import modelPackage.Mutualite;
 import modelPackage.Patient;
 import modelPackage.Soignant;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
-public class PanneauListePatient extends JPanel{
+public class PanneauListePatient extends JPanel {
 
     private Container frameContainer;
     private Soignant utilisateur;
-    private ApplicationController controller ;
+    private ApplicationController controller;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
     private JButton modifierButton, supprimerButton;
 
     private JLabel numeroNationalLabel, nomLabel, prenomLabel, nbEnfantsLabel, dateNaissanceLabel, numTelFixeLabel,
             numTelMobileLabel, remarqueLabel, aSurveillerLabel, conseilsLabel, donnerEtatLabel, besoinAvalLabel,
-            acharnementTherapeuthiqueLabel, causeDecesPereLabel, causeDecesMereLabel, primeAnuelleLabel, mutualiteLabel;
+            acharnementTherapeutiqueLabel, causeDecesPereLabel, causeDecesMereLabel, primeAnuelleLabel, mutualiteLabel;
 
     private JTextField numeroNationalField, nomField, prenomField, nbEnfantsField, numTelFixeField, numTelMobileField,
             remarqueField, aSurveillerField, conseilsField, causeDecesPereField, causeDecesMereField, primeAnuelleField;
 
     private DatePanel datePanel;
-    private JCheckBox donnerEtatBox, besoinAvalBox, acharnementTherapeuthiqueBox;
+    private JCheckBox donnerEtatBox, besoinAvalBox, acharnementTherapeutiqueBox;
     private JComboBox mutualites;
     private AllPatientsModel model;
     private JTable table;
     private ArrayList<Patient> patients;
     private Patient patient;
+    private ArrayList<Mutualite> listeObjetMutualites;
+    private Integer mutualite_id;
 
-    public PanneauListePatient(Container frameContainer, Soignant utilisateur){
+    public PanneauListePatient(Container frameContainer, Soignant utilisateur) {
         this.frameContainer = frameContainer;
         this.utilisateur = utilisateur;
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
-        try{
+        try {
             patients = controller.getAllPatients(utilisateur.getId());
-        }
-        catch (AccesDBException exception){
+        } catch (AccesDBException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (ChampsVideException exception){
+        } catch (ChampsVideException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (CaracteresLimiteException exception){
+        } catch (CaracteresLimiteException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (FormatNombreException exception){
+        } catch (FormatNombreException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (CodeInvalideException exception){
+        } catch (CodeInvalideException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -90,7 +87,7 @@ public class PanneauListePatient extends JPanel{
                 conseilsField.setText(model.getValueAt(indiceLigneSelectionnee, 10).toString());
                 donnerEtatBox.setEnabled(model.getValueAt(indiceLigneSelectionnee, 11).equals("1"));
                 besoinAvalBox.setEnabled(model.getValueAt(indiceLigneSelectionnee, 12).toString().equals("1"));
-                acharnementTherapeuthiqueBox.setEnabled(model.getValueAt(indiceLigneSelectionnee, 13).toString().equals("1"));
+                acharnementTherapeutiqueBox.setEnabled(model.getValueAt(indiceLigneSelectionnee, 13).toString().equals("1"));
                 causeDecesPereField.setText(model.getValueAt(indiceLigneSelectionnee, 14).toString());
                 causeDecesMereField.setText(model.getValueAt(indiceLigneSelectionnee, 15).toString());
                 primeAnuelleField.setText(model.getValueAt(indiceLigneSelectionnee, 16).toString());
@@ -122,15 +119,270 @@ public class PanneauListePatient extends JPanel{
         gbc.ipadx = 650;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 18;
+        gbc.gridwidth = 8;
         this.add(new JScrollPane(table), gbc);
+
+        gbc.insets = new Insets(20, 10, 10, 10);
+        gbc.ipadx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.EAST;
+        numeroNationalLabel = new JLabel("Numero national :");
+        this.add(numeroNationalLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        numeroNationalField = new JTextField();
+        this.add(numeroNationalField, gbc);
+
+        gbc.gridx = 2;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        nomLabel = new JLabel("Nom :");
+        this.add(nomLabel, gbc);
+
+        gbc.gridx = 3;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        nomField = new JTextField();
+        this.add(nomField, gbc);
+
+        gbc.gridx = 4;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        prenomLabel = new JLabel("Prenom :");
+        this.add(prenomLabel, gbc);
+
+        gbc.gridx = 5;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        prenomField = new JTextField();
+        this.add(prenomField, gbc);
+
+        gbc.gridx = 6;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        nbEnfantsLabel = new JLabel("Nb. d'enfants :");
+        this.add(nbEnfantsLabel, gbc);
+
+        gbc.gridx = 7;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        nbEnfantsField = new JTextField();
+        this.add(nbEnfantsField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        dateNaissanceLabel = new JLabel("Date naissance :");
+        this.add(dateNaissanceLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        datePanel = new DatePanel();
+        this.add(datePanel, gbc);
+
+        gbc.gridx = 2;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        numTelFixeLabel = new JLabel("Num. tel. fixe :");
+        this.add(numTelFixeLabel, gbc);
+
+        gbc.gridx = 3;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        numTelFixeField = new JTextField();
+        this.add(numTelFixeField, gbc);
+
+        gbc.gridx = 4;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        numTelMobileLabel = new JLabel("Num. tel mobile :");
+        this.add(numTelMobileLabel, gbc);
+
+        gbc.gridx = 5;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        numTelMobileField = new JTextField();
+        this.add(numTelMobileField, gbc);
+
+        gbc.gridx = 6;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        remarqueLabel = new JLabel("Remarque :");
+        this.add(remarqueLabel, gbc);
+
+        gbc.gridx = 7;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        remarqueField = new JTextField();
+        this.add(remarqueField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        dateNaissanceLabel = new JLabel("A surveiller :");
+        this.add(dateNaissanceLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        aSurveillerField = new JTextField();
+        this.add(aSurveillerField, gbc);
+
+        gbc.gridx = 2;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        conseilsLabel = new JLabel("Conseils :");
+        this.add(conseilsLabel, gbc);
+
+        gbc.gridx = 3;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        conseilsField = new JTextField();
+        this.add(conseilsField, gbc);
+
+        gbc.gridx = 4;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        donnerEtatLabel = new JLabel("Donner état :");
+        this.add(donnerEtatLabel, gbc);
+
+        gbc.gridx = 5;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        donnerEtatBox = new JCheckBox();
+        this.add(donnerEtatBox, gbc);
+
+        gbc.gridx = 6;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        besoinAvalLabel = new JLabel("Besoin aval :");
+        this.add(besoinAvalLabel, gbc);
+
+        gbc.gridx = 7;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        besoinAvalBox = new JCheckBox();
+        this.add(besoinAvalBox, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        acharnementTherapeutiqueLabel = new JLabel("Acharnement thérapeutique :");
+        this.add(acharnementTherapeutiqueLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        acharnementTherapeutiqueBox = new JCheckBox();
+        this.add(acharnementTherapeutiqueBox, gbc);
+
+        gbc.gridx = 2;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        causeDecesPereLabel = new JLabel("Cause décès père :");
+        this.add(causeDecesPereLabel, gbc);
+
+        gbc.gridx = 3;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        causeDecesPereField = new JTextField();
+        this.add(causeDecesPereField, gbc);
+
+        gbc.gridx = 4;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        causeDecesMereLabel = new JLabel("Cause décès mère :");
+        this.add(causeDecesMereLabel, gbc);
+
+        gbc.gridx = 5;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        causeDecesMereField = new JTextField();
+        this.add(causeDecesMereField, gbc);
+
+        gbc.gridx = 6;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        primeAnuelleLabel = new JLabel("Prime anuelle :");
+        this.add(primeAnuelleLabel, gbc);
+
+        gbc.gridx = 7;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.CENTER;
+        primeAnuelleField = new JTextField();
+        this.add(primeAnuelleField, gbc);
+
+        gbc.insets = new Insets(10, 10, 20, 10);
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.ipadx = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        mutualiteLabel = new JLabel("Mutualité :");
+        this.add(mutualiteLabel, gbc);
+
+        try {
+            listeObjetMutualites = controller.getAllMutualites();
+            String[] listeMutualites = new String[listeObjetMutualites.size()];
+            for (int i = 0; i < listeMutualites.length; i++) {
+                listeMutualites[i] = controller.getAllMutualites().get(i).getLibelle() + " (" + controller.getAllMutualites().get(i).getDiminutif() + ")";
+            }
+            mutualites = new JComboBox(listeMutualites);
+            if (listeMutualites.length != 0) {
+                mutualite_id = listeObjetMutualites.get(mutualites.getSelectedIndex()).getId();
+                ComboBoxListener mutualiteListener = new ComboBoxListener();
+                mutualites.addItemListener(mutualiteListener);
+            }
+            gbc.ipadx = 0;
+            gbc.ipady = 5;
+            gbc.gridx = 1;
+            this.add(mutualites, gbc);
+        }
+        catch (AccesDBException exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (ChampsVideException exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (CaracteresLimiteException exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+        //Boutons
+
+        gbc.ipadx = 50;
+        gbc.gridx = 2;
+        modifierButton = new JButton("Modifier");
+        ButtonListener modifierListener = new ButtonListener();
+        modifierButton.addActionListener(modifierListener);
+        this.add(modifierButton, gbc);
+
+        gbc.gridx = 3;
+        supprimerButton = new JButton("Supprimer");
+        ButtonListener supprimerListener = new ButtonListener();
+        supprimerButton.addActionListener(supprimerListener);
+        this.add(supprimerButton, gbc);
+
+        desactiverModifications();
+    }
+
+    private class ButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+
+        }
     }
 
     private void setController(ApplicationController controller) {
         this.controller = controller;
     }
 
-    public void activerModifications(){
+    public void activerModifications() {
         numeroNationalField.setEditable(true);
         nomField.setEditable(true);
         prenomField.setEditable(true);
@@ -145,14 +397,14 @@ public class PanneauListePatient extends JPanel{
         conseilsField.setEditable(true);
         donnerEtatBox.setEnabled(true);
         besoinAvalBox.setEnabled(true);
-        acharnementTherapeuthiqueBox.setEnabled(true);
+        acharnementTherapeutiqueBox.setEnabled(true);
         causeDecesPereField.setEditable(true);
         causeDecesMereField.setEditable(true);
         primeAnuelleField.setEditable(true);
         mutualites.setEditable(true);
     }
 
-    public void desactiverModifications(){
+    public void desactiverModifications() {
         numeroNationalField.setEditable(false);
         nomField.setEditable(false);
         prenomField.setEditable(false);
@@ -167,10 +419,16 @@ public class PanneauListePatient extends JPanel{
         conseilsField.setEditable(false);
         donnerEtatBox.setEnabled(false);
         besoinAvalBox.setEnabled(false);
-        acharnementTherapeuthiqueBox.setEnabled(false);
+        acharnementTherapeutiqueBox.setEnabled(false);
         causeDecesPereField.setEditable(false);
         causeDecesMereField.setEditable(false);
         primeAnuelleField.setEditable(false);
         mutualites.setEditable(false);
+    }
+
+    private class ComboBoxListener implements ItemListener {
+        public void itemStateChanged(ItemEvent event) {
+            mutualite_id = listeObjetMutualites.get(mutualites.getSelectedIndex()).getId();
+        }
     }
 }

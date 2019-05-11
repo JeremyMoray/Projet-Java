@@ -499,7 +499,7 @@ public class DBAccess implements DataAccess{
             statement.setString(11, patient.getConseils());
             statement.setBoolean(12, patient.isDonnerEtat());
             statement.setBoolean(13, patient.isBesoinAval());
-            statement.setBoolean(14, patient.isAcharnementTherapeuthique());
+            statement.setBoolean(14, patient.isAcharnementTherapeutique());
             statement.setString(15, patient.getCauseDecesPere());
             statement.setString(16, patient.getCauseDecesMere());
             statement.setDouble(17, patient.getPrimeAnuelle());
