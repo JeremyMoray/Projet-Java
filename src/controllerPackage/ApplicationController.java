@@ -97,6 +97,10 @@ public class ApplicationController {
         return manager.getAllPatients();
     }
 
+    public void deletePatient(Integer patient_id) throws AccesDBException{
+        manager.deletePatient(patient_id);
+    }
+
     public void updatePatient(Patient patient) throws AccesDBException{
         manager.updatePatient(patient);
     }

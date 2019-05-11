@@ -562,6 +562,24 @@ public class DBAccess implements DataAccess{
         }
     }
 
+    public void deletePatient(Integer patient_id) throws AccesDBException{
+        try {
+            Connection connection = SingletonConnection.getInstance();
+
+            String sql = "delete from patient where patient_id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, patient_id);
+
+            statement.executeUpdate();
+
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
     public void updatePatient(Patient patient) throws AccesDBException{
         try {
             Connection connection = SingletonConnection.getInstance();

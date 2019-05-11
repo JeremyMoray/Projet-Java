@@ -97,6 +97,10 @@ public class Manager {
         return dao.getAllPatients();
     }
 
+    public void deletePatient(Integer patient_id) throws AccesDBException{
+        dao.deletePatient(patient_id);
+    }
+
     public void updatePatient(Patient patient) throws AccesDBException{
         dao.updatePatient(patient);
     }

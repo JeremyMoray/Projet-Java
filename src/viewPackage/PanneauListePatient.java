@@ -642,6 +642,48 @@ public class PanneauListePatient extends JPanel {
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             }
+
+            if(event.getSource() == supprimerButton){
+                try{
+                    int indiceLigneSelectionnee = listSelect.getMinSelectionIndex();
+
+                    if(indiceLigneSelectionnee == -1){
+                        throw new AucuneSelectionException();
+                    }
+
+                    controller.deletePatient(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
+
+                    model.removeRow(indiceLigneSelectionnee);
+
+                    numeroNationalField.setText("");
+                    nomField.setText("");
+                    prenomField.setText("");
+                    nbEnfantsField.setText("");
+                    datePanel.setJourField("1");
+                    datePanel.setMoisField("1");
+                    datePanel.setAnneeField("1900");
+                    numTelFixeField.setText("");
+                    numTelMobileField.setText("");
+                    remarqueField.setText("");
+                    aSurveillerField.setText("");
+                    conseilsField.setText("");
+                    donnerEtatBox.setSelected(false);
+                    besoinAvalBox.setSelected(false);
+                    acharnementTherapeutiqueBox.setSelected(false);
+                    causeDecesPereField.setText("");
+                    causeDecesMereField.setText("");
+                    primeAnuelleField.setText("");
+                    mutualites.setSelectedItem("Aucune");
+
+                    desactiverModifications();
+                }
+                catch (AccesDBException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (AucuneSelectionException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }
 }
