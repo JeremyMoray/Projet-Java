@@ -116,7 +116,7 @@ public class PanneauListePatient extends JPanel {
         table.getColumnModel().getColumn(16).setCellRenderer(rightRenderer);
         table.getColumnModel().getColumn(17).setCellRenderer(rightRenderer);
 
-        gbc.ipadx = 650;
+        gbc.ipadx = 900;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 8;
@@ -132,7 +132,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 1;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         numeroNationalField = new JTextField();
         this.add(numeroNationalField, gbc);
 
@@ -144,7 +144,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 3;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         nomField = new JTextField();
         this.add(nomField, gbc);
 
@@ -156,7 +156,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 5;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         prenomField = new JTextField();
         this.add(prenomField, gbc);
 
@@ -168,7 +168,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 7;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         nbEnfantsField = new JTextField();
         this.add(nbEnfantsField, gbc);
 
@@ -180,8 +180,8 @@ public class PanneauListePatient extends JPanel {
         this.add(dateNaissanceLabel, gbc);
 
         gbc.gridx = 1;
-        gbc.ipadx = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.ipadx = -10;
+        gbc.anchor = GridBagConstraints.WEST;
         datePanel = new DatePanel();
         this.add(datePanel, gbc);
 
@@ -193,7 +193,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 3;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         numTelFixeField = new JTextField();
         this.add(numTelFixeField, gbc);
 
@@ -205,7 +205,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 5;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         numTelMobileField = new JTextField();
         this.add(numTelMobileField, gbc);
 
@@ -217,7 +217,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 7;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         remarqueField = new JTextField();
         this.add(remarqueField, gbc);
 
@@ -225,12 +225,12 @@ public class PanneauListePatient extends JPanel {
         gbc.gridy = 3;
         gbc.ipadx = 0;
         gbc.anchor = GridBagConstraints.EAST;
-        dateNaissanceLabel = new JLabel("A surveiller :");
-        this.add(dateNaissanceLabel, gbc);
+        aSurveillerLabel = new JLabel("A surveiller :");
+        this.add(aSurveillerLabel, gbc);
 
         gbc.gridx = 1;
-        gbc.ipadx = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.ipadx = 100;
+        gbc.anchor = GridBagConstraints.WEST;
         aSurveillerField = new JTextField();
         this.add(aSurveillerField, gbc);
 
@@ -242,7 +242,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 3;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         conseilsField = new JTextField();
         this.add(conseilsField, gbc);
 
@@ -254,7 +254,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 5;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         donnerEtatBox = new JCheckBox();
         this.add(donnerEtatBox, gbc);
 
@@ -266,7 +266,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 7;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         besoinAvalBox = new JCheckBox();
         this.add(besoinAvalBox, gbc);
 
@@ -279,7 +279,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 1;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         acharnementTherapeutiqueBox = new JCheckBox();
         this.add(acharnementTherapeutiqueBox, gbc);
 
@@ -291,7 +291,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 3;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         causeDecesPereField = new JTextField();
         this.add(causeDecesPereField, gbc);
 
@@ -303,7 +303,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 5;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         causeDecesMereField = new JTextField();
         this.add(causeDecesMereField, gbc);
 
@@ -315,7 +315,7 @@ public class PanneauListePatient extends JPanel {
 
         gbc.gridx = 7;
         gbc.ipadx = 100;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         primeAnuelleField = new JTextField();
         this.add(primeAnuelleField, gbc);
 
@@ -340,6 +340,7 @@ public class PanneauListePatient extends JPanel {
                 mutualites.addItemListener(mutualiteListener);
             }
             gbc.ipadx = 0;
+            gbc.anchor = GridBagConstraints.WEST;
             gbc.ipady = 5;
             gbc.gridx = 1;
             this.add(mutualites, gbc);
@@ -401,7 +402,7 @@ public class PanneauListePatient extends JPanel {
         causeDecesPereField.setEditable(true);
         causeDecesMereField.setEditable(true);
         primeAnuelleField.setEditable(true);
-        mutualites.setEditable(true);
+        mutualites.setEnabled(true);
     }
 
     public void desactiverModifications() {
@@ -423,7 +424,7 @@ public class PanneauListePatient extends JPanel {
         causeDecesPereField.setEditable(false);
         causeDecesMereField.setEditable(false);
         primeAnuelleField.setEditable(false);
-        mutualites.setEditable(false);
+        mutualites.setEnabled(false);
     }
 
     private class ComboBoxListener implements ItemListener {

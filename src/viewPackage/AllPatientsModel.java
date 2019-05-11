@@ -57,13 +57,13 @@ public class AllPatientsModel extends AbstractTableModel {
         try{
             mutualite = controller.getMutualite(patient.getMutualite_id());
         }
+        catch (AccesDBException exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
         catch (ChampsVideException exception){
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }
         catch (CaracteresLimiteException exception){
-            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (AccesDBException exception){
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -85,7 +85,7 @@ public class AllPatientsModel extends AbstractTableModel {
             case 14 : return patient.getCauseDecesPere();
             case 15 : return patient.getCauseDecesMere();
             case 16 : return patient.getPrimeAnuelle();
-            case 17 : return mutualite;
+            case 17 : return mutualite.getLibelle();
             default : return null;
         }
     }
@@ -216,17 +216,17 @@ public class AllPatientsModel extends AbstractTableModel {
                     break;
                 case 11:
                     if (aValue instanceof Boolean) {
-                        patient.setDonnerEtat(aValue.toString().equals("1"));
+                        patient.setDonnerEtat(aValue.toString().equals("true"));
                     }
                     break;
                 case 12:
                     if (aValue instanceof Boolean) {
-                        patient.setBesoinAval(aValue.toString().equals("1"));
+                        patient.setBesoinAval(aValue.toString().equals("true"));
                     }
                     break;
                 case 13:
                     if (aValue instanceof Boolean) {
-                        patient.setAcharnementTherapeutique(aValue.toString().equals("1"));
+                        patient.setAcharnementTherapeutique(aValue.toString().equals("true"));
                     }
                     break;
                 case 14:

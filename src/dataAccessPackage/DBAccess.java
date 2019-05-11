@@ -228,6 +228,7 @@ public class DBAccess implements DataAccess{
             String sql = "select * from mutualite where mutualite_id = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, mutualite_id);
 
             ResultSet data = statement.executeQuery();
 
@@ -534,7 +535,6 @@ public class DBAccess implements DataAccess{
             while(data.next()) {
 
                 calendar.setTime(data.getDate(6));
-
                 Patient patient = new Patient(
                         data.getInt(1),
                         data.getString(2),
@@ -557,7 +557,6 @@ public class DBAccess implements DataAccess{
                 );
                 patients.add(patient);
             }
-
             return patients;
         }
         catch(SQLException exception){
