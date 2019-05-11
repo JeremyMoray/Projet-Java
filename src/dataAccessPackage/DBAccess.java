@@ -561,4 +561,47 @@ public class DBAccess implements DataAccess{
             throw new AccesDBException(exception.getMessage());
         }
     }
+
+    public void updatePatient(Patient patient) throws AccesDBException{
+        try {
+            Connection connection = SingletonConnection.getInstance();
+
+            String sql = "update patient set numeroNational = ?, nom = ?, prenom = ?, nbEnfants = ?," +
+                    "dateNaissance = ?, numTelFixe = ?, numTelMobile = ?, remarque = ?, aSurveiller = ?, conseils = ?, " +
+                    "donnerEtat = ?, besoinAval = ?, acharnementTherapeutique = ?, causeDecesPere = ?, causeDecesMere = ?, " +
+                    "primeAnuelle = ?, mutualite_id = ? where patient_id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, patient.getNumeroNational());
+            statement.setString(2, patient.getNom());
+            statement.setString(3, patient.getPrenom());
+            statement.setInt(4, patient.getNbEnfants());
+            statement.setDate(5, new java.sql.Date(patient.getDateNaissance().getTimeInMillis()));
+            statement.setString(6, patient.getNumTelFixe());
+            statement.setString(7, patient.getNumTelMobile());
+            statement.setString(8, patient.getRemarque());
+            statement.setString(9, patient.getASurveiller());
+            statement.setString(10, patient.getConseils());
+            statement.setBoolean(11, patient.isDonnerEtat());
+            statement.setBoolean(12, patient.isBesoinAval());
+            statement.setBoolean(13, patient.isAcharnementTherapeutique());
+            statement.setString(14, patient.getCauseDecesPere());
+            statement.setString(15, patient.getCauseDecesMere());
+            statement.setDouble(16, patient.getPrimeAnuelle());
+            if(patient.getMutualite_id() == null){
+                statement.setNull(17, Types.INTEGER);
+            }
+            else{
+                statement.setInt(17, patient.getMutualite_id());
+            }
+            statement.setInt(18, patient.getPatient_id());
+
+            statement.executeUpdate();
+
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
 }

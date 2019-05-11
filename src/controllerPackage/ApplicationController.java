@@ -97,6 +97,10 @@ public class ApplicationController {
         return manager.getAllPatients();
     }
 
+    public void updatePatient(Patient patient) throws AccesDBException{
+        manager.updatePatient(patient);
+    }
+
     public void setManager(Manager manager){
         this.manager = manager;
     }
