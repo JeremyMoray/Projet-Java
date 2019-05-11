@@ -20,7 +20,7 @@ public class DatePanel extends JPanel{
         SpinnerModel modelAnnee = new SpinnerNumberModel(anneeActuelle, anneeActuelle - 150, anneeActuelle, 1);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.ipadx = 40;
+        gbc.ipadx = -5;
         gbc.ipady = 10;
         gbc.insets = new Insets(0,10,0,10);
         jourSpinner = new JSpinner(modelJour);

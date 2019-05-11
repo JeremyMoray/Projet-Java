@@ -340,6 +340,13 @@ public class PanneauInscriptionPatient extends JPanel{
                         dateNaissance.set(GregorianCalendar.MONTH, mois);
                         dateNaissance.set(GregorianCalendar.YEAR, annee);
 
+                        //Si le jour entré est supérieur au jour maximum du mois (ex: 31 novembre), GregorianCalendar
+                        //va le reporter au mois suivant, (1er décembre), il suffit donc de comparer si les 2 mois correspondent
+
+                        if(dateNaissance.get(GregorianCalendar.MONTH) != mois){
+                            throw new FormatDateException();
+                        }
+
                         if(dateNaissance.compareTo(dateActuelle) > 0){
                             throw new FormatDateException();
                         }
