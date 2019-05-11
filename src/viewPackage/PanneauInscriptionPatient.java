@@ -140,22 +140,21 @@ public class PanneauInscriptionPatient extends JPanel{
         gbc.gridy = 17;
         this.add(mutualiteLabel, gbc);
 
-        numeroNationalField = new JTextField();
-        gbc.weightx = 200;
+        numeroNationalField = new JTextField(1);
         gbc.ipadx = 200;
         gbc.gridx = 1;
         gbc.gridy = 1;
         this.add(numeroNationalField, gbc);
 
-        nomField = new JTextField();
+        nomField = new JTextField(1);
         gbc.gridy = 2;
         this.add(nomField, gbc);
 
-        prenomField = new JTextField();
+        prenomField = new JTextField(1);
         gbc.gridy = 3;
         this.add(prenomField, gbc);
 
-        nbEnfantsField = new JTextField();
+        nbEnfantsField = new JTextField(1);
         gbc.gridy = 4;
         this.add(nbEnfantsField, gbc);
 
@@ -164,24 +163,24 @@ public class PanneauInscriptionPatient extends JPanel{
         gbc.gridy = 5;
         this.add(datePanel, gbc);
 
-        numTelFixeField = new JTextField();
+        numTelFixeField = new JTextField(1);
         gbc.ipadx = 200;
         gbc.gridy = 6;
         this.add(numTelFixeField, gbc);
 
-        numTelMobileField = new JTextField();
+        numTelMobileField = new JTextField(1);
         gbc.gridy = 7;
         this.add(numTelMobileField, gbc);
 
-        remarqueField = new JTextField();
+        remarqueField = new JTextField(1);
         gbc.gridy = 8;
         this.add(remarqueField, gbc);
 
-        aSurveillerField = new JTextField();
+        aSurveillerField = new JTextField(1);
         gbc.gridy = 9;
         this.add(aSurveillerField, gbc);
 
-        conseilsField = new JTextField();
+        conseilsField = new JTextField(1);
         gbc.gridy = 10;
         this.add(conseilsField, gbc);
 
@@ -197,15 +196,15 @@ public class PanneauInscriptionPatient extends JPanel{
         gbc.gridy = 13;
         this.add(acharnementTherapeuthiqueBox, gbc);
 
-        causeDecesPereField = new JTextField();
+        causeDecesPereField = new JTextField(1);
         gbc.gridy = 14;
         this.add(causeDecesPereField, gbc);
 
-        causeDecesMereField = new JTextField();
+        causeDecesMereField = new JTextField(1);
         gbc.gridy = 15;
         this.add(causeDecesMereField, gbc);
 
-        primeAnuelleField = new JTextField();
+        primeAnuelleField = new JTextField(1);
         gbc.gridy = 16;
         this.add(primeAnuelleField, gbc);
 
