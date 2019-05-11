@@ -111,15 +111,19 @@ public class Patient {
     }
 
     public void setNumTelFixe(String numTelFixe) throws CaracteresLimiteException {
-        if(numTelFixe.length() > 20){
-            throw new CaracteresLimiteException("Numéro tel. fixe");
+        if(remarque != null){
+            if(numTelFixe.length() > 20){
+                throw new CaracteresLimiteException("Numéro tel. fixe");
+            }
         }
         this.numTelFixe = numTelFixe;
     }
 
     public void setNumTelMobile(String numTelMobile) throws CaracteresLimiteException {
-        if(numTelMobile.length() > 20){
-            throw new CaracteresLimiteException("Numéro tel. mobile");
+        if(remarque != null){
+            if(numTelMobile.length() > 20){
+                throw new CaracteresLimiteException("Numéro tel. mobile");
+            }
         }
         this.numTelMobile = numTelMobile;
     }

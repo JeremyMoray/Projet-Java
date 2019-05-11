@@ -93,8 +93,8 @@ public class ApplicationController {
         manager.addPatient(patient);
     }
 
-    public ArrayList<Patient> getAllPatients(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
-        return manager.getAllPatients(soignant_id);
+    public ArrayList<Patient> getAllPatients() throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
+        return manager.getAllPatients();
     }
 
     public void setManager(Manager manager){

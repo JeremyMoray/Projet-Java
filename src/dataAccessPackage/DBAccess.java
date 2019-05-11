@@ -519,7 +519,7 @@ public class DBAccess implements DataAccess{
         }
     }
 
-    public ArrayList<Patient> getAllPatients(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
+    public ArrayList<Patient> getAllPatients() throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
         try{
             Connection connection = SingletonConnection.getInstance();
             String sql = "select * from patient";
@@ -530,10 +530,8 @@ public class DBAccess implements DataAccess{
 
             ArrayList<Patient> patients = new ArrayList<>();
 
-            GregorianCalendar calendar = new GregorianCalendar();
-
             while(data.next()) {
-
+                GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(data.getDate(6));
                 Patient patient = new Patient(
                         data.getInt(1),
@@ -553,7 +551,7 @@ public class DBAccess implements DataAccess{
                         data.getString(15),
                         data.getString(16),
                         data.getDouble(17),
-                        data.getInt(18)
+                        (data.getInt(18) == 0)?null:data.getInt(18)
                 );
                 patients.add(patient);
             }

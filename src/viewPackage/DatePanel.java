@@ -2,7 +2,6 @@ package viewPackage;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class DatePanel extends JPanel{
@@ -20,13 +19,14 @@ public class DatePanel extends JPanel{
         SpinnerModel modelAnnee = new SpinnerNumberModel(anneeActuelle, anneeActuelle - 150, anneeActuelle, 1);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.ipadx = -5;
+        gbc.ipadx = 0;
         gbc.ipady = 10;
-        gbc.insets = new Insets(0,10,0,10);
+        gbc.insets = new Insets(0,0,0,10);
         jourSpinner = new JSpinner(modelJour);
         this.add(jourSpinner, gbc);
 
         gbc.gridx = 1;
+        gbc.insets = new Insets(0,10,0,10);
         this.add(new JLabel("/"));
 
         gbc.gridx = 2;
@@ -38,6 +38,7 @@ public class DatePanel extends JPanel{
 
         gbc.gridx = 4;
         anneeSpinner = new JSpinner(modelAnnee);
+        gbc.insets = new Insets(0,10,0,0);
         this.add(anneeSpinner, gbc);
     }
 

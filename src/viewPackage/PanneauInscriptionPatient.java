@@ -209,17 +209,20 @@ public class PanneauInscriptionPatient extends JPanel{
         this.add(primeAnuelleField, gbc);
 
         try{
-            listeObjetMutualites = controller.getAllMutualites();
+            listeObjetMutualites = new ArrayList<Mutualite>();
+            listeObjetMutualites.add(null);
+            listeObjetMutualites.addAll(controller.getAllMutualites());
             String[] listeMutualites = new String[listeObjetMutualites.size()];
-            for(int i = 0; i < listeMutualites.length; i++) {
-                listeMutualites[i] = controller.getAllMutualites().get(i).getLibelle() + " (" + controller.getAllMutualites().get(i).getDiminutif() + ")";
+            listeMutualites[0] = "Aucune";
+            for(int i = 1; i < listeMutualites.length; i++) {
+                listeMutualites[i] = listeObjetMutualites.get(i).getLibelle() + " (" + listeObjetMutualites.get(i).getDiminutif() + ")";
             }
             mutualites = new JComboBox(listeMutualites);
-            if(listeMutualites.length != 0){
-                mutualite_id = listeObjetMutualites.get(mutualites.getSelectedIndex()).getId();
-                ComboBoxListener mutualiteListener = new ComboBoxListener();
-                mutualites.addItemListener(mutualiteListener);
-            }
+
+            mutualite_id = null;
+            ComboBoxListener mutualiteListener = new ComboBoxListener();
+            mutualites.addItemListener(mutualiteListener);
+
             gbc.ipadx = 0;
             gbc.ipady = 5;
             gbc.gridy = 17;
@@ -405,8 +408,8 @@ public class PanneauInscriptionPatient extends JPanel{
                             prenomField.getText(),
                             Integer.parseInt(nbEnfantsField.getText()),
                             dateNaissance,
-                            numTelFixeField.getText(),
-                            numTelMobileField.getText(),
+                            (numTelFixeField.getText().isEmpty()?null:remarqueField.getText()),
+                            (numTelMobileField.getText().isEmpty()?null:remarqueField.getText()),
                             (remarqueField.getText().isEmpty()?null:remarqueField.getText()),
                             (aSurveillerField.getText().isEmpty()?null:aSurveillerField.getText()),
                             (conseilsField.getText().isEmpty()?null:conseilsField.getText()),
@@ -482,7 +485,12 @@ public class PanneauInscriptionPatient extends JPanel{
 
     private class ComboBoxListener implements ItemListener {
         public void itemStateChanged( ItemEvent event){
-            mutualite_id = listeObjetMutualites.get(mutualites.getSelectedIndex()).getId();
+            if(listeObjetMutualites.get(mutualites.getSelectedIndex()) == null){
+                mutualite_id = null;
+            }
+            else{
+                mutualite_id = listeObjetMutualites.get(mutualites.getSelectedIndex()).getId();
+            }
         }
     }
 }

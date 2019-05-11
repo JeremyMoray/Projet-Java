@@ -45,16 +45,21 @@ public class PanneauListePatient extends JPanel {
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
         try {
-            patients = controller.getAllPatients(utilisateur.getId());
-        } catch (AccesDBException exception) {
+            patients = controller.getAllPatients();
+        }
+        catch (AccesDBException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        } catch (ChampsVideException exception) {
+        }
+        catch (ChampsVideException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        } catch (CaracteresLimiteException exception) {
+        }
+        catch (CaracteresLimiteException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        } catch (FormatNombreException exception) {
+        }
+        catch (FormatNombreException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        } catch (CodeInvalideException exception) {
+        }
+        catch (CodeInvalideException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -65,7 +70,6 @@ public class PanneauListePatient extends JPanel {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setAutoCreateRowSorter(true);
         listSelect = table.getSelectionModel();
-
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
@@ -77,17 +81,17 @@ public class PanneauListePatient extends JPanel {
                 nomField.setText(model.getValueAt(indiceLigneSelectionnee, 2).toString());
                 prenomField.setText(model.getValueAt(indiceLigneSelectionnee, 3).toString());
                 nbEnfantsField.setText(model.getValueAt(indiceLigneSelectionnee, 4).toString());
-                datePanel.setJourField(model.getValueAt(indiceLigneSelectionnee, 5).toString());
-                datePanel.setMoisField(model.getValueAt(indiceLigneSelectionnee, 5).toString());
-                datePanel.setAnneeField(model.getValueAt(indiceLigneSelectionnee, 5).toString());
+                datePanel.setJourField(model.getValueAt(indiceLigneSelectionnee, 5).toString().substring(0,2));
+                datePanel.setMoisField(model.getValueAt(indiceLigneSelectionnee, 5).toString().substring(3,5));
+                datePanel.setAnneeField(model.getValueAt(indiceLigneSelectionnee, 5).toString().substring(6,10));
                 numTelFixeField.setText(model.getValueAt(indiceLigneSelectionnee, 6).toString());
                 numTelMobileField.setText(model.getValueAt(indiceLigneSelectionnee, 7).toString());
                 remarqueField.setText(model.getValueAt(indiceLigneSelectionnee, 8).toString());
                 aSurveillerField.setText(model.getValueAt(indiceLigneSelectionnee, 9).toString());
                 conseilsField.setText(model.getValueAt(indiceLigneSelectionnee, 10).toString());
-                donnerEtatBox.setEnabled(model.getValueAt(indiceLigneSelectionnee, 11).equals("1"));
-                besoinAvalBox.setEnabled(model.getValueAt(indiceLigneSelectionnee, 12).toString().equals("1"));
-                acharnementTherapeutiqueBox.setEnabled(model.getValueAt(indiceLigneSelectionnee, 13).toString().equals("1"));
+                donnerEtatBox.setSelected(model.getValueAt(indiceLigneSelectionnee, 11).toString().equals("Oui"));
+                besoinAvalBox.setSelected(model.getValueAt(indiceLigneSelectionnee, 12).toString().equals("Oui"));
+                acharnementTherapeutiqueBox.setSelected(model.getValueAt(indiceLigneSelectionnee, 13).toString().equals("Oui"));
                 causeDecesPereField.setText(model.getValueAt(indiceLigneSelectionnee, 14).toString());
                 causeDecesMereField.setText(model.getValueAt(indiceLigneSelectionnee, 15).toString());
                 primeAnuelleField.setText(model.getValueAt(indiceLigneSelectionnee, 16).toString());
@@ -328,17 +332,20 @@ public class PanneauListePatient extends JPanel {
         this.add(mutualiteLabel, gbc);
 
         try {
-            listeObjetMutualites = controller.getAllMutualites();
+            listeObjetMutualites = new ArrayList<Mutualite>();
+            listeObjetMutualites.add(null);
+            listeObjetMutualites.addAll(controller.getAllMutualites());
             String[] listeMutualites = new String[listeObjetMutualites.size()];
-            for (int i = 0; i < listeMutualites.length; i++) {
-                listeMutualites[i] = controller.getAllMutualites().get(i).getLibelle() + " (" + controller.getAllMutualites().get(i).getDiminutif() + ")";
+            listeMutualites[0] = "Aucune";
+            for (int i = 1; i < listeMutualites.length; i++) {
+                listeMutualites[i] = listeObjetMutualites.get(i).getLibelle() + " (" + listeObjetMutualites.get(i).getDiminutif() + ")";
             }
             mutualites = new JComboBox(listeMutualites);
-            if (listeMutualites.length != 0) {
-                mutualite_id = listeObjetMutualites.get(mutualites.getSelectedIndex()).getId();
-                ComboBoxListener mutualiteListener = new ComboBoxListener();
-                mutualites.addItemListener(mutualiteListener);
-            }
+
+            mutualite_id = null;
+            ComboBoxListener mutualiteListener = new ComboBoxListener();
+            mutualites.addItemListener(mutualiteListener);
+
             gbc.ipadx = 0;
             gbc.anchor = GridBagConstraints.WEST;
             gbc.ipady = 5;
@@ -429,7 +436,12 @@ public class PanneauListePatient extends JPanel {
 
     private class ComboBoxListener implements ItemListener {
         public void itemStateChanged(ItemEvent event) {
-            mutualite_id = listeObjetMutualites.get(mutualites.getSelectedIndex()).getId();
+            if(listeObjetMutualites.get(mutualites.getSelectedIndex()) == null){
+                mutualite_id = null;
+            }
+            else{
+                mutualite_id = listeObjetMutualites.get(mutualites.getSelectedIndex()).getId();
+            }
         }
     }
 }

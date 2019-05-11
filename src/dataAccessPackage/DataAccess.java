@@ -30,5 +30,5 @@ public interface DataAccess {
     void updateMedicament(Medicament medicament) throws AccesDBException;
 
     void addPatient(Patient patient) throws AccesDBException;
-    ArrayList<Patient> getAllPatients(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException;
+    ArrayList<Patient> getAllPatients() throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException;
 }

@@ -7,7 +7,10 @@ import modelPackage.Patient;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class AllPatientsModel extends AbstractTableModel {
@@ -54,8 +57,14 @@ public class AllPatientsModel extends AbstractTableModel {
 
     public Object getValueAt (int row, int column){
         Patient patient = patients.get(row);
+
         try{
-            mutualite = controller.getMutualite(patient.getMutualite_id());
+            if(patient.getMutualite_id() != null){
+                mutualite = controller.getMutualite(patient.getMutualite_id());
+            }
+            else{
+                mutualite = null;
+            }
         }
         catch (AccesDBException exception){
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -73,19 +82,23 @@ public class AllPatientsModel extends AbstractTableModel {
             case 2: return patient.getNom();
             case 3 : return patient.getPrenom();
             case 4 : return patient.getNbEnfants();
-            case 5 : return patient.getDateNaissance();
-            case 6 : return patient.getNumTelFixe();
-            case 7 : return patient.getNumTelMobile();
-            case 8 : return patient.getRemarque();
-            case 9 : return patient.getASurveiller();
-            case 10 : return patient.getConseils();
-            case 11 : return patient.isDonnerEtat();
-            case 12 : return patient.isBesoinAval();
-            case 13 : return patient.isAcharnementTherapeutique();
-            case 14 : return patient.getCauseDecesPere();
-            case 15 : return patient.getCauseDecesMere();
+            case 5 :
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date dateFormatDate = patient.getDateNaissance().getTime();
+                return dateFormat.format(dateFormatDate);
+            case 6 : return (patient.getNumTelFixe() == null)?"":patient.getNumTelFixe();
+            case 7 : return (patient.getNumTelMobile() == null)?"":patient.getNumTelMobile();
+            case 8 : return (patient.getRemarque() == null)?"":patient.getRemarque();
+            case 9 : return (patient.getASurveiller() == null)?"":patient.getASurveiller();
+            case 10 : return (patient.getConseils() == null)?"":patient.getConseils();
+            case 11 : return (patient.isDonnerEtat())?"Oui":"Non";
+            case 12 : return (patient.isBesoinAval())?"Oui":"Non";
+            case 13 : return (patient.isAcharnementTherapeutique())?"Oui":"Non";
+            case 14 : return (patient.getCauseDecesPere() == null)?"":patient.getCauseDecesPere();
+            case 15 : return (patient.getCauseDecesMere() == null)?"":patient.getCauseDecesMere();
             case 16 : return patient.getPrimeAnuelle();
-            case 17 : return mutualite.getLibelle();
+            case 17 :
+                return (mutualite == null)?"Aucune":mutualite.getLibelle() + " (" + mutualite.getDiminutif() + ")";
             default : return null;
         }
     }
@@ -129,13 +142,13 @@ public class AllPatientsModel extends AbstractTableModel {
                 c = String.class;
                 break;
             case 11:
-                c = Boolean.class;
+                c = String.class;
                 break;
             case 12:
-                c = Boolean.class;
+                c = String.class;
                 break;
             case 13:
-                c = Boolean.class;
+                c = String.class;
                 break;
             case 14:
                 c = String.class;
