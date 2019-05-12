@@ -2,7 +2,9 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 import exceptionPackage.*;
+import modelPackage.Allergie;
 import modelPackage.Medicament;
+import modelPackage.Reaction;
 import modelPackage.Soignant;
 
 import javax.swing.*;
@@ -18,10 +20,13 @@ public class PanneauListeMedicament extends JPanel{
 
     private Container frameContainer;
     private Soignant utilisateur;
+    private Reaction reaction;
     private ApplicationController controller ;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
-    private JButton modifierButton, supprimerButton;
+    private JComboBox allergieCbx;
+    private ArrayList<Allergie>listeObjetAllergies;
+    private JButton modifierButton, supprimerButton, ajouterAllergieButton;
     private JLabel codeCNKLabel, nomLabel, firmeLabel, principeActifLabel, codeATCLabel,
             caracteristiqueLabel, tauxRemboursementLabel;
     private JTextField codeCNKField, nomField, firmeField, principeActifField, codeATCField,
@@ -131,7 +136,6 @@ public class PanneauListeMedicament extends JPanel{
             principeActifField = new JTextField();
             this.add(principeActifField, gbc);
 
-            gbc.insets = new Insets(10,10,20,10);
             gbc.gridx = 0;
             gbc.gridy = 2;
             gbc.ipadx = 0;
@@ -184,6 +188,36 @@ public class PanneauListeMedicament extends JPanel{
             ButtonListener supprimerListener = new ButtonListener();
             supprimerButton.addActionListener(supprimerListener);
             this.add(supprimerButton, gbc);
+
+            try{
+                listeObjetAllergies = controller.getAllAllergies();
+                String[ ] values = new String[listeObjetAllergies.size()];
+                for(int i = 0; i < values.length; i++) {
+                    values[i] = listeObjetAllergies.get(i).getLibelle();
+                }
+                allergieCbx = new JComboBox(values);
+
+                gbc.ipadx = 0;
+                gbc.gridx = 6;
+                gbc.gridy = 3;
+                gbc.insets = new Insets(10,10,20,10);
+                this.add(allergieCbx, gbc);
+
+                gbc.gridx = 7;
+                ajouterAllergieButton = new JButton("Ajouter une allergie");
+                ButtonListener ajouterAllergieListener = new ButtonListener();
+                ajouterAllergieButton.addActionListener(ajouterAllergieListener);
+                this.add(ajouterAllergieButton, gbc);
+            }
+            catch (AccesDBException exception){
+                JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+            catch (ChampsVideException exception){
+                JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+            catch (CaracteresLimiteException exception){
+                JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
 
             desactiverModifications();
 
@@ -317,6 +351,37 @@ public class PanneauListeMedicament extends JPanel{
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
                 catch (CodeInvalideException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            if(event.getSource() == ajouterAllergieButton){
+                try{
+                    int indiceLigneSelectionnee = listSelect.getMinSelectionIndex();
+
+                    if(indiceLigneSelectionnee == -1){
+                        throw new AucuneSelectionException();
+                    }
+
+                    if(listeObjetAllergies.size() != 0){
+                        reaction = new Reaction(listeObjetAllergies.get(allergieCbx.getSelectedIndex()).getId(), (Integer)(model.getValueAt(indiceLigneSelectionnee, 0)));
+                    }
+                    else{
+                        throw new ChampsVideException("Allergie");
+                    }
+                    controller.addReaction(reaction);
+                    JOptionPane.showMessageDialog(null, "L'allergie a été ajoutée", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                }
+                catch (AccesDBException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (AucuneSelectionException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (ChampsVideException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (ObjetExistantException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             }

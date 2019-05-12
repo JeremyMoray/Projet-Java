@@ -113,8 +113,12 @@ public class Manager {
         dao.addSouffrance(souffrance);
     }
 
-    public void addTraitement(Traitement traitement) throws AccesDBException, ObjetExistantException{
+    public void addTraitement(Traitement traitement) throws AccesDBException, ObjetExistantException, AllergieAMedicamentException{
         dao.addTraitement(traitement);
+    }
+
+    public void addReaction(Reaction reaction) throws AccesDBException, ObjetExistantException{
+        dao.addReaction(reaction);
     }
 
     public void setDao(DBAccess dao) {

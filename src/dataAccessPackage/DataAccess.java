@@ -36,5 +36,6 @@ public interface DataAccess {
 
     void addConsultation(Consultation consultation) throws AccesDBException, ObjetExistantException;
     void addSouffrance(Souffrance souffrance) throws AccesDBException, ObjetExistantException;
-    void addTraitement(Traitement traitement) throws AccesDBException, ObjetExistantException;
+    void addTraitement(Traitement traitement) throws AccesDBException, ObjetExistantException, AllergieAMedicamentException;
+    void addReaction(Reaction reaction) throws AccesDBException, ObjetExistantException;
 }
