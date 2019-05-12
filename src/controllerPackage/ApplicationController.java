@@ -113,6 +113,10 @@ public class ApplicationController {
         manager.addSouffrance(souffrance);
     }
 
+    public void addTraitement(Traitement traitement) throws AccesDBException, ObjetExistantException{
+        manager.addTraitement(traitement);
+    }
+
     public void setManager(Manager manager){
         this.manager = manager;
     }

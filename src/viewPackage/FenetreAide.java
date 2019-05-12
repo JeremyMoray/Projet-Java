@@ -15,7 +15,7 @@ public class FenetreAide extends JFrame {
         setBounds((int)(FenetreMenu.getWindowWidth() * 0.30), (int)(FenetreMenu.getWindowHeight() * 0.30),
                 (int)(FenetreMenu.getWindowWidth() * 0.40), (int)(FenetreMenu.getWindowHeight() * 0.40));
 
-        JLabel label = new JLabel("Ajouter vous même une mutualité, un patient, un médicament, " +
+        JLabel label = new JLabel("Ajoutez vous même une mutualité, un patient, un médicament, " +
                 "une allergie, etc..., dans les menus correspondant");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         button = new JButton("Quitter");

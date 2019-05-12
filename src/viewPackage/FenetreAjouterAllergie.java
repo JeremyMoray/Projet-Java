@@ -44,18 +44,6 @@ public class FenetreAjouterAllergie extends JFrame {
             gbc.gridy = 0;
             gbc.insets = new Insets(10,10,10,10);
             this.add(allergieCbx, gbc);
-
-            enregistrerBouton = new JButton("Enregistrer");
-            ButtonListener enregistrerButtonListener = new ButtonListener();
-            enregistrerBouton.addActionListener(enregistrerButtonListener);
-            gbc.gridx = 1;
-            this.add(enregistrerBouton, gbc);
-
-            annulerBouton = new JButton("Annuler");
-            ButtonListener annulerButtonListener = new ButtonListener();
-            annulerBouton.addActionListener(annulerButtonListener);
-            gbc.gridx = 2;
-            this.add(annulerBouton, gbc);
         }
         catch (AccesDBException exception){
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -66,6 +54,18 @@ public class FenetreAjouterAllergie extends JFrame {
         catch (CaracteresLimiteException exception){
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }
+
+        enregistrerBouton = new JButton("Enregistrer");
+        ButtonListener enregistrerButtonListener = new ButtonListener();
+        enregistrerBouton.addActionListener(enregistrerButtonListener);
+        gbc.gridx = 1;
+        this.add(enregistrerBouton, gbc);
+
+        annulerBouton = new JButton("Annuler");
+        ButtonListener annulerButtonListener = new ButtonListener();
+        annulerBouton.addActionListener(annulerButtonListener);
+        gbc.gridx = 2;
+        this.add(annulerBouton, gbc);
 
         setVisible(true);
     }

@@ -167,9 +167,17 @@ public class DBAccess implements DataAccess{
 
             statement.executeUpdate();
 
-            String sql2 = "delete from soignant where soignant_id = ?;";
+            String sql2 = "delete from traitement where soignant_id = ?;";
 
             statement = connection.prepareStatement(sql2);
+
+            statement.setInt(1, soignant_id);
+
+            statement.executeUpdate();
+
+            String sql3 = "delete from soignant where soignant_id = ?;";
+
+            statement = connection.prepareStatement(sql3);
 
             statement.setInt(1, soignant_id);
 
@@ -454,9 +462,17 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "delete from medicament where medicament_id = ?;";
+            String sql = "delete from traitement where medicament_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, medicament_id);
+
+            statement.executeUpdate();
+
+            String sql2 = "delete from medicament where medicament_id = ?;";
+
+            statement = connection.prepareStatement(sql2);
 
             statement.setInt(1, medicament_id);
 
@@ -598,9 +614,17 @@ public class DBAccess implements DataAccess{
 
             statement.executeUpdate();
 
-            String sql3 = "delete from patient where patient_id = ?;";
+            String sql3 = "delete from traitement where patient_id = ?;";
 
             statement = connection.prepareStatement(sql3);
+
+            statement.setInt(1, patient_id);
+
+            statement.executeUpdate();
+
+            String sql4 = "delete from patient where patient_id = ?;";
+
+            statement = connection.prepareStatement(sql4);
 
             statement.setInt(1, patient_id);
 
@@ -719,6 +743,43 @@ public class DBAccess implements DataAccess{
 
             statement.executeUpdate();
 
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
+    public void addTraitement(Traitement traitement) throws AccesDBException, ObjetExistantException{
+        try {
+            Connection connection = SingletonConnection.getInstance();
+
+            String sql = "select soignant_id from traitement where patient_id = ? and soignant_id = ? and medicament_id = ? and dateDeDebut = ? and dateDeFin = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, traitement.getPatient_id());
+            statement.setInt(2, traitement.getSoignant_id());
+            statement.setInt(3, traitement.getMedicament_id());
+            statement.setDate(4, new java.sql.Date(traitement.getDateDeDebut().getTimeInMillis()));
+            statement.setDate(5, new java.sql.Date(traitement.getDateDeFin().getTimeInMillis()));
+
+            ResultSet data = statement.executeQuery();
+
+            if (data.next()) {
+                throw new ObjetExistantException("Vous avez déjà attribué ce traitement à ce patient à cette date");
+            }
+
+            String sql2 = "INSERT INTO traitement values(?, ?, ?, ?, ?, ?)";
+
+            statement = connection.prepareStatement(sql2);
+
+            statement.setDate(1, new java.sql.Date(traitement.getDateDeDebut().getTimeInMillis()));
+            statement.setDate(2, new java.sql.Date(traitement.getDateDeFin().getTimeInMillis()));
+            statement.setString(3, traitement.getFrequence());
+            statement.setInt(4, traitement.getPatient_id());
+            statement.setInt(5, traitement.getSoignant_id());
+            statement.setInt(6, traitement.getMedicament_id());
+
+            statement.executeUpdate();
         }
         catch(SQLException exception){
             throw new AccesDBException(exception.getMessage());

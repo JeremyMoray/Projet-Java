@@ -43,7 +43,7 @@ public class Consultation {
     }
 
     public void setObservations(String observations) throws CaracteresLimiteException{
-        if(observations.isEmpty()){
+        if(observations != null){
             if(observations.length() > 250){
                 throw new CaracteresLimiteException("Observations");
             }

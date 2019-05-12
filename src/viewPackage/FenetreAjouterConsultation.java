@@ -49,48 +49,51 @@ public class FenetreAjouterConsultation extends JFrame {
         gbc.gridy = 0;
         gbc.ipadx = 15;
         gbc.ipady = 10;
-        gbc.insets = new Insets(10,10,10,10);
+        gbc.insets = new Insets(10,5,10,5);
+        this.add(new JLabel("Date de consultation : "), gbc);
+
+        gbc.gridx = 1;
         jourSpinner = new JSpinner(modelJour);
         this.add(jourSpinner, gbc);
 
-        gbc.gridx = 1;
-        this.add(new JLabel("/"));
-
         gbc.gridx = 2;
+        this.add(new JLabel("/"), gbc);
+
+        gbc.gridx = 3;
         moisSpinner = new JSpinner(modelMois);
         this.add(moisSpinner, gbc);
 
-        gbc.gridx = 3;
-        this.add(new JLabel("/"));
-
         gbc.gridx = 4;
+        this.add(new JLabel("/"), gbc);
+
+        gbc.gridx = 5;
         anneeSpinner = new JSpinner(modelAnnee);
         this.add(anneeSpinner, gbc);
 
-        gbc.gridx = 5;
-        gbc.insets = new Insets(10,30,10,10);
+        gbc.gridx = 6;
+        gbc.insets = new Insets(10,30,10,5);
         heureSpinner = new JSpinner(modelHeure);
         this.add(heureSpinner, gbc);
 
-        gbc.gridx = 6;
-        gbc.insets = new Insets(10,10,10,10);
-        this.add(new JLabel("H -"));
-
         gbc.gridx = 7;
+        gbc.insets = new Insets(10,5,10,5);
+        this.add(new JLabel("H -"), gbc);
+
+        gbc.gridx = 8;
         minuteSpinner = new JSpinner(modelMinute);
         this.add(minuteSpinner, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.ipadx = 0;
-        gbc.insets = new Insets(10,0,10,0);
+        gbc.insets = new Insets(10,5,10,5);
         observationLabel = new JLabel("Observations :");
         this.add(observationLabel, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.ipadx = 300;
-        gbc.gridwidth = 7;
+        gbc.ipadx = 500;
+        gbc.gridwidth = 8;
         observationsField = new JTextField();
         this.add(observationsField, gbc);
 
@@ -103,7 +106,7 @@ public class FenetreAjouterConsultation extends JFrame {
         enregistrerBouton.addActionListener(enregistrerButtonListener);
         this.add(enregistrerBouton, gbc);
 
-        gbc.gridx = 5;
+        gbc.gridx = 2;
         gbc.gridy = 2;
         annulerBouton = new JButton("Annuler");
         ButtonListener annulerButtonListener = new ButtonListener();
@@ -170,7 +173,11 @@ public class FenetreAjouterConsultation extends JFrame {
                         throw new FormatDateException();
                     }
 
-                    consultation = new Consultation(utilisateur.getId(), patient_id, observationsField.getText(), dateConsultation);
+                    if(observationsField.getText().length() > 250){
+                        throw new CaracteresLimiteException("Observations");
+                    }
+
+                    consultation = new Consultation(utilisateur.getId(), patient_id, (observationsField.getText().isEmpty())?null:observationsField.getText(), dateConsultation);
                     controller.addConsultation(consultation);
                     JOptionPane.showMessageDialog(null, "La consultation a été ajoutée", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                 }
