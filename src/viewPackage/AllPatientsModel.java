@@ -206,25 +206,50 @@ public class AllPatientsModel extends AbstractTableModel {
                     if (aValue instanceof String) {
                         patient.setNumTelFixe(aValue.toString());
                     }
+                    else{
+                        if (aValue == null) {
+                            patient.setNumTelFixe(null);
+                        }
+                    }
                     break;
                 case 7:
                     if (aValue instanceof String) {
                         patient.setNumTelMobile(aValue.toString());
+                    }
+                    else{
+                        if (aValue == null) {
+                            patient.setNumTelMobile(null);
+                        }
                     }
                     break;
                 case 8:
                     if (aValue instanceof String) {
                         patient.setRemarque(aValue.toString());
                     }
+                    else{
+                        if (aValue == null) {
+                            patient.setRemarque(null);
+                        }
+                    }
                     break;
                 case 9:
                     if (aValue instanceof String) {
                         patient.setASurveiller(aValue.toString());
                     }
+                    else{
+                        if (aValue == null) {
+                            patient.setASurveiller(null);
+                        }
+                    }
                     break;
                 case 10:
                     if (aValue instanceof String) {
                         patient.setConseils(aValue.toString());
+                    }
+                    else{
+                        if (aValue == null) {
+                            patient.setConseils(null);
+                        }
                     }
                     break;
                 case 11:
@@ -246,10 +271,20 @@ public class AllPatientsModel extends AbstractTableModel {
                     if (aValue instanceof String) {
                         patient.setCauseDecesPere(aValue.toString());
                     }
+                    else{
+                        if (aValue == null) {
+                            patient.setCauseDecesPere(null);
+                        }
+                    }
                     break;
                 case 15:
                     if (aValue instanceof String) {
                         patient.setCauseDecesMere(aValue.toString());
+                    }
+                    else{
+                        if (aValue == null) {
+                            patient.setCauseDecesMere(null);
+                        }
                     }
                     break;
                 case 16:
@@ -258,8 +293,13 @@ public class AllPatientsModel extends AbstractTableModel {
                     }
                     break;
                 case 17:
-                    if (aValue instanceof Integer) {
+                    if (aValue instanceof Integer ) {
                         patient.setMutualite_id(Integer.parseInt(aValue.toString()));
+                    }
+                    else{
+                        if (aValue == null) {
+                            patient.setMutualite_id(null);
+                        }
                     }
                     break;
             }

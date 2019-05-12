@@ -111,7 +111,7 @@ public class Patient {
     }
 
     public void setNumTelFixe(String numTelFixe) throws CaracteresLimiteException {
-        if(remarque != null){
+        if(numTelFixe != null){
             if(numTelFixe.length() > 20){
                 throw new CaracteresLimiteException("Numéro tel. fixe");
             }
@@ -120,7 +120,7 @@ public class Patient {
     }
 
     public void setNumTelMobile(String numTelMobile) throws CaracteresLimiteException {
-        if(remarque != null){
+        if(numTelMobile != null){
             if(numTelMobile.length() > 20){
                 throw new CaracteresLimiteException("Numéro tel. mobile");
             }
