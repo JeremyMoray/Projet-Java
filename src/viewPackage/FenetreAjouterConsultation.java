@@ -35,10 +35,12 @@ public class FenetreAjouterConsultation extends JFrame {
         this.setLayout(new GridBagLayout());
         dateConsultation = new GregorianCalendar();
 
+        int jourActuel = GregorianCalendar.getInstance().get(GregorianCalendar.DAY_OF_MONTH);
+        int moisActuel = GregorianCalendar.getInstance().get(GregorianCalendar.MONTH)+1;
         int anneeActuelle = GregorianCalendar.getInstance().get(GregorianCalendar.YEAR);
 
-        SpinnerModel modelJour = new SpinnerNumberModel(1, 1, 31, 1);
-        SpinnerModel modelMois = new SpinnerNumberModel(1, 1, 12, 1);
+        SpinnerModel modelJour = new SpinnerNumberModel(jourActuel, 1, 31, 1);
+        SpinnerModel modelMois = new SpinnerNumberModel(moisActuel, 1, 12, 1);
         SpinnerModel modelAnnee = new SpinnerNumberModel(anneeActuelle, anneeActuelle, anneeActuelle + 10, 1);
         SpinnerModel modelHeure = new SpinnerNumberModel(12, 0, 23, 1);
         SpinnerModel modelMinute = new SpinnerNumberModel(0, 0, 59, 5);

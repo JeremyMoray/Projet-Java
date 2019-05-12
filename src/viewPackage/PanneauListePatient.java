@@ -21,7 +21,7 @@ public class PanneauListePatient extends JPanel {
     private ApplicationController controller;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
-    private JButton modifierButton, supprimerButton, ajouterConsultationButton;
+    private JButton modifierButton, supprimerButton, ajouterConsultationButton, ajouterAllergieButton;
 
     private JLabel numeroNationalLabel, nomLabel, prenomLabel, nbEnfantsLabel, dateNaissanceLabel, numTelFixeLabel,
             numTelMobileLabel, remarqueLabel, aSurveillerLabel, conseilsLabel, donnerEtatLabel, besoinAvalLabel,

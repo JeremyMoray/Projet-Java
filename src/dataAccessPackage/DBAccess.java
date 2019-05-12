@@ -20,7 +20,7 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "select numeroNational from soignant where numeroNational = ?";
+            String sql = "select numeroNational from soignant where numeroNational = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, soignant.getNumeroNational());
@@ -31,7 +31,7 @@ public class DBAccess implements DataAccess{
                 throw new ChampsExistantException("Numéro national");
             }
 
-            String sql2 = "INSERT INTO Soignant values(?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql2 = "INSERT INTO Soignant values(?, ?, ?, ?, ?, ?, ?, ?);";
             statement = connection.prepareStatement(sql2);
 
             statement.setNull(1, Types.INTEGER);
@@ -58,7 +58,7 @@ public class DBAccess implements DataAccess{
     public Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException{
         try{
             Connection connection = SingletonConnection.getInstance();
-            String sql = "select * from soignant where numeroNational = ? and motDePasse = ?";
+            String sql = "select * from soignant where numeroNational = ? and motDePasse = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, numNat);
@@ -89,7 +89,7 @@ public class DBAccess implements DataAccess{
     public Soignant getSoignant(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException {
         try{
             Connection connection = SingletonConnection.getInstance();
-            String sql = "select * from soignant where soignant_id = ?";
+            String sql = "select * from soignant where soignant_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, soignant_id);
@@ -118,7 +118,7 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "select * from soignant where soignant_id != ? and numeroNational = ?";
+            String sql = "select * from soignant where soignant_id != ? and numeroNational = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -131,7 +131,7 @@ public class DBAccess implements DataAccess{
                 throw new ChampsExistantException("Numéro national");
             }
 
-            String sql2 = "UPDATE Soignant set numeroNational = ?, motDePasse = ?, nom = ?, prenom = ?, numTel = ?, numeroINAMI = ?, specialite = ? where soignant_id = ?";
+            String sql2 = "UPDATE Soignant set numeroNational = ?, motDePasse = ?, nom = ?, prenom = ?, numTel = ?, numeroINAMI = ?, specialite = ? where soignant_id = ?;";
             statement = connection.prepareStatement(sql2);
 
             statement.setString(1, soignantModifié.getNumeroNational());
@@ -159,9 +159,17 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "delete from soignant where soignant_id = ?";
+            String sql = "delete from consultation where soignant_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, soignant_id);
+
+            statement.executeUpdate();
+
+            String sql2 = "delete from soignant where soignant_id = ?;";
+
+            statement = connection.prepareStatement(sql2);
 
             statement.setInt(1, soignant_id);
 
@@ -176,7 +184,7 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "INSERT INTO Mutualite values(?, ?, ?, ?)";
+            String sql = "INSERT INTO Mutualite values(?, ?, ?, ?);";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -196,7 +204,7 @@ public class DBAccess implements DataAccess{
     public ArrayList<Mutualite> getAllMutualites() throws AccesDBException, ChampsVideException, CaracteresLimiteException {
         try{
             Connection connection = SingletonConnection.getInstance();
-            String sql = "select * from mutualite";
+            String sql = "select * from mutualite;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -225,7 +233,7 @@ public class DBAccess implements DataAccess{
     public Mutualite getMutualite(Integer mutualite_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException {
         try{
             Connection connection = SingletonConnection.getInstance();
-            String sql = "select * from mutualite where mutualite_id = ?";
+            String sql = "select * from mutualite where mutualite_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, mutualite_id);
@@ -252,7 +260,7 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "delete from mutualite where mutualite_id = ?";
+            String sql = "delete from mutualite where mutualite_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -270,7 +278,7 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "update mutualite set libelle = ?, affiliationPolitique = ?, diminutif = ? where mutualite_id = ?";
+            String sql = "update mutualite set libelle = ?, affiliationPolitique = ?, diminutif = ? where mutualite_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -291,7 +299,7 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "INSERT INTO Allergie values(?, ?, ?, ?)";
+            String sql = "INSERT INTO Allergie values(?, ?, ?, ?);";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -311,7 +319,7 @@ public class DBAccess implements DataAccess{
     public ArrayList<Allergie> getAllAllergies() throws AccesDBException, ChampsVideException, CaracteresLimiteException{
         try{
             Connection connection = SingletonConnection.getInstance();
-            String sql = "select * from allergie";
+            String sql = "select * from allergie;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -341,7 +349,7 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "delete from allergie where allergie_id = ?";
+            String sql = "delete from allergie where allergie_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -359,7 +367,7 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "update allergie set libelle = ?, symptome = ?, conditionnement = ? where allergie_id = ?";
+            String sql = "update allergie set libelle = ?, symptome = ?, conditionnement = ? where allergie_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -380,7 +388,7 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "INSERT INTO medicament values(?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO medicament values(?, ?, ?, ?, ?, ?, ?, ?);";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -404,7 +412,7 @@ public class DBAccess implements DataAccess{
     public ArrayList<Medicament> getAllMedicaments() throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException{
         try{
             Connection connection = SingletonConnection.getInstance();
-            String sql = "select * from medicament";
+            String sql = "select * from medicament;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -438,7 +446,7 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "delete from medicament where medicament_id = ?";
+            String sql = "delete from medicament where medicament_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -457,7 +465,7 @@ public class DBAccess implements DataAccess{
             Connection connection = SingletonConnection.getInstance();
 
             String sql = "update medicament set codeCNK = ?, nom = ?, firme = ?, principeActif = ?," +
-                    "codeATC = ?, caracteristique = ?, tauxRemboursement = ? where medicament_id = ?";
+                    "codeATC = ?, caracteristique = ?, tauxRemboursement = ? where medicament_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -482,7 +490,7 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "INSERT INTO patient values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO patient values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -522,7 +530,7 @@ public class DBAccess implements DataAccess{
     public ArrayList<Patient> getAllPatients() throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
         try{
             Connection connection = SingletonConnection.getInstance();
-            String sql = "select * from patient";
+            String sql = "select * from patient;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -566,9 +574,17 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "delete from patient where patient_id = ?";
+            String sql = "delete from consultation where patient_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, patient_id);
+
+            statement.executeUpdate();
+
+            String sql2 = "delete from patient where patient_id = ?;";
+
+            statement = connection.prepareStatement(sql2);
 
             statement.setInt(1, patient_id);
 
