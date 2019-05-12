@@ -476,7 +476,7 @@ public class PanneauInscriptionPatient extends JPanel{
 
             if(event.getSource() == retourBouton){
                 frameContainer.removeAll();
-                frameContainer.add(new PageConnexion(frameContainer));
+                frameContainer.add(new MenuUtilisateur(frameContainer, utilisateur));
                 frameContainer.revalidate();
                 frameContainer.repaint();
             }

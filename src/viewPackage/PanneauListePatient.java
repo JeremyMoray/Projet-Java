@@ -21,7 +21,7 @@ public class PanneauListePatient extends JPanel {
     private ApplicationController controller;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
-    private JButton modifierButton, supprimerButton;
+    private JButton modifierButton, supprimerButton, ajouterConsultationButton;
 
     private JLabel numeroNationalLabel, nomLabel, prenomLabel, nbEnfantsLabel, dateNaissanceLabel, numTelFixeLabel,
             numTelMobileLabel, remarqueLabel, aSurveillerLabel, conseilsLabel, donnerEtatLabel, besoinAvalLabel,
@@ -379,6 +379,12 @@ public class PanneauListePatient extends JPanel {
         supprimerButton.addActionListener(supprimerListener);
         this.add(supprimerButton, gbc);
 
+        gbc.gridx = 4;
+        ajouterConsultationButton = new JButton("Ajouter une consultation");
+        ButtonListener ajouterConsultationListener = new ButtonListener();
+        ajouterConsultationButton.addActionListener(ajouterConsultationListener);
+        this.add(ajouterConsultationButton, gbc);
+
         desactiverModifications();
     }
 
@@ -506,7 +512,7 @@ public class PanneauListePatient extends JPanel {
                         if(jour < 0 || jour > 31){
                             throw new FormatDateException();
                         }
-                        if(mois < 0 || mois > 31){
+                        if(mois < 0 || mois > 12){
                             throw new FormatDateException();
                         }
                         if(annee < 1900 || annee > dateActuelle.get(Calendar.YEAR)){
@@ -679,6 +685,21 @@ public class PanneauListePatient extends JPanel {
                 }
                 catch (AccesDBException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (AucuneSelectionException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            if(event.getSource() == ajouterConsultationButton){
+                try{
+                    int indiceLigneSelectionnee = listSelect.getMinSelectionIndex();
+
+                    if(indiceLigneSelectionnee == -1){
+                        throw new AucuneSelectionException();
+                    }
+
+                    new FenetreAjouterConsultation(utilisateur, Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
                 }
                 catch (AucuneSelectionException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

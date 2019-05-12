@@ -622,4 +622,30 @@ public class DBAccess implements DataAccess{
             throw new AccesDBException(exception.getMessage());
         }
     }
+
+    public void addConsultation(Consultation consultation) throws AccesDBException{
+        try {
+            Connection connection = SingletonConnection.getInstance();
+
+            String sql = "INSERT INTO consultation values(?, ?, ?, ?)";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setDate(1, new java.sql.Date(consultation.getDateConsultation().getTimeInMillis()));
+            if(consultation.getObservations() == null){
+                statement.setNull(2, Types.VARCHAR);
+            }
+            else{
+                statement.setString(2, consultation.getObservations());
+            }
+            statement.setInt(3, consultation.getSoignant_id());
+            statement.setInt(4, consultation.getPatient_id());
+
+            statement.executeUpdate();
+
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
 }

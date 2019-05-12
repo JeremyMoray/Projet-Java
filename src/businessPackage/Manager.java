@@ -105,6 +105,10 @@ public class Manager {
         dao.updatePatient(patient);
     }
 
+    public void addConsultation(Consultation consultation) throws AccesDBException{
+        dao.addConsultation(consultation);
+    }
+
     public void setDao(DBAccess dao) {
         this.dao = dao;
     }

@@ -105,6 +105,10 @@ public class ApplicationController {
         manager.updatePatient(patient);
     }
 
+    public void addConsultation(Consultation consultation) throws AccesDBException{
+        manager.addConsultation(consultation);
+    }
+
     public void setManager(Manager manager){
         this.manager = manager;
     }
