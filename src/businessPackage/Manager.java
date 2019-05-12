@@ -105,7 +105,7 @@ public class Manager {
         dao.updatePatient(patient);
     }
 
-    public void addConsultation(Consultation consultation) throws AccesDBException{
+    public void addConsultation(Consultation consultation) throws AccesDBException, ObjetExistantException{
         dao.addConsultation(consultation);
     }
 

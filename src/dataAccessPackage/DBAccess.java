@@ -623,13 +623,26 @@ public class DBAccess implements DataAccess{
         }
     }
 
-    public void addConsultation(Consultation consultation) throws AccesDBException{
+    public void addConsultation(Consultation consultation) throws AccesDBException, ObjetExistantException{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "INSERT INTO consultation values(?, ?, ?, ?)";
+            String sql = "select dateConsultation from consultation where dateConsultation = ? and soignant_id = ? and patient_id = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setDate(1, new java.sql.Date(consultation.getDateConsultation().getTimeInMillis()));
+            statement.setInt(2, consultation.getSoignant_id());
+            statement.setInt(3, consultation.getPatient_id());
+
+            ResultSet data = statement.executeQuery();
+
+            if (data.next()) {
+                throw new ObjetExistantException("Cette consultation existe déjà");
+            }
+
+            String sql2 = "INSERT INTO consultation values(?, ?, ?, ?)";
+
+            statement = connection.prepareStatement(sql2);
 
             statement.setDate(1, new java.sql.Date(consultation.getDateConsultation().getTimeInMillis()));
             if(consultation.getObservations() == null){
