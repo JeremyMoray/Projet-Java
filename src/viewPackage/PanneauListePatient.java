@@ -385,6 +385,12 @@ public class PanneauListePatient extends JPanel {
         ajouterConsultationButton.addActionListener(ajouterConsultationListener);
         this.add(ajouterConsultationButton, gbc);
 
+        gbc.gridx = 5;
+        ajouterAllergieButton = new JButton("Ajouter une allergie");
+        ButtonListener ajouterAllergieListener = new ButtonListener();
+        ajouterAllergieButton.addActionListener(ajouterAllergieListener);
+        this.add(ajouterAllergieButton, gbc);
+
         desactiverModifications();
     }
 
@@ -700,6 +706,21 @@ public class PanneauListePatient extends JPanel {
                     }
 
                     new FenetreAjouterConsultation(utilisateur, Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
+                }
+                catch (AucuneSelectionException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            if(event.getSource() == ajouterAllergieButton){
+                try{
+                    int indiceLigneSelectionnee = listSelect.getMinSelectionIndex();
+
+                    if(indiceLigneSelectionnee == -1){
+                        throw new AucuneSelectionException();
+                    }
+
+                    new FenetreAjouterAllergie(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
                 }
                 catch (AucuneSelectionException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

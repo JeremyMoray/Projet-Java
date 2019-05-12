@@ -349,9 +349,17 @@ public class DBAccess implements DataAccess{
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String sql = "delete from allergie where allergie_id = ?;";
+            String sql = "delete from souffrance where allergie_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, allergie_id);
+
+            statement.executeUpdate();
+
+            String sql2 = "delete from allergie where allergie_id = ?;";
+
+            statement = connection.prepareStatement(sql2);
 
             statement.setInt(1, allergie_id);
 
@@ -582,9 +590,17 @@ public class DBAccess implements DataAccess{
 
             statement.executeUpdate();
 
-            String sql2 = "delete from patient where patient_id = ?;";
+            String sql2 = "delete from souffrance where patient_id = ?;";
 
             statement = connection.prepareStatement(sql2);
+
+            statement.setInt(1, patient_id);
+
+            statement.executeUpdate();
+
+            String sql3 = "delete from patient where patient_id = ?;";
+
+            statement = connection.prepareStatement(sql3);
 
             statement.setInt(1, patient_id);
 
@@ -669,6 +685,37 @@ public class DBAccess implements DataAccess{
             }
             statement.setInt(3, consultation.getSoignant_id());
             statement.setInt(4, consultation.getPatient_id());
+
+            statement.executeUpdate();
+
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
+    public void addSouffrance(Souffrance souffrance) throws AccesDBException, ObjetExistantException{
+        try {
+            Connection connection = SingletonConnection.getInstance();
+
+            String sql = "select allergie_id from souffrance where patient_id = ? and allergie_id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, souffrance.getPatient_id());
+            statement.setInt(2, souffrance.getAllergie_id());
+
+            ResultSet data = statement.executeQuery();
+
+            if (data.next()) {
+                throw new ObjetExistantException("Ce patient souffre déjà de cette allergie");
+            }
+
+            String sql2 = "INSERT INTO souffrance values(?, ?)";
+
+            statement = connection.prepareStatement(sql2);
+
+            statement.setInt(1, souffrance.getPatient_id());
+            statement.setInt(2, souffrance.getAllergie_id());
 
             statement.executeUpdate();
 

@@ -35,4 +35,5 @@ public interface DataAccess {
     void updatePatient(Patient patient) throws AccesDBException;
 
     void addConsultation(Consultation consultation) throws AccesDBException, ObjetExistantException;
+    void addSouffrance(Souffrance souffrance) throws AccesDBException, ObjetExistantException;
 }

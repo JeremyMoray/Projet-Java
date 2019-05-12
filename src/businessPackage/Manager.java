@@ -109,6 +109,10 @@ public class Manager {
         dao.addConsultation(consultation);
     }
 
+    public void addSouffrance(Souffrance souffrance) throws AccesDBException, ObjetExistantException{
+        dao.addSouffrance(souffrance);
+    }
+
     public void setDao(DBAccess dao) {
         this.dao = dao;
     }

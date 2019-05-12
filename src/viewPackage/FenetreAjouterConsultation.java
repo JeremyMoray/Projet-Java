@@ -172,7 +172,7 @@ public class FenetreAjouterConsultation extends JFrame {
 
                     consultation = new Consultation(utilisateur.getId(), patient_id, observationsField.getText(), dateConsultation);
                     controller.addConsultation(consultation);
-                    JOptionPane.showMessageDialog(null, "La consultation a été ajoutée", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "La consultation a été ajoutée", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                 }
                 catch (AccesDBException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
