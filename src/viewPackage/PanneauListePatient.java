@@ -21,7 +21,7 @@ public class PanneauListePatient extends JPanel {
     private ApplicationController controller;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
-    private JButton modifierButton, supprimerButton, ajouterConsultationButton, ajouterAllergieButton;
+    private JButton modifierButton, supprimerButton, ajouterConsultationButton, ajouterAllergieButton, ajouterTraitementButton;
 
     private JLabel numeroNationalLabel, nomLabel, prenomLabel, nbEnfantsLabel, dateNaissanceLabel, numTelFixeLabel,
             numTelMobileLabel, remarqueLabel, aSurveillerLabel, conseilsLabel, donnerEtatLabel, besoinAvalLabel,
@@ -366,7 +366,7 @@ public class PanneauListePatient extends JPanel {
 
         //Boutons
 
-        gbc.ipadx = 50;
+        gbc.ipadx = 10;
         gbc.gridx = 2;
         modifierButton = new JButton("Modifier");
         ButtonListener modifierListener = new ButtonListener();
@@ -390,6 +390,12 @@ public class PanneauListePatient extends JPanel {
         ButtonListener ajouterAllergieListener = new ButtonListener();
         ajouterAllergieButton.addActionListener(ajouterAllergieListener);
         this.add(ajouterAllergieButton, gbc);
+
+        gbc.gridx = 6;
+        ajouterTraitementButton = new JButton("Ajouter un traitement");
+        ButtonListener ajouterTraitementListener = new ButtonListener();
+        ajouterTraitementButton.addActionListener(ajouterTraitementListener);
+        this.add(ajouterTraitementButton, gbc);
 
         desactiverModifications();
     }
@@ -596,8 +602,8 @@ public class PanneauListePatient extends JPanel {
                             prenomField.getText(),
                             Integer.parseInt(nbEnfantsField.getText()),
                             dateNaissance,
-                            (numTelFixeField.getText().isEmpty()?null:remarqueField.getText()),
-                            (numTelMobileField.getText().isEmpty()?null:remarqueField.getText()),
+                            (numTelFixeField.getText().isEmpty()?null:numTelFixeField.getText()),
+                            (numTelMobileField.getText().isEmpty()?null:numTelMobileField.getText()),
                             (remarqueField.getText().isEmpty()?null:remarqueField.getText()),
                             (aSurveillerField.getText().isEmpty()?null:aSurveillerField.getText()),
                             (conseilsField.getText().isEmpty()?null:conseilsField.getText()),
@@ -721,6 +727,21 @@ public class PanneauListePatient extends JPanel {
                     }
 
                     new FenetreAjouterAllergie(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
+                }
+                catch (AucuneSelectionException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            if(event.getSource() == ajouterTraitementButton){
+                try{
+                    int indiceLigneSelectionnee = listSelect.getMinSelectionIndex();
+
+                    if(indiceLigneSelectionnee == -1){
+                        throw new AucuneSelectionException();
+                    }
+
+                    new FenetreAjouterTraitement(utilisateur, Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
                 }
                 catch (AucuneSelectionException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
