@@ -394,19 +394,23 @@ public class PanneauListeMedicament extends JPanel{
                         throw new AucuneSelectionException();
                     }
 
-                    controller.deleteMedicament(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
+                    int reponse = JOptionPane.showConfirmDialog(PanneauListeMedicament.this, "Confirmer la suppression ?", "Suppression", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-                    model.removeRow(indiceLigneSelectionnee);
+                    if(reponse == JOptionPane.YES_OPTION){
+                        controller.deleteMedicament(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
 
-                    codeCNKField.setText("");
-                    nomField.setText("");
-                    firmeField.setText("");
-                    principeActifField.setText("");
-                    codeATCField.setText("");
-                    caracteristiqueField.setText("");
-                    tauxRemboursementField.setText("");
+                        model.removeRow(indiceLigneSelectionnee);
 
-                    desactiverModifications();
+                        codeCNKField.setText("");
+                        nomField.setText("");
+                        firmeField.setText("");
+                        principeActifField.setText("");
+                        codeATCField.setText("");
+                        caracteristiqueField.setText("");
+                        tauxRemboursementField.setText("");
+
+                        desactiverModifications();
+                    }
                 }
                 catch (AccesDBException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

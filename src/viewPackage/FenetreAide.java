@@ -14,15 +14,15 @@ public class FenetreAide extends JFrame {
         super("Aide");
         setBounds((int)(FenetreMenu.getWindowWidth() * 0.30), (int)(FenetreMenu.getWindowHeight() * 0.30),
                 (int)(FenetreMenu.getWindowWidth() * 0.40), (int)(FenetreMenu.getWindowHeight() * 0.40));
+        setLayout(new GridBagLayout());
 
         JLabel label = new JLabel("Ajoutez vous même une mutualité, un patient, un médicament, " +
                 "une allergie, etc..., dans les menus correspondant");
-        label.setHorizontalAlignment(SwingConstants.CENTER);
         button = new JButton("Quitter");
         ButtonListener listener = new ButtonListener();
         button.addActionListener(listener);
 
-        this.setLayout(new GridBagLayout());
+
         gbc.insets = new Insets(20,0,20,0);
         gbc.ipadx = 20;
         gbc.gridx = 0;

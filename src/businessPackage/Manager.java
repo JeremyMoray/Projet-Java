@@ -89,7 +89,13 @@ public class Manager {
         dao.updateMedicament(medicament);
     }
 
-    public void addPatient(Patient patient) throws AccesDBException {
+    public void addPatient(Patient patient) throws AccesDBException, FormatNombreException {
+        if(patient.getNbEnfants() > 50){
+            throw new FormatNombreException("Nombre d'enfants");
+        }
+        if(patient.getPrimeAnuelle() > 10000){
+            throw new FormatNombreException("Prime anuelle");
+        }
         dao.addPatient(patient);
     }
 

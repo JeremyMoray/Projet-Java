@@ -203,15 +203,19 @@ public class PanneauListeMutualite extends JPanel{
                         throw new AucuneSelectionException();
                     }
 
-                    controller.deleteMutualite(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
+                    int reponse = JOptionPane.showConfirmDialog(PanneauListeMutualite.this, "Confirmer la suppression ?", "Suppression", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-                    model.removeRow(indiceLigneSelectionnee);
+                    if(reponse == JOptionPane.YES_OPTION){
+                        controller.deleteMutualite(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
 
-                    nomField.setText("");
-                    affiliationPolitiqueField.setText("");
-                    diminutifField.setText("");
+                        model.removeRow(indiceLigneSelectionnee);
 
-                    desactiverModifications();
+                        nomField.setText("");
+                        affiliationPolitiqueField.setText("");
+                        diminutifField.setText("");
+
+                        desactiverModifications();
+                    }
                 }
                 catch (AccesDBException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

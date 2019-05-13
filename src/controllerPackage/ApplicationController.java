@@ -89,7 +89,7 @@ public class ApplicationController {
         manager.updateMedicament(medicament);
     }
 
-    public void addPatient(Patient patient) throws AccesDBException {
+    public void addPatient(Patient patient) throws AccesDBException, FormatNombreException {
         manager.addPatient(patient);
     }
 

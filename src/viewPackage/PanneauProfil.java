@@ -265,14 +265,18 @@ public class PanneauProfil extends JPanel{
 
             if(event.getSource() == supprimerBoutton){
                 try{
-                    controller.deleteSoignant(utilisateur.getId());
+                    int reponse = JOptionPane.showConfirmDialog(PanneauProfil.this, "Confirmer la suppression de votre compte ?", "Suppression", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-                    frameContainer.removeAll();
-                    frameContainer.add(new PageConnexion(frameContainer));
-                    frameContainer.revalidate();
-                    frameContainer.repaint();
+                    if(reponse == JOptionPane.YES_OPTION){
+                        controller.deleteSoignant(utilisateur.getId());
 
-                    JOptionPane.showMessageDialog(null, "Votre compte a bien été supprimé", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                        frameContainer.removeAll();
+                        frameContainer.add(new PageConnexion(frameContainer));
+                        frameContainer.revalidate();
+                        frameContainer.repaint();
+
+                        JOptionPane.showMessageDialog(null, "Votre compte a bien été supprimé", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
                 catch (AccesDBException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

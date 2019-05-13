@@ -675,31 +675,35 @@ public class PanneauListePatient extends JPanel {
                         throw new AucuneSelectionException();
                     }
 
-                    controller.deletePatient(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
+                    int reponse = JOptionPane.showConfirmDialog(PanneauListePatient.this, "Confirmer la suppression ?", "Suppression", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-                    model.removeRow(indiceLigneSelectionnee);
+                    if(reponse == JOptionPane.YES_OPTION){
+                        controller.deletePatient(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
 
-                    numeroNationalField.setText("");
-                    nomField.setText("");
-                    prenomField.setText("");
-                    nbEnfantsField.setText("");
-                    datePanel.setJourField("1");
-                    datePanel.setMoisField("1");
-                    datePanel.setAnneeField("1900");
-                    numTelFixeField.setText("");
-                    numTelMobileField.setText("");
-                    remarqueField.setText("");
-                    aSurveillerField.setText("");
-                    conseilsField.setText("");
-                    donnerEtatBox.setSelected(false);
-                    besoinAvalBox.setSelected(false);
-                    acharnementTherapeutiqueBox.setSelected(false);
-                    causeDecesPereField.setText("");
-                    causeDecesMereField.setText("");
-                    primeAnuelleField.setText("");
-                    mutualites.setSelectedItem("Aucune");
+                        model.removeRow(indiceLigneSelectionnee);
 
-                    desactiverModifications();
+                        numeroNationalField.setText("");
+                        nomField.setText("");
+                        prenomField.setText("");
+                        nbEnfantsField.setText("");
+                        datePanel.setJourField("1");
+                        datePanel.setMoisField("1");
+                        datePanel.setAnneeField("1900");
+                        numTelFixeField.setText("");
+                        numTelMobileField.setText("");
+                        remarqueField.setText("");
+                        aSurveillerField.setText("");
+                        conseilsField.setText("");
+                        donnerEtatBox.setSelected(false);
+                        besoinAvalBox.setSelected(false);
+                        acharnementTherapeutiqueBox.setSelected(false);
+                        causeDecesPereField.setText("");
+                        causeDecesMereField.setText("");
+                        primeAnuelleField.setText("");
+                        mutualites.setSelectedItem("Aucune");
+
+                        desactiverModifications();
+                    }
                 }
                 catch (AccesDBException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

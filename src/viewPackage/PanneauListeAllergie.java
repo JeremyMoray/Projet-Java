@@ -203,15 +203,19 @@ public class PanneauListeAllergie extends JPanel{
                         throw new AucuneSelectionException();
                     }
 
-                    controller.deleteAllergie(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
+                    int reponse = JOptionPane.showConfirmDialog(PanneauListeAllergie.this, "Confirmer la suppression ?", "Suppression", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-                    model.removeRow(indiceLigneSelectionnee);
+                    if(reponse == JOptionPane.YES_OPTION){
+                        controller.deleteAllergie(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
 
-                    nomField.setText("");
-                    symptomeField.setText("");
-                    conditionnementField.setText("");
+                        model.removeRow(indiceLigneSelectionnee);
 
-                    desactiverModifications();
+                        nomField.setText("");
+                        symptomeField.setText("");
+                        conditionnementField.setText("");
+
+                        desactiverModifications();
+                    }
                 }
                 catch (AccesDBException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
