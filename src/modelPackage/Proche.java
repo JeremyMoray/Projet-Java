@@ -1,5 +1,8 @@
 package modelPackage;
 
+import exceptionPackage.CaracteresLimiteException;
+import exceptionPackage.ChampsVideException;
+
 public class Proche {
 
     private Integer proche_id;
@@ -7,10 +10,10 @@ public class Proche {
     private String prenom;
     private String numTel;
     private String remarques;
-    private Boolean aAccesInfosMedicales;
-    private Boolean aAppellerSiUrgence;
+    private boolean aAccesInfosMedicales;
+    private boolean aAppellerSiUrgence;
 
-    public Proche(Integer proche_id, String nom, String prenom, String numTel, String remarques, Boolean aAccesInfosMedicales, Boolean aAppellerSiUrgence) {
+    public Proche(Integer proche_id, String nom, String prenom, String numTel, String remarques, Boolean aAccesInfosMedicales, Boolean aAppellerSiUrgence) throws ChampsVideException, CaracteresLimiteException{
         setProche_id(proche_id);
         setNom(nom);
         setPrenom(prenom);
@@ -24,19 +27,42 @@ public class Proche {
         this.proche_id = proche_id;
     }
 
-    public void setNom(String nom) {
+    public void setNom(String nom) throws ChampsVideException, CaracteresLimiteException{
+        if(nom == null){
+            throw new ChampsVideException("Nom");
+        }
+        if(nom.length() > 50){
+            throw new CaracteresLimiteException("Nom");
+        }
         this.nom = nom;
     }
 
-    public void setPrenom(String prenom) {
+    public void setPrenom(String prenom) throws ChampsVideException, CaracteresLimiteException{
+        if(prenom == null){
+            throw new ChampsVideException("Prénom");
+        }
+        if(prenom.length() > 50){
+            throw new CaracteresLimiteException("Prénom");
+        }
         this.prenom = prenom;
     }
 
-    public void setNumTel(String numTel) {
+    public void setNumTel(String numTel) throws ChampsVideException, CaracteresLimiteException{
+        if(prenom == null){
+            throw new ChampsVideException("Numéro de téléphone");
+        }
+        if(prenom.length() > 20){
+            throw new CaracteresLimiteException("Numéro de téléphone");
+        }
         this.numTel = numTel;
     }
 
-    public void setRemarques(String remarques) {
+    public void setRemarques(String remarques) throws CaracteresLimiteException{
+        if(remarques != null){
+            if(remarques.length() > 250){
+                throw new CaracteresLimiteException("Remarque");
+            }
+        }
         this.remarques = remarques;
     }
 
@@ -68,11 +94,11 @@ public class Proche {
         return remarques;
     }
 
-    public Boolean getaAccesInfosMedicales() {
+    public Boolean isAAccesInfosMedicales() {
         return aAccesInfosMedicales;
     }
 
-    public Boolean getaAppellerSiUrgence() {
+    public Boolean isAAppellerSiUrgence() {
         return aAppellerSiUrgence;
     }
 }

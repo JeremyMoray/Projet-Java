@@ -121,6 +121,14 @@ public class Manager {
         dao.addReaction(reaction);
     }
 
+    public Integer addProche(Proche proche, Integer patient_id) throws AccesDBException, ObjetExistantException{
+        return dao.addProche(proche, patient_id);
+    }
+
+    public void addRelation(Relation relation) throws AccesDBException{
+        dao.addRelation(relation);
+    }
+
     public void setDao(DBAccess dao) {
         this.dao = dao;
     }

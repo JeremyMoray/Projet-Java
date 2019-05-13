@@ -638,9 +638,17 @@ public class DBAccess implements DataAccess{
 
             statement.executeUpdate();
 
-            String sql4 = "delete from patient where patient_id = ?;";
+            String sql4 = "delete from relation where patient_id = ?;";
 
             statement = connection.prepareStatement(sql4);
+
+            statement.setInt(1, patient_id);
+
+            statement.executeUpdate();
+
+            String sql5 = "delete from patient where patient_id = ?;";
+
+            statement = connection.prepareStatement(sql5);
 
             statement.setInt(1, patient_id);
 
@@ -836,6 +844,74 @@ public class DBAccess implements DataAccess{
 
             statement.setInt(1, reaction.getAllergie_id());
             statement.setInt(2, reaction.getMedicament_id());
+
+            statement.executeUpdate();
+
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
+    public Integer addProche(Proche proche, Integer patient_id) throws AccesDBException, ObjetExistantException{
+        try {
+            Connection connection = SingletonConnection.getInstance();
+
+            String sql = "select proche.proche_id from proche, relation where relation.patient_id = ? and relation.proche_id = proche.proche_id and proche.numTel = ?;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, patient_id);
+            statement.setString(2, proche.getNumTel());
+
+            ResultSet data = statement.executeQuery();
+
+            if (data.next()) {
+                throw new ObjetExistantException("Vous avez déjà ajouté ce proche à ce patient");
+            }
+
+            String sql2 = "INSERT INTO proche values(?, ?, ?, ?, ?, ?, ?);";
+
+            statement = connection.prepareStatement(sql2);
+
+            statement.setNull(1, Types.INTEGER);
+            statement.setString(2, proche.getNom());
+            statement.setString(3, proche.getPrenom());
+            statement.setString(4, proche.getNumTel());
+            if(proche.getRemarques() == null){
+                statement.setNull(5, Types.VARCHAR);
+            }
+            else{
+                statement.setString(5, proche.getRemarques());
+            }
+            statement.setBoolean(6, proche.isAAccesInfosMedicales());
+            statement.setBoolean(7, proche.isAAppellerSiUrgence());
+
+            statement.executeUpdate();
+
+            String sql3 = "SELECT LAST_INSERT_ID();";
+
+            statement = connection.prepareStatement(sql3);
+
+            data = statement.executeQuery();
+            data.next();
+
+            return data.getInt(1);
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
+    public void addRelation(Relation relation) throws AccesDBException{
+        try {
+            Connection connection = SingletonConnection.getInstance();
+
+            String sql = "INSERT INTO relation values(?, ?);";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, relation.getProche_id());
+            statement.setInt(2, relation.getPatient_id());
 
             statement.executeUpdate();
 

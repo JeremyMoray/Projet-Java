@@ -38,4 +38,6 @@ public interface DataAccess {
     void addSouffrance(Souffrance souffrance) throws AccesDBException, ObjetExistantException;
     void addTraitement(Traitement traitement) throws AccesDBException, ObjetExistantException, AllergieAMedicamentException;
     void addReaction(Reaction reaction) throws AccesDBException, ObjetExistantException;
+    Integer addProche(Proche proche, Integer patient_id) throws AccesDBException, ObjetExistantException;
+    void addRelation(Relation relation) throws AccesDBException;
 }

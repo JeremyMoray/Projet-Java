@@ -122,7 +122,7 @@ public class PanneauListePatient extends JPanel {
         table.getColumnModel().getColumn(16).setCellRenderer(rightRenderer);
         table.getColumnModel().getColumn(17).setCellRenderer(rightRenderer);
 
-        gbc.ipadx = 900;
+        gbc.ipadx = 1000;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 8;

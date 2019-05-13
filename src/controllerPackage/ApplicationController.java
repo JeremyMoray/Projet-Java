@@ -121,6 +121,14 @@ public class ApplicationController {
         manager.addReaction(reaction);
     }
 
+    public Integer addProche(Proche proche, Integer patient_id) throws AccesDBException, ObjetExistantException{
+        return manager.addProche(proche, patient_id);
+    }
+
+    public void addRelation(Relation relation) throws AccesDBException{
+        manager.addRelation(relation);
+    }
+
     public void setManager(Manager manager){
         this.manager = manager;
     }
