@@ -21,7 +21,7 @@ public class PanneauListePatient extends JPanel {
     private ApplicationController controller;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
-    private JButton modifierButton, supprimerButton, ajouterConsultationButton, ajouterAllergieButton, ajouterTraitementButton;
+    private JButton modifierButton, supprimerButton, ajouterConsultationButton, ajouterAllergieButton, ajouterTraitementButton, ajouterProcheButton;
 
     private JLabel numeroNationalLabel, nomLabel, prenomLabel, nbEnfantsLabel, dateNaissanceLabel, numTelFixeLabel,
             numTelMobileLabel, remarqueLabel, aSurveillerLabel, conseilsLabel, donnerEtatLabel, besoinAvalLabel,
@@ -397,6 +397,12 @@ public class PanneauListePatient extends JPanel {
         ajouterTraitementButton.addActionListener(ajouterTraitementListener);
         this.add(ajouterTraitementButton, gbc);
 
+        gbc.gridx = 7;
+        ajouterProcheButton = new JButton("Ajouter un proche");
+        ButtonListener ajouterProcheListener = new ButtonListener();
+        ajouterProcheButton.addActionListener(ajouterProcheListener);
+        this.add(ajouterProcheButton, gbc);
+
         desactiverModifications();
     }
 
@@ -742,6 +748,21 @@ public class PanneauListePatient extends JPanel {
                     }
 
                     new FenetreAjouterTraitement(utilisateur, Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
+                }
+                catch (AucuneSelectionException exception){
+                    JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            if(event.getSource() == ajouterProcheButton){
+                try{
+                    int indiceLigneSelectionnee = listSelect.getMinSelectionIndex();
+
+                    if(indiceLigneSelectionnee == -1){
+                        throw new AucuneSelectionException();
+                    }
+
+                    new FenetreAjouterProche(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
                 }
                 catch (AucuneSelectionException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
