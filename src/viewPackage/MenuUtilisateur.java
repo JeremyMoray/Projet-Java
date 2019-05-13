@@ -16,7 +16,7 @@ public class MenuUtilisateur extends JPanel{
     private ApplicationController controller;
     private JMenuBar menuBar;
     private JMenu application, soignant, patient, medicament, allergie, mutualite, autres;
-    private JMenuItem accueil, quitter, monProfil, seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche,
+    private JMenuItem accueil, quitter, monProfil, rechercheProcheDePatient, seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche,
             ajouterMedicament, listeMedicament, ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide;
     private GridBagConstraints gbc = new GridBagConstraints();
 
@@ -59,6 +59,14 @@ public class MenuUtilisateur extends JPanel{
         soignant.add(monProfil);
         MonProfilListener monProfilListener = new MonProfilListener();
         monProfil.addActionListener(monProfilListener);
+
+        soignant.addSeparator();
+
+        //Cette recherche trouve les proches des patients consultés par le soignant à appeller en cas d'urgence
+        rechercheProcheDePatient = new JMenuItem("Rechercher un proche d'un patient (Urgence)");
+        soignant.add(rechercheProcheDePatient);
+        RechercheListener rechercheProcheDePatientListener = new RechercheListener();
+        rechercheProcheDePatient.addActionListener(rechercheProcheDePatientListener);
 
         soignant.addSeparator();
 
@@ -191,6 +199,16 @@ public class MenuUtilisateur extends JPanel{
         public void actionPerformed (ActionEvent event) {
             MenuUtilisateur.this.removeAll();
             MenuUtilisateur.this.add(new PanneauProfil(frameContainer, utilisateur), gbc);
+            MenuUtilisateur.this.revalidate();
+            MenuUtilisateur.this.repaint();
+        }
+    }
+
+    private class RechercheListener implements ActionListener
+    {
+        public void actionPerformed (ActionEvent event) {
+            MenuUtilisateur.this.removeAll();
+            MenuUtilisateur.this.add(new PanneauRechercheProches(frameContainer, utilisateur));
             MenuUtilisateur.this.revalidate();
             MenuUtilisateur.this.repaint();
         }

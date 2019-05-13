@@ -51,10 +51,10 @@ public class Consultation {
         this.observations = observations;
     }
 
-    public void setDateConsultation(GregorianCalendar dateNaissance) throws ChampsVideException {
-        if(dateNaissance == null){
+    public void setDateConsultation(GregorianCalendar dateConsultation) throws ChampsVideException {
+        if(dateConsultation == null){
             throw new ChampsVideException("Date de consultation");
         }
-        this.dateConsultation = dateNaissance;
+        this.dateConsultation = dateConsultation;
     }
 }
