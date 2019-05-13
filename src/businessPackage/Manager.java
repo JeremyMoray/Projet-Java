@@ -103,6 +103,10 @@ public class Manager {
         return dao.getAllPatients();
     }
 
+    public Patient getPatient(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException{
+        return dao.getPatient(patient_id);
+    }
+
     public void deletePatient(Integer patient_id) throws AccesDBException{
         dao.deletePatient(patient_id);
     }
@@ -127,12 +131,16 @@ public class Manager {
         dao.addReaction(reaction);
     }
 
-    public Integer addProche(Proche proche, Integer patient_id) throws AccesDBException, ObjetExistantException{
-        return dao.addProche(proche, patient_id);
+    public void addProche(Proche proche) throws AccesDBException, ObjetExistantException{
+        dao.addProche(proche);
     }
 
-    public void addRelation(Relation relation) throws AccesDBException{
-        dao.addRelation(relation);
+    public ArrayList<Proche> getAllProches() throws AccesDBException, ChampsVideException, CaracteresLimiteException{
+        return dao.getAllProches();
+    }
+
+    public void deleteProche(Integer proche_id) throws AccesDBException{
+        dao.deleteProche(proche_id);
     }
 
     public void setDao(DBAccess dao) {

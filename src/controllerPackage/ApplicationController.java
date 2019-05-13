@@ -97,6 +97,10 @@ public class ApplicationController {
         return manager.getAllPatients();
     }
 
+    public Patient getPatient(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException{
+        return manager.getPatient(patient_id);
+    }
+
     public void deletePatient(Integer patient_id) throws AccesDBException{
         manager.deletePatient(patient_id);
     }
@@ -121,12 +125,16 @@ public class ApplicationController {
         manager.addReaction(reaction);
     }
 
-    public Integer addProche(Proche proche, Integer patient_id) throws AccesDBException, ObjetExistantException{
-        return manager.addProche(proche, patient_id);
+    public void addProche(Proche proche) throws AccesDBException, ObjetExistantException{
+        manager.addProche(proche);
     }
 
-    public void addRelation(Relation relation) throws AccesDBException{
-        manager.addRelation(relation);
+    public ArrayList<Proche> getAllProches() throws AccesDBException, ChampsVideException, CaracteresLimiteException{
+        return manager.getAllProches();
+    }
+
+    public void deleteProche(Integer proche_id) throws AccesDBException{
+        manager.deleteProche(proche_id);
     }
 
     public void setManager(Manager manager){

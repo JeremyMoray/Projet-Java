@@ -16,7 +16,7 @@ public class MenuUtilisateur extends JPanel{
     private ApplicationController controller;
     private JMenuBar menuBar;
     private JMenu application, soignant, patient, medicament, allergie, mutualite, autres;
-    private JMenuItem accueil, quitter, monProfil, seDeconnecter, inscriptionPatient, chercherPatient, mesConsultations,
+    private JMenuItem accueil, quitter, monProfil, seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche,
             ajouterMedicament, listeMedicament, ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide;
     private GridBagConstraints gbc = new GridBagConstraints();
 
@@ -87,8 +87,10 @@ public class MenuUtilisateur extends JPanel{
 
         patient.addSeparator();
 
-        mesConsultations = new JMenuItem("Mes consultations");
-        patient.add(mesConsultations);
+        supprimerProche = new JMenuItem("Supprimer le proche d'un patient");
+        SuppressionListener supprimerProcheListener = new SuppressionListener();
+        supprimerProche.addActionListener(supprimerProcheListener);
+        patient.add(supprimerProche);
 
         //Médicament
 
@@ -201,6 +203,16 @@ public class MenuUtilisateur extends JPanel{
             frameContainer.add(new PageConnexion(frameContainer));
             frameContainer.revalidate();
             frameContainer.repaint();
+        }
+    }
+
+    private class SuppressionListener implements ActionListener
+    {
+        public void actionPerformed (ActionEvent event) {
+            MenuUtilisateur.this.removeAll();
+            MenuUtilisateur.this.add(new PanneauSuppressionProche(frameContainer, utilisateur));
+            MenuUtilisateur.this.revalidate();
+            MenuUtilisateur.this.repaint();
         }
     }
 

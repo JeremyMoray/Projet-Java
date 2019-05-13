@@ -31,6 +31,7 @@ public interface DataAccess {
 
     void addPatient(Patient patient) throws AccesDBException;
     ArrayList<Patient> getAllPatients() throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException;
+    Patient getPatient(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException;
     void deletePatient(Integer patient_id) throws AccesDBException;
     void updatePatient(Patient patient) throws AccesDBException;
 
@@ -38,6 +39,8 @@ public interface DataAccess {
     void addSouffrance(Souffrance souffrance) throws AccesDBException, ObjetExistantException;
     void addTraitement(Traitement traitement) throws AccesDBException, ObjetExistantException, AllergieAMedicamentException;
     void addReaction(Reaction reaction) throws AccesDBException, ObjetExistantException;
-    Integer addProche(Proche proche, Integer patient_id) throws AccesDBException, ObjetExistantException;
-    void addRelation(Relation relation) throws AccesDBException;
+
+    void addProche(Proche proche) throws AccesDBException, ObjetExistantException;
+    ArrayList<Proche> getAllProches() throws AccesDBException, ChampsVideException, CaracteresLimiteException;
+    void deleteProche(Integer proche_id) throws AccesDBException;
 }

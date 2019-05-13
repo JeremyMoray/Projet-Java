@@ -12,8 +12,9 @@ public class Proche {
     private String remarques;
     private boolean aAccesInfosMedicales;
     private boolean aAppellerSiUrgence;
+    private Integer patient_id;
 
-    public Proche(Integer proche_id, String nom, String prenom, String numTel, String remarques, Boolean aAccesInfosMedicales, Boolean aAppellerSiUrgence) throws ChampsVideException, CaracteresLimiteException{
+    public Proche(Integer proche_id, String nom, String prenom, String numTel, String remarques, boolean aAccesInfosMedicales, boolean aAppellerSiUrgence, Integer patient_id) throws ChampsVideException, CaracteresLimiteException{
         setProche_id(proche_id);
         setNom(nom);
         setPrenom(prenom);
@@ -21,6 +22,7 @@ public class Proche {
         setRemarques(remarques);
         setAAccesInfosMedicales(aAccesInfosMedicales);
         setAAppellerSiUrgence(aAppellerSiUrgence);
+        setPatient_id(patient_id);
     }
 
     public void setProche_id(Integer proche_id) {
@@ -74,6 +76,10 @@ public class Proche {
         this.aAppellerSiUrgence = aAppellerSiUrgence;
     }
 
+    public void setPatient_id(Integer patient_id) {
+        this.patient_id = patient_id;
+    }
+
     public Integer getProche_id() {
         return proche_id;
     }
@@ -94,11 +100,15 @@ public class Proche {
         return remarques;
     }
 
-    public Boolean isAAccesInfosMedicales() {
+    public boolean isAAccesInfosMedicales() {
         return aAccesInfosMedicales;
     }
 
-    public Boolean isAAppellerSiUrgence() {
+    public boolean isAAppellerSiUrgence() {
         return aAppellerSiUrgence;
+    }
+
+    public Integer getPatient_id() {
+        return patient_id;
     }
 }

@@ -6,7 +6,6 @@ import exceptionPackage.CaracteresLimiteException;
 import exceptionPackage.ChampsVideException;
 import exceptionPackage.ObjetExistantException;
 import modelPackage.Proche;
-import modelPackage.Relation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -136,13 +135,12 @@ public class FenetreAjouterProche extends JFrame{
                             numTelField.getText(),
                             (remarquesField.getText().isEmpty()?null:remarquesField.getText()),
                             aAccesInfosMedicalesBox.isSelected(),
-                            aAppellerSiUrgenceBox.isSelected()
+                            aAppellerSiUrgenceBox.isSelected(),
+                            patient_id
                     );
 
-                    Integer proche_id = controller.addProche(proche, patient_id);
+                    controller.addProche(proche);
 
-                    Relation relation = new Relation(proche_id, patient_id);
-                    controller.addRelation(relation);
                     JOptionPane.showMessageDialog(null, "Le proche a été ajouté", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                 }
                 catch (AccesDBException exception){
