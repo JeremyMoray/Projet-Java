@@ -1,7 +1,7 @@
 package viewPackage;
 
 import controllerPackage.ApplicationController;
-import exceptionPackage.AccesDBException;
+import exceptionPackage.*;
 import modelPackage.Soignant;
 
 import javax.swing.*;
@@ -18,7 +18,7 @@ public class MenuUtilisateur extends JPanel{
     private JMenu application, soignant, patient, medicament, allergie, mutualite, autres;
     private JMenuItem accueil, quitter, monProfil, rechercheProcheDePatient, rechercheMedicamentPatient, recherchePrimePatient,
             seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche, ajouterMedicament, listeMedicament, topMedicaments,
-            ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide;
+            totalPrimesAnuelles, ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide;
     private GridBagConstraints gbc = new GridBagConstraints();
 
     public MenuUtilisateur(Container frameContainer, Soignant utilisateur){
@@ -119,6 +119,13 @@ public class MenuUtilisateur extends JPanel{
         SuppressionListener supprimerProcheListener = new SuppressionListener();
         supprimerProche.addActionListener(supprimerProcheListener);
         patient.add(supprimerProche);
+
+        patient.addSeparator();
+
+        totalPrimesAnuelles = new JMenuItem("Total primes anuelle des patients");
+        TotalPrimesListener totalPrimesListener = new TotalPrimesListener();
+        totalPrimesAnuelles.addActionListener(totalPrimesListener);
+        patient.add(totalPrimesAnuelles);
 
         //Médicament
 
@@ -281,6 +288,31 @@ public class MenuUtilisateur extends JPanel{
     {
         public void actionPerformed (ActionEvent event) {
             controller.afficherTopMedicaments();
+        }
+    }
+
+    private class TotalPrimesListener implements ActionListener
+    {
+        public void actionPerformed (ActionEvent event) {
+            try{
+                JOptionPane.showMessageDialog(null, "Le total des primes annuelles des patients est de : " + controller.getTotalPrimesAnuelles() + " euros", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+            }
+            catch (AccesDBException exception){
+                JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+            catch (ChampsVideException exception){
+                JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+            catch (CaracteresLimiteException exception){
+                JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+            catch (CodeInvalideException exception){
+                JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+            catch (FormatNombreException exception){
+                JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
     }
 

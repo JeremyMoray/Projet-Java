@@ -157,6 +157,10 @@ public class ApplicationController {
         manager.afficherTopMedicaments();
     }
 
+    public Double getTotalPrimesAnuelles() throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
+        return manager.getTotalPrimesAnuelles();
+    }
+
     public void setManager(Manager manager){
         this.manager = manager;
     }

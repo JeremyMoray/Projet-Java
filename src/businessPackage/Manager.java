@@ -1,6 +1,8 @@
 package businessPackage;
 
 import java.util.*;
+
+import com.sun.org.apache.bcel.internal.classfile.Code;
 import exceptionPackage.*;
 import modelPackage.*;
 import dataAccessPackage.*;
@@ -11,6 +13,7 @@ public class Manager {
 
     private DataAccess dao;
     private static HashMap<String, Integer> collectionMedicaments = new HashMap<String, Integer>();;
+    private static Double totalPrimesAnuelles = 0.;
 
     public Manager() {
         setDao(new DBAccess()) ;
@@ -215,6 +218,19 @@ public class Manager {
             }
         }
         return sortedMap;
+    }
+
+    public void addPrime(Double primeAnuelle){
+        totalPrimesAnuelles += primeAnuelle;
+    }
+
+    public Double getTotalPrimesAnuelles() throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
+        ArrayList<Patient> patients = getAllPatients();
+
+        for(int i = 0; i < patients.size(); i++){
+            addPrime(patients.get(i).getPrimeAnuelle());
+        }
+        return totalPrimesAnuelles;
     }
 
     public void setDao(DBAccess dao) {
