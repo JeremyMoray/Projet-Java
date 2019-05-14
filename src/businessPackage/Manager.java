@@ -111,6 +111,10 @@ public class Manager {
         return dao.getAllPatientsConsultes(soignant_id);
     }
 
+    public ArrayList<Patient> getAllPrimesPatient(Integer soignant_id, GregorianCalendar dateConsultation) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
+        return dao.getAllPrimesPatient(soignant_id, dateConsultation);
+    }
+
     public Patient getPatient(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException{
         return dao.getPatient(patient_id);
     }

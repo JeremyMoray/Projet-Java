@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class PanneauRechercheMedicament extends JPanel{
+public class PanneauRechercheMedicaments extends JPanel{
 
     private Soignant utilisateur;
     private Container frameContainer;
@@ -23,7 +23,7 @@ public class PanneauRechercheMedicament extends JPanel{
     private ApplicationController controller;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauRechercheMedicament(Container frameContainer, Soignant utilisateur){
+    public PanneauRechercheMedicaments(Container frameContainer, Soignant utilisateur){
         this.utilisateur = utilisateur;
         this.frameContainer = frameContainer;
         setController(new ApplicationController());

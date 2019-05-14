@@ -3,12 +3,9 @@ package viewPackage;
 import controllerPackage.ApplicationController;
 import exceptionPackage.*;
 import modelPackage.Patient;
-import modelPackage.Proche;
 import modelPackage.Soignant;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

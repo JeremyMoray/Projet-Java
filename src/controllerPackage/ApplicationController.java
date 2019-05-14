@@ -105,6 +105,10 @@ public class ApplicationController {
         return manager.getAllPatientsConsultes(soignant_id);
     }
 
+    public ArrayList<Patient> getAllPrimesPatient(Integer soignant_id, GregorianCalendar dateConsultation) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
+        return manager.getAllPrimesPatient(soignant_id, dateConsultation);
+    }
+
     public Patient getPatient(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException{
         return manager.getPatient(patient_id);
     }

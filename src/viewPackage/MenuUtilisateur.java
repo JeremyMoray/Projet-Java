@@ -16,17 +16,19 @@ public class MenuUtilisateur extends JPanel{
     private ApplicationController controller;
     private JMenuBar menuBar;
     private JMenu application, soignant, patient, medicament, allergie, mutualite, autres;
-    private JMenuItem accueil, quitter, monProfil, rechercheProcheDePatient, rechercheMedicamentPatient, seDeconnecter,
-            inscriptionPatient, chercherPatient, supprimerProche, ajouterMedicament, listeMedicament, ajouterAllergie,
-            listeAllergie, ajouterMutualite, listeMutualite, aide;
+    private JMenuItem accueil, quitter, monProfil, rechercheProcheDePatient, rechercheMedicamentPatient, recherchePrimePatient,
+            seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche, ajouterMedicament, listeMedicament,
+            ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide;
     private GridBagConstraints gbc = new GridBagConstraints();
 
     public MenuUtilisateur(Container frameContainer, Soignant utilisateur){
         this.frameContainer = frameContainer;
         this.utilisateur = utilisateur;
-        this.setLayout(new GridBagLayout());
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-        this.setBackground(new Color(0xFFE8E2DB, true));
+
+        setController(new ApplicationController());
+        setLayout(new GridBagLayout());
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+        setBackground(new Color(0xFFE8E2DB, true));
 
         menuBar = new JMenuBar();
         frameContainer.setLayout(new BorderLayout());
@@ -72,11 +74,19 @@ public class MenuUtilisateur extends JPanel{
 
         soignant.addSeparator();
 
-        //Cette recherche trouve les infos d'un médicament prescrit aux patients consultés 2 dates
+        //Cette recherche trouve les infos d'un médicament d'un traitement de tous les patients consultés. La date de début du traitement étant choisie entre 2 dates.
         rechercheMedicamentPatient = new JMenuItem("Rechercher les médicaments d'un patient");
         soignant.add(rechercheMedicamentPatient);
         RechercheListener rechercheMedicamentPatientListener = new RechercheListener();
         rechercheMedicamentPatient.addActionListener(rechercheMedicamentPatientListener);
+
+        soignant.addSeparator();
+
+        //Cette recherche trouve les infos d'un médicament d'un traitement de tous les patients consultés. La date de début du traitement étant choisie entre 2 dates.
+        recherchePrimePatient = new JMenuItem("Rechercher les primes de vos patients consultés");
+        soignant.add(recherchePrimePatient);
+        RechercheListener recherchePrimePatientListener = new RechercheListener();
+        recherchePrimePatient.addActionListener(recherchePrimePatientListener);
 
         soignant.addSeparator();
 
@@ -226,7 +236,14 @@ public class MenuUtilisateur extends JPanel{
 
             if(event.getSource() == rechercheMedicamentPatient){
                 MenuUtilisateur.this.removeAll();
-                MenuUtilisateur.this.add(new PanneauRechercheMedicament(frameContainer, utilisateur));
+                MenuUtilisateur.this.add(new PanneauRechercheMedicaments(frameContainer, utilisateur));
+                MenuUtilisateur.this.revalidate();
+                MenuUtilisateur.this.repaint();
+            }
+
+            if(event.getSource() == recherchePrimePatient){
+                MenuUtilisateur.this.removeAll();
+                MenuUtilisateur.this.add(new PanneauRecherchePrimes(frameContainer, utilisateur));
                 MenuUtilisateur.this.revalidate();
                 MenuUtilisateur.this.repaint();
             }
@@ -329,5 +346,9 @@ public class MenuUtilisateur extends JPanel{
         {
             new FenetreAide();
         }
+    }
+
+    public void setController(ApplicationController controller){
+        this.controller = controller;
     }
 }
