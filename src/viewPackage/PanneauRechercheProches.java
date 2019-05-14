@@ -46,7 +46,6 @@ public class PanneauRechercheProches extends JPanel {
         patientLabel = new JLabel("Patient :");
         patientLabel.setFont(new Font("Arial", Font.BOLD, 15));
         gbc.insets = new Insets(30,10,30,10);
-        gbc.ipadx = 50;
         gbc.gridwidth = 1;
         gbc.gridy = 1;
         this.add(patientLabel, gbc);

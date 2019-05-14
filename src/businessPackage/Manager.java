@@ -81,6 +81,10 @@ public class Manager {
         return dao.getAllMedicaments();
     }
 
+    public ArrayList<Medicament> getAllMedicamentsDates(Integer soignant_id, GregorianCalendar dateMin, GregorianCalendar dateMax) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException{
+        return dao.getAllMedicamentsDates(soignant_id, dateMin, dateMax);
+    }
+
     public void deleteMedicament(Integer medicament_id) throws AccesDBException {
         dao.deleteMedicament(medicament_id);
     }

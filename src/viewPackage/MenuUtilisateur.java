@@ -16,8 +16,9 @@ public class MenuUtilisateur extends JPanel{
     private ApplicationController controller;
     private JMenuBar menuBar;
     private JMenu application, soignant, patient, medicament, allergie, mutualite, autres;
-    private JMenuItem accueil, quitter, monProfil, rechercheProcheDePatient, seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche,
-            ajouterMedicament, listeMedicament, ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide;
+    private JMenuItem accueil, quitter, monProfil, rechercheProcheDePatient, rechercheMedicamentPatient, seDeconnecter,
+            inscriptionPatient, chercherPatient, supprimerProche, ajouterMedicament, listeMedicament, ajouterAllergie,
+            listeAllergie, ajouterMutualite, listeMutualite, aide;
     private GridBagConstraints gbc = new GridBagConstraints();
 
     public MenuUtilisateur(Container frameContainer, Soignant utilisateur){
@@ -63,10 +64,19 @@ public class MenuUtilisateur extends JPanel{
         soignant.addSeparator();
 
         //Cette recherche trouve les proches des patients consultés par le soignant à appeller en cas d'urgence
-        rechercheProcheDePatient = new JMenuItem("Rechercher un proche d'un patient (Urgence)");
+        rechercheProcheDePatient = new JMenuItem("Rechercher des proches d'un patient (Urgence)");
         soignant.add(rechercheProcheDePatient);
         RechercheListener rechercheProcheDePatientListener = new RechercheListener();
         rechercheProcheDePatient.addActionListener(rechercheProcheDePatientListener);
+
+
+        soignant.addSeparator();
+
+        //Cette recherche trouve les infos d'un médicament prescrit aux patients consultés 2 dates
+        rechercheMedicamentPatient = new JMenuItem("Rechercher les médicaments d'un patient");
+        soignant.add(rechercheMedicamentPatient);
+        RechercheListener rechercheMedicamentPatientListener = new RechercheListener();
+        rechercheMedicamentPatient.addActionListener(rechercheMedicamentPatientListener);
 
         soignant.addSeparator();
 
@@ -207,10 +217,19 @@ public class MenuUtilisateur extends JPanel{
     private class RechercheListener implements ActionListener
     {
         public void actionPerformed (ActionEvent event) {
-            MenuUtilisateur.this.removeAll();
-            MenuUtilisateur.this.add(new PanneauRechercheProches(frameContainer, utilisateur));
-            MenuUtilisateur.this.revalidate();
-            MenuUtilisateur.this.repaint();
+            if(event.getSource() == rechercheProcheDePatient){
+                MenuUtilisateur.this.removeAll();
+                MenuUtilisateur.this.add(new PanneauRechercheProches(frameContainer, utilisateur));
+                MenuUtilisateur.this.revalidate();
+                MenuUtilisateur.this.repaint();
+            }
+
+            if(event.getSource() == rechercheMedicamentPatient){
+                MenuUtilisateur.this.removeAll();
+                MenuUtilisateur.this.add(new PanneauRechercheMedicament(frameContainer, utilisateur));
+                MenuUtilisateur.this.revalidate();
+                MenuUtilisateur.this.repaint();
+            }
         }
     }
 

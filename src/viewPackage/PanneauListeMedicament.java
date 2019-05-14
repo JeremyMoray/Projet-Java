@@ -195,8 +195,8 @@ public class PanneauListeMedicament extends JPanel{
                 for(int i = 0; i < values.length; i++) {
                     values[i] = listeObjetAllergies.get(i).getLibelle();
                 }
-                allergieCbx.setMaximumRowCount(10);
                 allergieCbx = new JComboBox(values);
+                allergieCbx.setMaximumRowCount(10);
 
                 gbc.ipadx = 0;
                 gbc.gridx = 6;

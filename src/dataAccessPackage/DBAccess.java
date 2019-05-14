@@ -466,6 +466,48 @@ public class DBAccess implements DataAccess{
         }
     }
 
+    public ArrayList<Medicament> getAllMedicamentsDates(Integer soignant_id, GregorianCalendar dateMin, GregorianCalendar dateMax) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException{
+        try{
+            Connection connection = SingletonConnection.getInstance();
+            String sql = "select distinct medicament.* from medicament, consultation, traitement where consultation.soignant_id = ? " +
+                    "and consultation.patient_id = traitement.patient_id " +
+                    "and traitement.medicament_id = medicament.medicament_id " +
+                    "and traitement.dateDeDebut >= ? " +
+                    "and traitement.dateDeDebut <= ?;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, soignant_id);
+            statement.setDate(2, new java.sql.Date(dateMin.getTimeInMillis()));
+            statement.setDate(3, new java.sql.Date(dateMax.getTimeInMillis()));
+
+            ResultSet data = statement.executeQuery();
+
+            ArrayList<Medicament> medicaments = new ArrayList<>();
+
+            while(data.next()) {
+
+
+                Medicament medicament = new Medicament(
+                        data.getInt(1),
+                        data.getString(2),
+                        data.getString(3),
+                        data.getString(4),
+                        data.getString(5),
+                        data.getString(6),
+                        data.getString(7),
+                        data.getInt(8)
+                );
+                medicaments.add(medicament);
+            }
+
+            return medicaments;
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
     public void deleteMedicament(Integer medicament_id) throws AccesDBException {
         try {
             Connection connection = SingletonConnection.getInstance();
