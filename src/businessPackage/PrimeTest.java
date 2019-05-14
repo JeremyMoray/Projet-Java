@@ -12,21 +12,13 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
-@RunWith(Arquillian.class)
-public class ManagerTest {
+public class PrimeTest {
 
     private Manager manager;
 
     @Before
     public void setUp() throws Exception {
         manager = new Manager();
-    }
-
-    @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addClass(Manager.class)
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Test
