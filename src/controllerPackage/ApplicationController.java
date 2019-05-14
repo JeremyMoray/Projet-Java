@@ -129,7 +129,7 @@ public class ApplicationController {
         manager.addSouffrance(souffrance);
     }
 
-    public void addTraitement(Traitement traitement) throws AccesDBException, ObjetExistantException, AllergieAMedicamentException{
+    public void addTraitement(Traitement traitement) throws AccesDBException, ObjetExistantException, AllergieAMedicamentException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException{
         manager.addTraitement(traitement);
     }
 
@@ -151,6 +151,10 @@ public class ApplicationController {
 
     public void deleteProche(Integer proche_id) throws AccesDBException{
         manager.deleteProche(proche_id);
+    }
+
+    public void afficherTopMedicaments(){
+        manager.afficherTopMedicaments();
     }
 
     public void setManager(Manager manager){

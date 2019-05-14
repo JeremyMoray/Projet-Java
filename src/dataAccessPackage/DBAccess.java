@@ -508,6 +508,37 @@ public class DBAccess implements DataAccess{
         }
     }
 
+    public Medicament getMedicament(Integer medicament_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
+        try{
+            Connection connection = SingletonConnection.getInstance();
+            String sql = "select * from medicament where medicament_id = ?;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, medicament_id);
+
+            ResultSet data = statement.executeQuery();
+
+            data.next();
+
+            Medicament medicament = new Medicament(
+                    data.getInt(1),
+                    data.getString(2),
+                    data.getString(3),
+                    data.getString(4),
+                    data.getString(5),
+                    data.getString(6),
+                    data.getString(7),
+                    data.getInt(8)
+                );
+
+            return medicament;
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
     public void deleteMedicament(Integer medicament_id) throws AccesDBException {
         try {
             Connection connection = SingletonConnection.getInstance();

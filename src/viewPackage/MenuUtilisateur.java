@@ -17,7 +17,7 @@ public class MenuUtilisateur extends JPanel{
     private JMenuBar menuBar;
     private JMenu application, soignant, patient, medicament, allergie, mutualite, autres;
     private JMenuItem accueil, quitter, monProfil, rechercheProcheDePatient, rechercheMedicamentPatient, recherchePrimePatient,
-            seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche, ajouterMedicament, listeMedicament,
+            seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche, ajouterMedicament, listeMedicament, topMedicaments,
             ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide;
     private GridBagConstraints gbc = new GridBagConstraints();
 
@@ -137,6 +137,13 @@ public class MenuUtilisateur extends JPanel{
         ListeListener listeMedicamentListener = new ListeListener();
         listeMedicament.addActionListener(listeMedicamentListener);
         medicament.add(listeMedicament);
+
+        medicament.addSeparator();
+
+        topMedicaments = new JMenuItem("Top 5 médicaments");
+        TopListener topMedicamentListener = new TopListener();
+        topMedicaments.addActionListener(topMedicamentListener);
+        medicament.add(topMedicaments);
 
         //Allergie
 
@@ -267,6 +274,13 @@ public class MenuUtilisateur extends JPanel{
             MenuUtilisateur.this.add(new PanneauSuppressionProche(frameContainer, utilisateur));
             MenuUtilisateur.this.revalidate();
             MenuUtilisateur.this.repaint();
+        }
+    }
+
+    private class TopListener implements ActionListener
+    {
+        public void actionPerformed (ActionEvent event) {
+            controller.afficherTopMedicaments();
         }
     }
 

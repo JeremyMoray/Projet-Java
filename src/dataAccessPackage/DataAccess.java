@@ -27,6 +27,7 @@ public interface DataAccess {
     void addMedicament(Medicament medicament) throws AccesDBException;
     ArrayList<Medicament> getAllMedicaments() throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException;
     ArrayList<Medicament> getAllMedicamentsDates(Integer soignant_id, GregorianCalendar dateMin, GregorianCalendar dateMax) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException;
+    Medicament getMedicament(Integer medicament_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException;
     void deleteMedicament(Integer medicament_id) throws AccesDBException;
     void updateMedicament(Medicament medicament) throws AccesDBException;
 
