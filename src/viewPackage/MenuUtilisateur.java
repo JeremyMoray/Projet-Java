@@ -18,7 +18,7 @@ public class MenuUtilisateur extends JPanel{
     private JMenu application, soignant, patient, medicament, allergie, mutualite, autres;
     private JMenuItem accueil, quitter, monProfil, rechercheProcheDePatient, rechercheMedicamentPatient, recherchePrimePatient,
             seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche, ajouterMedicament, listeMedicament, topMedicaments,
-            totalPrimesAnuelles, ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide;
+            totalPrimesAnuelles, ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide, fermetureThread;
     private GridBagConstraints gbc = new GridBagConstraints();
 
     public MenuUtilisateur(Container frameContainer, Soignant utilisateur){
@@ -198,6 +198,13 @@ public class MenuUtilisateur extends JPanel{
         AideListener aideListener = new AideListener();
         aide.addActionListener(aideListener);
         autres.add(aide);
+
+        autres.addSeparator();
+
+        fermetureThread = new JMenuItem("Fermer dans 5 secondes");
+        CloseListener closeListener = new CloseListener();
+        fermetureThread.addActionListener(closeListener);
+        autres.add(fermetureThread);
 
         this.add(new PanneauBienvenue(utilisateur), gbc);
     }
@@ -391,6 +398,15 @@ public class MenuUtilisateur extends JPanel{
         public void actionPerformed (ActionEvent event)
         {
             new FenetreAide();
+        }
+    }
+
+    private class CloseListener implements ActionListener
+    {
+        public void actionPerformed (ActionEvent event)
+        {
+            ThreadClass thread = new ThreadClass();
+            thread.start();
         }
     }
 
