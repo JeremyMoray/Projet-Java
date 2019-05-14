@@ -2,7 +2,7 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 import exceptionPackage.*;
-import modelPackage.Proche;
+import modelPackage.Medicament;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -10,24 +10,25 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
-public class FenetreRechercheProche extends JFrame{
+public class FenetreRechercheMedicament extends JFrame{
 
-    private ArrayList<Proche> listeProches;
-    private AllProchesAAppellerModel model;
+    private ArrayList<Medicament> listeMedicaments;
+    private AllMedicamentsDatesModel model;
     private JTable table;
     private ApplicationController controller;
     private JButton quitterBouton;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public FenetreRechercheProche(Integer patient_id){
-        super("Liste des proches à appeller en cas d'urgence pour ce patient");
-        setBounds((int)(FenetreMenu.getWindowWidth() * 0.30), (int)(FenetreMenu.getWindowHeight() * 0.20),
+    public FenetreRechercheMedicament(Integer soignant_id, GregorianCalendar dateMin, GregorianCalendar dateMax){
+        super("Liste des médicaments attribué aux patients consultés entre 2 dates");
+        setBounds((int)(FenetreMenu.getWindowWidth() * 0.20), (int)(FenetreMenu.getWindowHeight() * 0.20),
                 (int)(FenetreMenu.getWindowWidth() * 0.40), (int)(FenetreMenu.getWindowHeight() * 0.60));
         setController(new ApplicationController());
 
         try{
-            listeProches = controller.getAllProchesUrgence(patient_id);
+            listeMedicaments = controller.getAllMedicamentsDates(soignant_id, dateMin, dateMax);
         }
         catch (AccesDBException exception){
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -38,8 +39,14 @@ public class FenetreRechercheProche extends JFrame{
         catch (CaracteresLimiteException exception){
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }
+        catch (CodeInvalideException exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (FormatNombreException exception){
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
 
-        model = new AllProchesAAppellerModel(listeProches);
+        model = new AllMedicamentsDatesModel(listeMedicaments);
 
         table = new JTable(model);
 
@@ -55,11 +62,13 @@ public class FenetreRechercheProche extends JFrame{
         table.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
         table.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
         table.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+        table.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
+        table.getColumnModel().getColumn(7).setCellRenderer(rightRenderer);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 
-        gbc.ipadx = 500;
+        gbc.ipadx = 600;
         gbc.ipady = 300;
         gbc.gridx = 0;
         gbc.gridy = 0;

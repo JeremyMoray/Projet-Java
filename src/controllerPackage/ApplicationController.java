@@ -81,6 +81,10 @@ public class ApplicationController {
         return manager.getAllMedicaments();
     }
 
+    public ArrayList<Medicament> getAllMedicamentsDates(Integer soignant_id, GregorianCalendar dateMin, GregorianCalendar dateMax) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException{
+        return manager.getAllMedicamentsDates(soignant_id, dateMin, dateMax);
+    }
+
     public void deleteMedicament(Integer medicament_id) throws AccesDBException {
         manager.deleteMedicament(medicament_id);
     }
