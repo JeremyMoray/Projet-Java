@@ -220,15 +220,15 @@ public class Manager {
         return sortedMap;
     }
 
-    public void addPrime(Double primeAnuelle){
-        totalPrimesAnuelles += primeAnuelle;
+    public Double addPrime(Double primeAnuelle, Double totalPrimesAnuelles){
+        return totalPrimesAnuelles + primeAnuelle;
     }
 
     public Double getTotalPrimesAnuelles() throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
         ArrayList<Patient> patients = getAllPatients();
 
         for(int i = 0; i < patients.size(); i++){
-            addPrime(patients.get(i).getPrimeAnuelle());
+            addPrime(patients.get(i).getPrimeAnuelle(), totalPrimesAnuelles);
         }
         return totalPrimesAnuelles;
     }
