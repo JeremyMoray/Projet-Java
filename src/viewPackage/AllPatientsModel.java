@@ -91,7 +91,7 @@ public class AllPatientsModel extends AbstractTableModel {
             case 8 : return (patient.getRemarque() == null)?"":patient.getRemarque();
             case 9 : return (patient.getASurveiller() == null)?"":patient.getASurveiller();
             case 10 : return (patient.getConseils() == null)?"":patient.getConseils();
-            case 11 : return (patient.isDonnerEtat())?"Oui":"Non";
+            case 11 : return (patient.isDonnerEtat()?"Oui":"Non");
             case 12 : return (patient.isBesoinAval())?"Oui":"Non";
             case 13 : return (patient.isAcharnementTherapeutique())?"Oui":"Non";
             case 14 : return (patient.getCauseDecesPere() == null)?"":patient.getCauseDecesPere();

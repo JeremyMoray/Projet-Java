@@ -334,7 +334,7 @@ public class PanneauInscriptionPatient extends JPanel{
 
                         GregorianCalendar dateNaissance = new GregorianCalendar();
                         dateNaissance.set(GregorianCalendar.DAY_OF_MONTH, jour);
-                        dateNaissance.set(GregorianCalendar.MONTH, mois);
+                        dateNaissance.set(GregorianCalendar.MONTH, mois-1);
                         dateNaissance.set(GregorianCalendar.YEAR, annee);
 
                         //Si le jour entré est supérieur au jour maximum du mois (ex: 31 novembre), GregorianCalendar
