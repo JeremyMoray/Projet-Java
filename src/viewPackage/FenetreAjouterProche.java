@@ -142,6 +142,7 @@ public class FenetreAjouterProche extends JFrame{
                     controller.addProche(proche);
 
                     JOptionPane.showMessageDialog(null, "Le proche a été ajouté", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
                 }
                 catch (AccesDBException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -156,7 +157,10 @@ public class FenetreAjouterProche extends JFrame{
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            dispose();
+
+            if(event.getSource() == annulerBouton){
+                dispose();
+            }
         }
     }
 }

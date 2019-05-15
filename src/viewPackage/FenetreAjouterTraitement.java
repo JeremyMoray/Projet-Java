@@ -252,6 +252,7 @@ public class FenetreAjouterTraitement extends JFrame {
                     }
                     controller.addTraitement(traitement);
                     JOptionPane.showMessageDialog(null, "Le traitement a été ajouté", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
                 }
                 catch (AccesDBException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -279,7 +280,9 @@ public class FenetreAjouterTraitement extends JFrame {
                 }
             }
 
-            dispose();
+            if(event.getSource() == annulerBouton){
+                dispose();
+            }
         }
     }
 }

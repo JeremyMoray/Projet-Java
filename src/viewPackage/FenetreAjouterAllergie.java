@@ -87,6 +87,7 @@ public class FenetreAjouterAllergie extends JFrame {
                     }
                     controller.addSouffrance(souffrance);
                     JOptionPane.showMessageDialog(null, "L'allergie a été ajoutée", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
                 }
                 catch (AccesDBException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -99,7 +100,9 @@ public class FenetreAjouterAllergie extends JFrame {
                 }
             }
 
-            dispose();
+            if(event.getSource() == annulerBouton){
+                dispose();
+            }
         }
     }
 }
