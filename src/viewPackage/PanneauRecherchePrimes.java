@@ -2,7 +2,6 @@ package viewPackage;
 
 import exceptionPackage.ChampsVideException;
 import exceptionPackage.FormatDateException;
-import modelPackage.Soignant;
 
 import javax.swing.*;
 import java.awt.*;

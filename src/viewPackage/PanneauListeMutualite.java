@@ -6,7 +6,6 @@ import exceptionPackage.AucuneSelectionException;
 import exceptionPackage.CaracteresLimiteException;
 import exceptionPackage.ChampsVideException;
 import modelPackage.Mutualite;
-import modelPackage.Soignant;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

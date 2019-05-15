@@ -5,7 +5,6 @@ import exceptionPackage.AccesDBException;
 import exceptionPackage.CaracteresLimiteException;
 import exceptionPackage.ChampsVideException;
 import modelPackage.Allergie;
-import modelPackage.Soignant;
 
 import javax.swing.*;
 import java.awt.*;

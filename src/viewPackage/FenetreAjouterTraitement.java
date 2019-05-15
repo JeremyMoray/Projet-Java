@@ -3,14 +3,12 @@ package viewPackage;
 import controllerPackage.ApplicationController;
 import exceptionPackage.*;
 import modelPackage.Medicament;
-import modelPackage.Soignant;
 import modelPackage.Traitement;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;

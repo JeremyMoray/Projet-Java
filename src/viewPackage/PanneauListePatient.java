@@ -4,7 +4,6 @@ import controllerPackage.ApplicationController;
 import exceptionPackage.*;
 import modelPackage.Mutualite;
 import modelPackage.Patient;
-import modelPackage.Soignant;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

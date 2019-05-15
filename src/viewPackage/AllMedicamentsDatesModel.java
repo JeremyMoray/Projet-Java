@@ -1,19 +1,10 @@
 package viewPackage;
 
 import controllerPackage.ApplicationController;
-import exceptionPackage.AccesDBException;
-import exceptionPackage.CaracteresLimiteException;
-import exceptionPackage.ChampsVideException;
 import modelPackage.Medicament;
-import modelPackage.Traitement;
 
-import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class AllMedicamentsDatesModel extends AbstractTableModel {
     private ArrayList<String> columnNames;

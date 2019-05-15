@@ -5,7 +5,6 @@ import exceptionPackage.*;
 import modelPackage.Allergie;
 import modelPackage.Medicament;
 import modelPackage.Reaction;
-import modelPackage.Soignant;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

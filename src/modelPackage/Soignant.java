@@ -1,6 +1,9 @@
 package modelPackage;
 
-import exceptionPackage.*;
+import exceptionPackage.ChampsVideException;
+import exceptionPackage.CaracteresLimiteException;
+import exceptionPackage.FormatNombreException;
+import exceptionPackage.CodeInvalideException;
 
 public class Soignant {
 

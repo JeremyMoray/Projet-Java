@@ -1,7 +1,5 @@
 package exceptionPackage;
 
-import java.sql.SQLException;
-
 public class AccesDBException extends Exception{
     private String message;
 

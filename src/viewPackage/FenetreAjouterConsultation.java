@@ -3,7 +3,6 @@ package viewPackage;
 import controllerPackage.ApplicationController;
 import exceptionPackage.*;
 import modelPackage.Consultation;
-import modelPackage.Soignant;
 
 import javax.swing.*;
 import java.awt.*;

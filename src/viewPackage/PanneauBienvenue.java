@@ -1,7 +1,5 @@
 package viewPackage;
 
-import modelPackage.Soignant;
-
 import javax.swing.*;
 import java.awt.*;
 
