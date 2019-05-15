@@ -79,7 +79,7 @@ public class PanneauSuppressionProche extends JPanel {
         public void actionPerformed(ActionEvent event) {
             try{
                 int row = table.getSelectedRow();
-                System.out.println(table.getSelectedRow());
+
                 if(row == -1){
                     throw new AucuneSelectionException();
                 }
@@ -89,9 +89,8 @@ public class PanneauSuppressionProche extends JPanel {
                 if(reponse == JOptionPane.YES_OPTION){
                     while (row != -1)
                     {
-                        System.out.println(table.getSelectedRow());
                         controller.deleteProche(Integer.parseInt(model.getValueAt(row, 0).toString()));
-                        int modelRow = table.convertRowIndexToModel( row );
+                        int modelRow = table.convertRowIndexToModel(row);
                         model.removeRow( modelRow );
                         row = table.getSelectedRow();
                     }

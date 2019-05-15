@@ -38,7 +38,7 @@ public class PanneauConnexion extends JPanel{
         gbc.ipady = 5;
         this.add(numNationalLabel, gbc);
 
-        numNationalField = new JTextField("11111111111");
+        numNationalField = new JTextField();
         gbc.gridx = 0;
         gbc.gridy = 1;
         this.add(numNationalField, gbc);
@@ -49,7 +49,7 @@ public class PanneauConnexion extends JPanel{
         gbc.gridy = 2;
         this.add(motDePasseLabel, gbc);
 
-        motDePasseField = new JPasswordField("premier");
+        motDePasseField = new JPasswordField();
         gbc.gridx = 0;
         gbc.gridy = 3;
         this.add(motDePasseField, gbc);
