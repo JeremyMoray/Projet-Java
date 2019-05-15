@@ -119,7 +119,7 @@ public class MenuUtilisateur extends JPanel{
 
         patient.addSeparator();
 
-        totalPrimesAnuelles = new JMenuItem("Total primes anuelle des patients");
+        totalPrimesAnuelles = new JMenuItem("Total primes anuelles des patients");
         TotalPrimesListener totalPrimesListener = new TotalPrimesListener();
         totalPrimesAnuelles.addActionListener(totalPrimesListener);
         patient.add(totalPrimesAnuelles);
