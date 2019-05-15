@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class PanneauListeMutualite extends JPanel{
 
     private Container frameContainer;
-    private Soignant utilisateur;
     private ApplicationController controller ;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
@@ -31,10 +30,9 @@ public class PanneauListeMutualite extends JPanel{
     private JTable table;
     private Mutualite mutualite;
 
-    public PanneauListeMutualite(Container frameContainer, Soignant utilisateur){
+    public PanneauListeMutualite(Container frameContainer){
         try{
             this.frameContainer = frameContainer;
-            this.utilisateur = utilisateur;
             setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
             setController(new ApplicationController());
             setLayout(new GridBagLayout());

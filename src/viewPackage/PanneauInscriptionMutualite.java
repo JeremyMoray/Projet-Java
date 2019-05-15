@@ -20,11 +20,9 @@ public class PanneauInscriptionMutualite extends JPanel{
     private Container frameContainer;
     private ApplicationController controller;
     private Mutualite mutualite;
-    private Soignant utilisateur;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauInscriptionMutualite(Container frameContainer, Soignant utilisateur){
-        this.utilisateur = utilisateur;
+    public PanneauInscriptionMutualite(Container frameContainer){
         this.frameContainer = frameContainer;
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
@@ -138,7 +136,7 @@ public class PanneauInscriptionMutualite extends JPanel{
                     controller.addMutualite(mutualite);
 
                     frameContainer.removeAll();
-                    frameContainer.add(new MenuUtilisateur(frameContainer, utilisateur));
+                    frameContainer.add(new MenuUtilisateur(frameContainer));
                     frameContainer.revalidate();
                     frameContainer.repaint();
                     JOptionPane.showMessageDialog(null, "La mutualité a été ajoutée", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
@@ -163,7 +161,7 @@ public class PanneauInscriptionMutualite extends JPanel{
 
             if(event.getSource() == retourBouton){
                 frameContainer.removeAll();
-                frameContainer.add(new MenuUtilisateur(frameContainer, utilisateur));
+                frameContainer.add(new MenuUtilisateur(frameContainer));
                 frameContainer.revalidate();
                 frameContainer.repaint();
             }

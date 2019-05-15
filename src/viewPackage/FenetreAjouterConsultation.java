@@ -14,7 +14,6 @@ import java.util.GregorianCalendar;
 
 public class FenetreAjouterConsultation extends JFrame {
 
-    private Soignant utilisateur;
     private Integer patient_id;
     private ApplicationController controller;
     private GridBagConstraints gbc = new GridBagConstraints();
@@ -25,12 +24,11 @@ public class FenetreAjouterConsultation extends JFrame {
     private GregorianCalendar dateConsultation;
     private Consultation consultation;
 
-    public FenetreAjouterConsultation(Soignant utilisateur, Integer patient_id){
+    public FenetreAjouterConsultation(Integer patient_id){
         super("Ajouter une consultation");
         setBounds((int)(FenetreMenu.getWindowWidth() * 0.30), (int)(FenetreMenu.getWindowHeight() * 0.30),
                 (int)(FenetreMenu.getWindowWidth() * 0.40), (int)(FenetreMenu.getWindowHeight() * 0.40));
-        setController(new ApplicationController());
-        this.utilisateur = utilisateur;
+        setController(new ApplicationController());;
         this.patient_id = patient_id;
         this.setLayout(new GridBagLayout());
         dateConsultation = new GregorianCalendar();
@@ -179,7 +177,7 @@ public class FenetreAjouterConsultation extends JFrame {
                         throw new CaracteresLimiteException("Observations");
                     }
 
-                    consultation = new Consultation(utilisateur.getId(), patient_id, (observationsField.getText().isEmpty())?null:observationsField.getText(), dateConsultation);
+                    consultation = new Consultation(MenuUtilisateur.getUtilisateurActuel().getId(), patient_id, (observationsField.getText().isEmpty())?null:observationsField.getText(), dateConsultation);
                     controller.addConsultation(consultation);
                     JOptionPane.showMessageDialog(null, "La consultation a été ajoutée", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                     dispose();

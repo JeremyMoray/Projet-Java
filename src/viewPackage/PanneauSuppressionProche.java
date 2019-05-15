@@ -6,7 +6,6 @@ import modelPackage.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 public class PanneauSuppressionProche extends JPanel {
 
     private Container frameContainer;
-    private Soignant utilisateur;
     private ApplicationController controller ;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
@@ -24,9 +22,8 @@ public class PanneauSuppressionProche extends JPanel {
     private JTable table;
     private ArrayList<Proche> proches;
 
-    public PanneauSuppressionProche(Container frameContainer, Soignant utilisateur){
+    public PanneauSuppressionProche(Container frameContainer){
         this.frameContainer = frameContainer;
-        this.utilisateur = utilisateur;
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
         setController(new ApplicationController());
         setLayout(new GridBagLayout());

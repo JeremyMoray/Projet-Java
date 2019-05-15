@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class PanneauListeAllergie extends JPanel{
 
     private Container frameContainer;
-    private Soignant utilisateur;
     private ApplicationController controller ;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
@@ -31,10 +30,9 @@ public class PanneauListeAllergie extends JPanel{
     private JTable table;
     private Allergie allergie;
 
-    public PanneauListeAllergie(Container frameContainer, Soignant utilisateur){
+    public PanneauListeAllergie(Container frameContainer){
         try{
             this.frameContainer = frameContainer;
-            this.utilisateur = utilisateur;
             setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
             setController(new ApplicationController());
             setLayout(new GridBagLayout());

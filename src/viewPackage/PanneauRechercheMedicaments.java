@@ -14,7 +14,6 @@ import java.util.GregorianCalendar;
 
 public class PanneauRechercheMedicaments extends JPanel{
 
-    private Soignant utilisateur;
     private Container frameContainer;
     private JLabel rechercherLabel, dateMinLabel, dateMaxLabel;
     private GregorianCalendar dateMin, dateMax;
@@ -23,8 +22,7 @@ public class PanneauRechercheMedicaments extends JPanel{
     private ApplicationController controller;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauRechercheMedicaments(Container frameContainer, Soignant utilisateur){
-        this.utilisateur = utilisateur;
+    public PanneauRechercheMedicaments(Container frameContainer){
         this.frameContainer = frameContainer;
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
@@ -192,7 +190,7 @@ public class PanneauRechercheMedicaments extends JPanel{
                         throw new FormatDateException();
                     }
 
-                    new FenetreRechercheMedicament(utilisateur.getId(), dateMin, dateMax);
+                    new FenetreRechercheMedicament(MenuUtilisateur.getUtilisateurActuel().getId(), dateMin, dateMax);
                 }
                 catch (FormatDateException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

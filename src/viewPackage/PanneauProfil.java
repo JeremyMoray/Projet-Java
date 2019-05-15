@@ -16,16 +16,14 @@ public class PanneauProfil extends JPanel{
     private JPasswordField motDePasseField;
     private JComboBox specialiteCbx;
     private JButton enregistrerBoutton, annulerBouton, supprimerBoutton;
-    private Soignant utilisateur;
     private Soignant soignantModifié;
     private ApplicationController controller;
     private Container frameContainer;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauProfil(Container frameContainer, Soignant utilisateur){
+    public PanneauProfil(Container frameContainer){
 
         this.frameContainer = frameContainer;
-        this.utilisateur = utilisateur;
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(FenetreMenu.getBorderTheme(), 3, true));
@@ -85,40 +83,40 @@ public class PanneauProfil extends JPanel{
         gbc.gridy = 7;
         this.add(specialiteLabel, gbc);
 
-        numeroNationalField = new JTextField(utilisateur.getNumeroNational(), 1);
+        numeroNationalField = new JTextField(MenuUtilisateur.getUtilisateurActuel().getNumeroNational(), 1);
         gbc.ipadx = 200;
         gbc.gridx = 1;
         gbc.gridy = 1;
         this.add(numeroNationalField, gbc);
 
-        motDePasseField = new JPasswordField(utilisateur.getMotDePasse(), 1);
+        motDePasseField = new JPasswordField(MenuUtilisateur.getUtilisateurActuel().getMotDePasse(), 1);
         gbc.gridx = 1;
         gbc.gridy = 2;
         this.add(motDePasseField, gbc);
 
-        nomField = new JTextField(utilisateur.getNom(),1);
+        nomField = new JTextField(MenuUtilisateur.getUtilisateurActuel().getNom(),1);
         gbc.gridx = 1;
         gbc.gridy = 3;
         this.add(nomField, gbc);
 
-        prenomField = new JTextField(utilisateur.getPrenom(),1);
+        prenomField = new JTextField(MenuUtilisateur.getUtilisateurActuel().getPrenom(),1);
         gbc.gridx = 1;
         gbc.gridy = 4;
         this.add(prenomField, gbc);
 
-        numTelField = new JTextField(utilisateur.getNumTel(),1);
+        numTelField = new JTextField(MenuUtilisateur.getUtilisateurActuel().getNumTel(),1);
         gbc.gridx = 1;
         gbc.gridy = 5;
         this.add(numTelField, gbc);
 
-        numeroINAMIField = new JTextField(utilisateur.getNumeroINAMI(),1);
+        numeroINAMIField = new JTextField(MenuUtilisateur.getUtilisateurActuel().getNumeroINAMI(),1);
         gbc.gridx = 1;
         gbc.gridy = 6;
         this.add(numeroINAMIField, gbc);
 
         String[ ] values = { "Docteur", "Psychiatre", "Chirurgien", "Autre (Veuillez spécifier)" };
         specialiteCbx = new JComboBox(values);
-        specialiteCbx.setSelectedItem(utilisateur.getSpecialite());
+        specialiteCbx.setSelectedItem(MenuUtilisateur.getUtilisateurActuel().getSpecialite());
         specialiteCbx.setEditable(true);
         gbc.ipadx = 45;
         gbc.ipady = 5;
@@ -227,10 +225,11 @@ public class PanneauProfil extends JPanel{
                             specialiteCbx.getSelectedItem().toString()
                     );
 
-                    controller.updateSoignant(soignantModifié, utilisateur.getId());
+                    controller.updateSoignant(soignantModifié, MenuUtilisateur.getUtilisateurActuel().getId());
 
                     frameContainer.removeAll();
-                    frameContainer.add(new MenuUtilisateur(frameContainer, controller.getSoignant(utilisateur.getId())));
+                    MenuUtilisateur.setUtilisateurActuel(controller.getSoignant(MenuUtilisateur.getUtilisateurActuel().getId()));
+                    frameContainer.add(new MenuUtilisateur(frameContainer));
                     frameContainer.revalidate();
                     frameContainer.repaint();
 
@@ -258,7 +257,7 @@ public class PanneauProfil extends JPanel{
 
             if(event.getSource() == annulerBouton){
                 frameContainer.removeAll();
-                frameContainer.add(new MenuUtilisateur(frameContainer, utilisateur));
+                frameContainer.add(new MenuUtilisateur(frameContainer));
                 frameContainer.revalidate();
                 frameContainer.repaint();
             }
@@ -268,7 +267,7 @@ public class PanneauProfil extends JPanel{
                     int reponse = JOptionPane.showConfirmDialog(PanneauProfil.this, "Confirmer la suppression de votre compte ?", "Suppression", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                     if(reponse == JOptionPane.YES_OPTION){
-                        controller.deleteSoignant(utilisateur.getId());
+                        controller.deleteSoignant(MenuUtilisateur.getUtilisateurActuel().getId());
 
                         frameContainer.removeAll();
                         frameContainer.add(new PageConnexion(frameContainer));

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 public class PanneauRechercheProches extends JPanel {
 
-    private Soignant utilisateur;
     private Container frameContainer;
     private JLabel rechercherLabel, patientLabel;
     private JComboBox patientCbx;
@@ -22,8 +21,7 @@ public class PanneauRechercheProches extends JPanel {
     private ArrayList<Patient> listeObjetPatients;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauRechercheProches(Container frameContainer, Soignant utilisateur){
-        this.utilisateur = utilisateur;
+    public PanneauRechercheProches(Container frameContainer){
         this.frameContainer = frameContainer;
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
@@ -48,7 +46,7 @@ public class PanneauRechercheProches extends JPanel {
         this.add(patientLabel, gbc);
 
         try{
-            listeObjetPatients = controller.getAllPatientsConsultes(utilisateur.getId());
+            listeObjetPatients = controller.getAllPatientsConsultes(MenuUtilisateur.getUtilisateurActuel().getId());
             String[] values = new String[listeObjetPatients.size()];
             for(int i = 0; i < values.length; i++) {
                 values[i] = listeObjetPatients.get(i).getPrenom() + " " + listeObjetPatients.get(i).getNom();

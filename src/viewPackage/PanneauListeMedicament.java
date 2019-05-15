@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class PanneauListeMedicament extends JPanel{
 
     private Container frameContainer;
-    private Soignant utilisateur;
     private Reaction reaction;
     private ApplicationController controller ;
     private GridBagConstraints gbc = new GridBagConstraints();
@@ -35,10 +34,9 @@ public class PanneauListeMedicament extends JPanel{
     private JTable table;
     private Medicament medicament;
 
-    public PanneauListeMedicament(Container frameContainer, Soignant utilisateur){
+    public PanneauListeMedicament(Container frameContainer){
         try{
             this.frameContainer = frameContainer;
-            this.utilisateur = utilisateur;
             setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
             setController(new ApplicationController());
             setLayout(new GridBagLayout());

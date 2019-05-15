@@ -99,7 +99,8 @@ public class PanneauConnexion extends JPanel{
                     utilisateur = controller.getSoignant(numNationalField.getText(), new String(motDePasseField.getPassword()));
 
                     frameContainer.removeAll();
-                    frameContainer.add(new MenuUtilisateur(frameContainer, utilisateur));
+                    MenuUtilisateur.setUtilisateurActuel(utilisateur);
+                    frameContainer.add(new MenuUtilisateur(frameContainer));
                     frameContainer.revalidate();
                     frameContainer.repaint();
                 }

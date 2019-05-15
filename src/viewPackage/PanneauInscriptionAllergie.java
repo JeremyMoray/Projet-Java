@@ -20,11 +20,9 @@ public class PanneauInscriptionAllergie extends JPanel{
     private Container frameContainer;
     private ApplicationController controller;
     private Allergie allergie;
-    private Soignant utilisateur;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauInscriptionAllergie(Container frameContainer, Soignant utilisateur){
-        this.utilisateur = utilisateur;
+    public PanneauInscriptionAllergie(Container frameContainer){
         this.frameContainer = frameContainer;
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
@@ -138,7 +136,7 @@ public class PanneauInscriptionAllergie extends JPanel{
                     controller.addAllergie(allergie);
 
                     frameContainer.removeAll();
-                    frameContainer.add(new MenuUtilisateur(frameContainer, utilisateur));
+                    frameContainer.add(new MenuUtilisateur(frameContainer));
                     frameContainer.revalidate();
                     frameContainer.repaint();
                     JOptionPane.showMessageDialog(null, "L'allergie a été ajoutée", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
@@ -163,7 +161,7 @@ public class PanneauInscriptionAllergie extends JPanel{
 
             if(event.getSource() == retourBouton){
                 frameContainer.removeAll();
-                frameContainer.add(new MenuUtilisateur(frameContainer, utilisateur));
+                frameContainer.add(new MenuUtilisateur(frameContainer));
                 frameContainer.revalidate();
                 frameContainer.repaint();
             }

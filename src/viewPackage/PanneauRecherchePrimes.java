@@ -15,7 +15,6 @@ import java.util.GregorianCalendar;
 
 public class PanneauRecherchePrimes extends JPanel{
 
-    private Soignant utilisateur;
     private Container frameContainer;
     private GregorianCalendar dateConsultation;
     private JLabel rechercherLabel, dateMinLabel, dateConsultationLabel;
@@ -24,8 +23,7 @@ public class PanneauRecherchePrimes extends JPanel{
     private JSpinner jourSpinner, moisSpinner, anneeSpinner;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauRecherchePrimes(Container frameContainer, Soignant utilisateur){
-        this.utilisateur = utilisateur;
+    public PanneauRecherchePrimes(Container frameContainer){
         this.frameContainer = frameContainer;
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(FenetreMenu.getBorderTheme(), 3, true));
@@ -161,7 +159,7 @@ public class PanneauRecherchePrimes extends JPanel{
                         throw new FormatDateException();
                     }
 
-                    new FenetreRecherchePrimes(utilisateur.getId(), dateConsultation);
+                    new FenetreRecherchePrimes(MenuUtilisateur.getUtilisateurActuel().getId(), dateConsultation);
                 }
                 catch (FormatDateException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

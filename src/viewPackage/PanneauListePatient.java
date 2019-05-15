@@ -17,7 +17,6 @@ import java.util.GregorianCalendar;
 public class PanneauListePatient extends JPanel {
 
     private Container frameContainer;
-    private Soignant utilisateur;
     private ApplicationController controller;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
@@ -40,9 +39,8 @@ public class PanneauListePatient extends JPanel {
     private ArrayList<Mutualite> listeObjetMutualites;
     private Integer mutualite_id;
 
-    public PanneauListePatient(Container frameContainer, Soignant utilisateur) {
+    public PanneauListePatient(Container frameContainer) {
         this.frameContainer = frameContainer;
-        this.utilisateur = utilisateur;
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
@@ -721,7 +719,7 @@ public class PanneauListePatient extends JPanel {
                         throw new AucuneSelectionException();
                     }
 
-                    new FenetreAjouterConsultation(utilisateur, Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
+                    new FenetreAjouterConsultation(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
                 }
                 catch (AucuneSelectionException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -751,7 +749,7 @@ public class PanneauListePatient extends JPanel {
                         throw new AucuneSelectionException();
                     }
 
-                    new FenetreAjouterTraitement(utilisateur, Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
+                    new FenetreAjouterTraitement(Integer.parseInt(model.getValueAt(indiceLigneSelectionnee, 0).toString()));
                 }
                 catch (AucuneSelectionException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

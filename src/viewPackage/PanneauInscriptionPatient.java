@@ -34,11 +34,9 @@ public class PanneauInscriptionPatient extends JPanel{
     private Container frameContainer;
     private ApplicationController controller;
     private Patient patient;
-    private Soignant utilisateur;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauInscriptionPatient(Container frameContainer, Soignant utilisateur) {
-        this.utilisateur = utilisateur;
+    public PanneauInscriptionPatient(Container frameContainer) {
         this.frameContainer = frameContainer;
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
@@ -425,7 +423,7 @@ public class PanneauInscriptionPatient extends JPanel{
                     controller.addPatient(patient);
 
                     frameContainer.removeAll();
-                    frameContainer.add(new MenuUtilisateur(frameContainer, utilisateur));
+                    frameContainer.add(new MenuUtilisateur(frameContainer));
                     frameContainer.revalidate();
                     frameContainer.repaint();
                     JOptionPane.showMessageDialog(null, "Le patient a été ajouté", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
@@ -476,7 +474,7 @@ public class PanneauInscriptionPatient extends JPanel{
 
             if(event.getSource() == retourBouton){
                 frameContainer.removeAll();
-                frameContainer.add(new MenuUtilisateur(frameContainer, utilisateur));
+                frameContainer.add(new MenuUtilisateur(frameContainer));
                 frameContainer.revalidate();
                 frameContainer.repaint();
             }

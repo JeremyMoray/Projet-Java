@@ -17,7 +17,6 @@ import java.util.GregorianCalendar;
 
 public class FenetreAjouterTraitement extends JFrame {
 
-    private Soignant utilisateur;
     private Integer patient_id;
     private JComboBox medicamentCbx;
     private ArrayList<Medicament> listeObjetMedicaments;
@@ -29,13 +28,12 @@ public class FenetreAjouterTraitement extends JFrame {
     private JButton enregistrerBouton, annulerBouton;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public FenetreAjouterTraitement(Soignant utilisateur, Integer patient_id){
+    public FenetreAjouterTraitement(Integer patient_id){
         super("Ajouter un traitement");
         setBounds((int)(FenetreMenu.getWindowWidth() * 0.30), (int)(FenetreMenu.getWindowHeight() * 0.30),
                 (int)(FenetreMenu.getWindowWidth() * 0.40), (int)(FenetreMenu.getWindowHeight() * 0.40));
         setController(new ApplicationController());
 
-        this.utilisateur = utilisateur;
         this.patient_id = patient_id;
         this.setLayout(new GridBagLayout());
         dateDeDebut = new GregorianCalendar();
@@ -245,7 +243,7 @@ public class FenetreAjouterTraitement extends JFrame {
                     }
 
                     if(listeObjetMedicaments.size() != 0){
-                        traitement = new Traitement(dateDeDebut, dateDeFin, (frequenceField.getText().isEmpty())?null:frequenceField.getText(), patient_id, utilisateur.getId(), listeObjetMedicaments.get(medicamentCbx.getSelectedIndex()).getId());
+                        traitement = new Traitement(dateDeDebut, dateDeFin, (frequenceField.getText().isEmpty())?null:frequenceField.getText(), patient_id, MenuUtilisateur.getUtilisateurActuel().getId(), listeObjetMedicaments.get(medicamentCbx.getSelectedIndex()).getId());
                     }
                     else{
                         throw new ChampsVideException("Médicament");
