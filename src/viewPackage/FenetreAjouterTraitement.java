@@ -211,6 +211,7 @@ public class FenetreAjouterTraitement extends JFrame {
                         dateDeDebut.set(GregorianCalendar.MONTH, moisDebut);
                         dateDeDebut.set(GregorianCalendar.YEAR, anneeDebut);
 
+
                         dateDeFin.set(GregorianCalendar.DAY_OF_MONTH, jourFin-1);
                         dateDeFin.set(GregorianCalendar.MONTH, moisFin);
                         dateDeFin.set(GregorianCalendar.YEAR, anneeFin);
@@ -219,13 +220,6 @@ public class FenetreAjouterTraitement extends JFrame {
                             throw new FormatDateException();
                         }
                         if(dateDeFin.get(GregorianCalendar.MONTH) != moisFin){
-                            throw new FormatDateException();
-                        }
-
-                        if(dateDeDebut.compareTo(dateActuelle) < 0){
-                            throw new FormatDateException();
-                        }
-                        if(dateDeFin.compareTo(dateActuelle) < 0){
                             throw new FormatDateException();
                         }
                         if(dateDeDebut.compareTo(dateDeFin) > 0){
