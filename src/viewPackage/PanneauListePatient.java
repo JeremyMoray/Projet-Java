@@ -15,7 +15,6 @@ import java.util.GregorianCalendar;
 
 public class PanneauListePatient extends JPanel {
 
-    private Container frameContainer;
     private ApplicationController controller;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
@@ -38,8 +37,7 @@ public class PanneauListePatient extends JPanel {
     private ArrayList<Mutualite> listeObjetMutualites;
     private Integer mutualite_id;
 
-    public PanneauListePatient(Container frameContainer) {
-        this.frameContainer = frameContainer;
+    public PanneauListePatient() {
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
         setController(new ApplicationController());
         setLayout(new GridBagLayout());

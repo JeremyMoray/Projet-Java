@@ -11,7 +11,8 @@ import java.awt.event.ActionListener;
 
 public class MenuUtilisateur extends JPanel{
 
-    private Container frameContainer;
+    private static Container frameContainerActuel;
+    private static Soignant utilisateurActuel;
     private ApplicationController controller;
     private JMenuBar menuBar;
     private JMenu application, soignant, patient, medicament, allergie, mutualite, autres;
@@ -19,19 +20,16 @@ public class MenuUtilisateur extends JPanel{
             seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche, ajouterMedicament, listeMedicament, topMedicaments,
             totalPrimesAnuelles, ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide, fermetureThread;
     private GridBagConstraints gbc = new GridBagConstraints();
-    private static Soignant utilisateurActuel;
 
-    public MenuUtilisateur(Container frameContainer){
-        this.frameContainer = frameContainer;
-
+    public MenuUtilisateur(){
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
         setBackground(new Color(0xFFE8E2DB, true));
 
         menuBar = new JMenuBar();
-        frameContainer.setLayout(new BorderLayout());
-        frameContainer.add(menuBar, BorderLayout.NORTH);
+        frameContainerActuel.setLayout(new BorderLayout());
+        frameContainerActuel.add(menuBar, BorderLayout.NORTH);
 
         //Application
 
@@ -211,10 +209,7 @@ public class MenuUtilisateur extends JPanel{
     private class AccueilListener implements ActionListener
     {
         public void actionPerformed (ActionEvent event) {
-            MenuUtilisateur.this.removeAll();
-            MenuUtilisateur.this.add(new PanneauBienvenue(), gbc);
-            MenuUtilisateur.this.revalidate();
-            MenuUtilisateur.this.repaint();
+            addPanel(new PanneauBienvenue());
         }
     }
 
@@ -237,10 +232,7 @@ public class MenuUtilisateur extends JPanel{
     private class MonProfilListener implements ActionListener
     {
         public void actionPerformed (ActionEvent event) {
-            MenuUtilisateur.this.removeAll();
-            MenuUtilisateur.this.add(new PanneauProfil(frameContainer), gbc);
-            MenuUtilisateur.this.revalidate();
-            MenuUtilisateur.this.repaint();
+            addPanel(new PanneauProfil());
         }
     }
 
@@ -248,24 +240,15 @@ public class MenuUtilisateur extends JPanel{
     {
         public void actionPerformed (ActionEvent event) {
             if(event.getSource() == rechercheProcheDePatient){
-                MenuUtilisateur.this.removeAll();
-                MenuUtilisateur.this.add(new PanneauRechercheProches(frameContainer));
-                MenuUtilisateur.this.revalidate();
-                MenuUtilisateur.this.repaint();
+                addPanel(new PanneauRechercheProches());
             }
 
             if(event.getSource() == rechercheMedicamentPatient){
-                MenuUtilisateur.this.removeAll();
-                MenuUtilisateur.this.add(new PanneauRechercheMedicaments(frameContainer));
-                MenuUtilisateur.this.revalidate();
-                MenuUtilisateur.this.repaint();
+                addPanel(new PanneauRechercheMedicaments());
             }
 
             if(event.getSource() == recherchePrimePatient){
-                MenuUtilisateur.this.removeAll();
-                MenuUtilisateur.this.add(new PanneauRecherchePrimes(frameContainer));
-                MenuUtilisateur.this.revalidate();
-                MenuUtilisateur.this.repaint();
+                addPanel(new PanneauRecherchePrimes());
             }
         }
     }
@@ -273,20 +256,17 @@ public class MenuUtilisateur extends JPanel{
     private class SeDeconnecterListener implements ActionListener
     {
         public void actionPerformed (ActionEvent event) {
-            frameContainer.removeAll();
-            frameContainer.add(new PageConnexion(frameContainer));
-            frameContainer.revalidate();
-            frameContainer.repaint();
+            frameContainerActuel.removeAll();
+            frameContainerActuel.add(new PageConnexion(frameContainerActuel));
+            frameContainerActuel.revalidate();
+            frameContainerActuel.repaint();
         }
     }
 
     private class SuppressionListener implements ActionListener
     {
         public void actionPerformed (ActionEvent event) {
-            MenuUtilisateur.this.removeAll();
-            MenuUtilisateur.this.add(new PanneauSuppressionProche(frameContainer));
-            MenuUtilisateur.this.revalidate();
-            MenuUtilisateur.this.repaint();
+            addPanel(new PanneauSuppressionProche());
         }
     }
 
@@ -327,7 +307,7 @@ public class MenuUtilisateur extends JPanel{
         public void actionPerformed (ActionEvent event) {
             if(event.getSource() == inscriptionPatient){
                 MenuUtilisateur.this.removeAll();
-                JPanel patientPanel = new PanneauInscriptionPatient(frameContainer);
+                JPanel patientPanel = new PanneauInscriptionPatient();
                 JScrollPane scrollPane = new JScrollPane(patientPanel);
                 scrollPane.setPreferredSize(new Dimension(600, 650));
                 scrollPane.setBorder(BorderFactory.createLineBorder(FenetreMenu.getBorderTheme(), 3, true));
@@ -337,24 +317,15 @@ public class MenuUtilisateur extends JPanel{
             }
 
             if(event.getSource() == ajouterMutualite){
-                MenuUtilisateur.this.removeAll();
-                MenuUtilisateur.this.add(new PanneauInscriptionMutualite(frameContainer), gbc);
-                MenuUtilisateur.this.revalidate();
-                MenuUtilisateur.this.repaint();
+                addPanel(new PanneauInscriptionMutualite());
             }
 
             if(event.getSource() == ajouterAllergie){
-                MenuUtilisateur.this.removeAll();
-                MenuUtilisateur.this.add(new PanneauInscriptionAllergie(frameContainer), gbc);
-                MenuUtilisateur.this.revalidate();
-                MenuUtilisateur.this.repaint();
+                addPanel(new PanneauInscriptionAllergie());
             }
 
             if(event.getSource() == ajouterMedicament){
-                MenuUtilisateur.this.removeAll();
-                MenuUtilisateur.this.add(new PanneauInscriptionMedicament(frameContainer), gbc);
-                MenuUtilisateur.this.revalidate();
-                MenuUtilisateur.this.repaint();
+                addPanel(new PanneauInscriptionMedicament());
             }
         }
     }
@@ -363,31 +334,19 @@ public class MenuUtilisateur extends JPanel{
     {
         public void actionPerformed (ActionEvent event) {
             if(event.getSource() == chercherPatient){
-                MenuUtilisateur.this.removeAll();
-                MenuUtilisateur.this.add(new PanneauListePatient(frameContainer), gbc);
-                MenuUtilisateur.this.revalidate();
-                MenuUtilisateur.this.repaint();
+                addPanel(new PanneauListePatient());
             }
 
             if(event.getSource() == listeMutualite){
-                MenuUtilisateur.this.removeAll();
-                MenuUtilisateur.this.add(new PanneauListeMutualite(frameContainer), gbc);
-                MenuUtilisateur.this.revalidate();
-                MenuUtilisateur.this.repaint();
+                addPanel(new PanneauListeMutualite());
             }
 
             if(event.getSource() == listeAllergie){
-                MenuUtilisateur.this.removeAll();
-                MenuUtilisateur.this.add(new PanneauListeAllergie(frameContainer), gbc);
-                MenuUtilisateur.this.revalidate();
-                MenuUtilisateur.this.repaint();
+                addPanel(new PanneauListeAllergie());
             }
 
             if(event.getSource() == listeMedicament){
-                MenuUtilisateur.this.removeAll();
-                MenuUtilisateur.this.add(new PanneauListeMedicament(frameContainer), gbc);
-                MenuUtilisateur.this.revalidate();
-                MenuUtilisateur.this.repaint();
+                addPanel(new PanneauListeMedicament());
             }
         }
     }
@@ -415,6 +374,21 @@ public class MenuUtilisateur extends JPanel{
 
     public static void setUtilisateurActuel(Soignant utilisateur){
         utilisateurActuel = utilisateur;
+    }
+
+    public static Container getFrameContainerActuel(){
+        return frameContainerActuel;
+    }
+
+    public static void setFrameContainerActuel(Container frameContainer){
+        frameContainerActuel = frameContainer;
+    }
+
+    private void addPanel(JPanel panel){
+        MenuUtilisateur.this.removeAll();
+        MenuUtilisateur.this.add(panel, gbc);
+        MenuUtilisateur.this.revalidate();
+        MenuUtilisateur.this.repaint();
     }
 
     public void setController(ApplicationController controller){

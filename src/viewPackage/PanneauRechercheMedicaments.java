@@ -12,7 +12,6 @@ import java.util.GregorianCalendar;
 
 public class PanneauRechercheMedicaments extends JPanel{
 
-    private Container frameContainer;
     private JLabel rechercherLabel, dateMinLabel, dateMaxLabel;
     private GregorianCalendar dateMin, dateMax;
     private JSpinner jourDebutSpinner, moisDebutSpinner, anneeDebutSpinner, jourFinSpinner, moisFinSpinner, anneeFinSpinner;
@@ -20,8 +19,7 @@ public class PanneauRechercheMedicaments extends JPanel{
     private ApplicationController controller;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauRechercheMedicaments(Container frameContainer){
-        this.frameContainer = frameContainer;
+    public PanneauRechercheMedicaments(){
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(FenetreMenu.getBorderTheme(), 3, true));

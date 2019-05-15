@@ -100,7 +100,8 @@ public class PanneauConnexion extends JPanel{
 
                     frameContainer.removeAll();
                     MenuUtilisateur.setUtilisateurActuel(utilisateur);
-                    frameContainer.add(new MenuUtilisateur(frameContainer));
+                    MenuUtilisateur.setFrameContainerActuel(frameContainer);
+                    frameContainer.add(new MenuUtilisateur());
                     frameContainer.revalidate();
                     frameContainer.repaint();
                 }

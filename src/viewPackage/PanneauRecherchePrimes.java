@@ -14,7 +14,6 @@ import java.util.GregorianCalendar;
 
 public class PanneauRecherchePrimes extends JPanel{
 
-    private Container frameContainer;
     private GregorianCalendar dateConsultation;
     private JLabel rechercherLabel, dateMinLabel, dateConsultationLabel;
     private JCheckBox contrainteDateBox;
@@ -22,8 +21,7 @@ public class PanneauRecherchePrimes extends JPanel{
     private JSpinner jourSpinner, moisSpinner, anneeSpinner;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauRecherchePrimes(Container frameContainer){
-        this.frameContainer = frameContainer;
+    public PanneauRecherchePrimes(){
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(FenetreMenu.getBorderTheme(), 3, true));
 
@@ -45,7 +43,7 @@ public class PanneauRecherchePrimes extends JPanel{
         this.add(dateMinLabel, gbc);
 
         gbc.gridy = 2;
-        dateConsultationLabel = new JLabel("Date :");
+        dateConsultationLabel = new JLabel("Date de consultation :");
         dateConsultationLabel.setFont(new Font("Arial", Font.BOLD, 15));
         this.add(dateConsultationLabel, gbc);
 

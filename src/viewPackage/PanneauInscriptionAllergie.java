@@ -16,13 +16,11 @@ public class PanneauInscriptionAllergie extends JPanel{
     private JLabel allergieLabel, libelleLabel, symptomeLabel, conditionnementLabel;
     private JTextField libelleField, symptomeField, conditionnementField;
     private JButton inscriptionBouton, reinitialiserBouton, retourBouton;
-    private Container frameContainer;
     private ApplicationController controller;
     private Allergie allergie;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauInscriptionAllergie(Container frameContainer){
-        this.frameContainer = frameContainer;
+    public PanneauInscriptionAllergie(){
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(FenetreMenu.getBorderTheme(), 3, true));
@@ -134,10 +132,10 @@ public class PanneauInscriptionAllergie extends JPanel{
 
                     controller.addAllergie(allergie);
 
-                    frameContainer.removeAll();
-                    frameContainer.add(new MenuUtilisateur(frameContainer));
-                    frameContainer.revalidate();
-                    frameContainer.repaint();
+                    MenuUtilisateur.getFrameContainerActuel().removeAll();
+                    MenuUtilisateur.getFrameContainerActuel().add(new MenuUtilisateur());
+                    MenuUtilisateur.getFrameContainerActuel().revalidate();
+                    MenuUtilisateur.getFrameContainerActuel().repaint();
                     JOptionPane.showMessageDialog(null, "L'allergie a été ajoutée", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                 }
                 catch (AccesDBException exception){
@@ -159,10 +157,10 @@ public class PanneauInscriptionAllergie extends JPanel{
             }
 
             if(event.getSource() == retourBouton){
-                frameContainer.removeAll();
-                frameContainer.add(new MenuUtilisateur(frameContainer));
-                frameContainer.revalidate();
-                frameContainer.repaint();
+                MenuUtilisateur.getFrameContainerActuel().removeAll();
+                MenuUtilisateur.getFrameContainerActuel().add(new MenuUtilisateur());
+                MenuUtilisateur.getFrameContainerActuel().revalidate();
+                MenuUtilisateur.getFrameContainerActuel().repaint();
             }
         }
     }

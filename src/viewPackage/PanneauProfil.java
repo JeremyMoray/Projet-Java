@@ -18,12 +18,10 @@ public class PanneauProfil extends JPanel{
     private JButton enregistrerBoutton, annulerBouton, supprimerBoutton;
     private Soignant soignantModifié;
     private ApplicationController controller;
-    private Container frameContainer;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauProfil(Container frameContainer){
+    public PanneauProfil(){
 
-        this.frameContainer = frameContainer;
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(FenetreMenu.getBorderTheme(), 3, true));
@@ -227,11 +225,11 @@ public class PanneauProfil extends JPanel{
 
                     controller.updateSoignant(soignantModifié, MenuUtilisateur.getUtilisateurActuel().getId());
 
-                    frameContainer.removeAll();
+                    MenuUtilisateur.getFrameContainerActuel().removeAll();
                     MenuUtilisateur.setUtilisateurActuel(controller.getSoignant(MenuUtilisateur.getUtilisateurActuel().getId()));
-                    frameContainer.add(new MenuUtilisateur(frameContainer));
-                    frameContainer.revalidate();
-                    frameContainer.repaint();
+                    MenuUtilisateur.getFrameContainerActuel().add(new MenuUtilisateur());
+                    MenuUtilisateur.getFrameContainerActuel().revalidate();
+                    MenuUtilisateur.getFrameContainerActuel().repaint();
 
                     JOptionPane.showMessageDialog(null, "Vos modifications ont bien été prises en compte", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -256,10 +254,10 @@ public class PanneauProfil extends JPanel{
             }
 
             if(event.getSource() == annulerBouton){
-                frameContainer.removeAll();
-                frameContainer.add(new MenuUtilisateur(frameContainer));
-                frameContainer.revalidate();
-                frameContainer.repaint();
+                MenuUtilisateur.getFrameContainerActuel().removeAll();
+                MenuUtilisateur.getFrameContainerActuel().add(new MenuUtilisateur());
+                MenuUtilisateur.getFrameContainerActuel().revalidate();
+                MenuUtilisateur.getFrameContainerActuel().repaint();
             }
 
             if(event.getSource() == supprimerBoutton){
@@ -269,10 +267,10 @@ public class PanneauProfil extends JPanel{
                     if(reponse == JOptionPane.YES_OPTION){
                         controller.deleteSoignant(MenuUtilisateur.getUtilisateurActuel().getId());
 
-                        frameContainer.removeAll();
-                        frameContainer.add(new PageConnexion(frameContainer));
-                        frameContainer.revalidate();
-                        frameContainer.repaint();
+                        MenuUtilisateur.getFrameContainerActuel().removeAll();
+                        MenuUtilisateur.getFrameContainerActuel().add(new PageConnexion(MenuUtilisateur.getFrameContainerActuel()));
+                        MenuUtilisateur.getFrameContainerActuel().revalidate();
+                        MenuUtilisateur.getFrameContainerActuel().repaint();
 
                         JOptionPane.showMessageDialog(null, "Votre compte a bien été supprimé", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                     }

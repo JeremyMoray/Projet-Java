@@ -16,13 +16,11 @@ public class PanneauInscriptionMutualite extends JPanel{
     private JLabel mutualiteLabel, libelleLabel, affiliationPolitiqueLabel, diminutifLabel;
     private JTextField libelleField, affiliationPolitiqueField, diminutifField;
     private JButton inscriptionBouton, reinitialiserBouton, retourBouton;
-    private Container frameContainer;
     private ApplicationController controller;
     private Mutualite mutualite;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauInscriptionMutualite(Container frameContainer){
-        this.frameContainer = frameContainer;
+    public PanneauInscriptionMutualite(){
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(FenetreMenu.getBorderTheme(), 3, true));
@@ -134,10 +132,10 @@ public class PanneauInscriptionMutualite extends JPanel{
 
                     controller.addMutualite(mutualite);
 
-                    frameContainer.removeAll();
-                    frameContainer.add(new MenuUtilisateur(frameContainer));
-                    frameContainer.revalidate();
-                    frameContainer.repaint();
+                    MenuUtilisateur.getFrameContainerActuel().removeAll();
+                    MenuUtilisateur.getFrameContainerActuel().add(new MenuUtilisateur());
+                    MenuUtilisateur.getFrameContainerActuel().revalidate();
+                    MenuUtilisateur.getFrameContainerActuel().repaint();
                     JOptionPane.showMessageDialog(null, "La mutualité a été ajoutée", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                 }
                 catch (AccesDBException exception){
@@ -159,10 +157,10 @@ public class PanneauInscriptionMutualite extends JPanel{
             }
 
             if(event.getSource() == retourBouton){
-                frameContainer.removeAll();
-                frameContainer.add(new MenuUtilisateur(frameContainer));
-                frameContainer.revalidate();
-                frameContainer.repaint();
+                MenuUtilisateur.getFrameContainerActuel().removeAll();
+                MenuUtilisateur.getFrameContainerActuel().add(new MenuUtilisateur());
+                MenuUtilisateur.getFrameContainerActuel().revalidate();
+                MenuUtilisateur.getFrameContainerActuel().repaint();
             }
         }
     }

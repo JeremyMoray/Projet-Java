@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class PanneauListeAllergie extends JPanel{
 
-    private Container frameContainer;
     private ApplicationController controller ;
     private GridBagConstraints gbc = new GridBagConstraints();
     private ListSelectionModel listSelect;
@@ -29,9 +28,8 @@ public class PanneauListeAllergie extends JPanel{
     private JTable table;
     private Allergie allergie;
 
-    public PanneauListeAllergie(Container frameContainer){
+    public PanneauListeAllergie(){
         try{
-            this.frameContainer = frameContainer;
             setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
             setController(new ApplicationController());
             setLayout(new GridBagLayout());

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public class PanneauRechercheProches extends JPanel {
 
-    private Container frameContainer;
     private JLabel rechercherLabel, patientLabel;
     private JComboBox patientCbx;
     private JButton rechercherBouton;
@@ -20,8 +19,7 @@ public class PanneauRechercheProches extends JPanel {
     private ArrayList<Patient> listeObjetPatients;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauRechercheProches(Container frameContainer){
-        this.frameContainer = frameContainer;
+    public PanneauRechercheProches(){
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(FenetreMenu.getBorderTheme(), 3, true));
