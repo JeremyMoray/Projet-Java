@@ -155,11 +155,13 @@ public class FenetreAjouterConsultation extends JFrame {
                         if(annee < dateActuelle.get(Calendar.YEAR) || annee > dateActuelle.get(Calendar.YEAR) + 10){
                             throw new FormatDateException();
                         }
-                        dateConsultation.set(GregorianCalendar.DAY_OF_MONTH, jour-1);
+                        dateConsultation.set(GregorianCalendar.DAY_OF_MONTH, jour);
                         dateConsultation.set(GregorianCalendar.MONTH, mois);
                         dateConsultation.set(GregorianCalendar.YEAR, annee);
                         dateConsultation.set(GregorianCalendar.HOUR, heure);
                         dateConsultation.set(GregorianCalendar.MINUTE, minute);
+                        dateConsultation.set(GregorianCalendar.SECOND, 0);
+                        dateConsultation.set(GregorianCalendar.MILLISECOND, 0);
 
                         if(dateConsultation.get(GregorianCalendar.MONTH) != mois){
                             throw new FormatDateException();

@@ -920,7 +920,7 @@ public class DBAccess implements DataAccess{
             String sql = "select dateConsultation from consultation where dateConsultation = ? and soignant_id = ? and patient_id = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setDate(1, new java.sql.Date(consultation.getDateConsultation().getTimeInMillis()));
+            statement.setTimestamp(1, new java.sql.Timestamp(consultation.getDateConsultation().getTimeInMillis()));
             statement.setInt(2, consultation.getSoignant_id());
             statement.setInt(3, consultation.getPatient_id());
 
@@ -934,7 +934,7 @@ public class DBAccess implements DataAccess{
 
             statement = connection.prepareStatement(sql2);
 
-            statement.setDate(1, new java.sql.Date(consultation.getDateConsultation().getTimeInMillis()));
+            statement.setTimestamp(1, new java.sql.Timestamp(consultation.getDateConsultation().getTimeInMillis()));
             if(consultation.getObservations() == null){
                 statement.setNull(2, Types.VARCHAR);
             }
