@@ -48,7 +48,7 @@ public class Soignant {
         if(motDePasse.isEmpty()){
             throw new ChampsVideException("Mot de passe");
         }
-        if(motDePasse.length() > 30){
+        if(motDePasse.length() > 128){
             throw new CaracteresLimiteException("Mot de passe");
         }
         this.motDePasse = motDePasse;

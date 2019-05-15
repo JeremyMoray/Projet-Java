@@ -1,5 +1,8 @@
 package dataAccessPackage;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import exceptionPackage.*;
 import modelPackage.*;
@@ -36,7 +39,7 @@ public class DBAccess implements DataAccess{
 
             statement.setNull(1, Types.INTEGER);
             statement.setString(2, soignant.getNumeroNational());
-            statement.setString(3, soignant.getMotDePasse());
+            statement.setString(3, crypter(soignant.getMotDePasse()));
             statement.setString(4, soignant.getNom());
             statement.setString(5, soignant.getPrenom());
             statement.setString(6, soignant.getNumTel());
@@ -58,15 +61,17 @@ public class DBAccess implements DataAccess{
     public Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException{
         try{
             Connection connection = SingletonConnection.getInstance();
-            String sql = "select * from soignant where numeroNational = ? and motDePasse = ?;";
+            String sql = "select * from soignant where numeroNational = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, numNat);
-            statement.setString(2, motDePasse);
 
             ResultSet data = statement.executeQuery();
 
             if(!data.next()){
+                throw new ConnexionException();
+            }
+            if(!crypter(motDePasse).equals(data.getString(3))){
                 throw new ConnexionException();
             }
 
@@ -1187,6 +1192,38 @@ public class DBAccess implements DataAccess{
         }
         catch(SQLException exception){
             throw new AccesDBException(exception.getMessage());
+        }
+    }
+
+    public static String crypter(String input)
+    {
+        try {
+            // getInstance() method is called with algorithm SHA-512
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+
+            // digest() method is called
+            // to calculate message digest of the input string
+            // returned as array of byte
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+
+            // Add preceding 0s to make it 32 bit
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+
+            // return the HashText
+            return hashtext;
+        }
+
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -228,7 +228,7 @@ public class Manager {
         ArrayList<Patient> patients = getAllPatients();
 
         for(int i = 0; i < patients.size(); i++){
-            addPrime(patients.get(i).getPrimeAnuelle(), totalPrimesAnuelles);
+            totalPrimesAnuelles = addPrime(patients.get(i).getPrimeAnuelle(), totalPrimesAnuelles);
         }
         return totalPrimesAnuelles;
     }

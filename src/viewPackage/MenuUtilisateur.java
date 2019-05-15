@@ -281,7 +281,7 @@ public class MenuUtilisateur extends JPanel{
     {
         public void actionPerformed (ActionEvent event) {
             try{
-                JOptionPane.showMessageDialog(null, "Le total des primes annuelles des patients est de : " + controller.getTotalPrimesAnuelles() + " euros", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Le total des primes annuelles des patients est de : " + controller.getTotalPrimesAnuelles() + " euros", "Total primes annuelles", JOptionPane.INFORMATION_MESSAGE);
             }
             catch (AccesDBException exception){
                 JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
