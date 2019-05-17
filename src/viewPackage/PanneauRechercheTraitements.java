@@ -2,7 +2,7 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 import exceptionPackage.*;
-import modelPackage.Patient;
+import modelPackage.Mutualite;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,21 +10,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class PanneauRechercheProches extends JPanel {
+public class PanneauRechercheTraitements extends JPanel {
 
-    private JLabel rechercherLabel, patientLabel;
-    private JComboBox patientCbx;
+    private JLabel rechercherLabel, mutualitesLabel;
+    private JComboBox mutualiteCbx;
     private JButton rechercherBouton;
     private ApplicationController controller;
-    private ArrayList<Patient> listeObjetPatients;
+    private ArrayList<Mutualite> listeObjetMutualites;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauRechercheProches(){
+    public PanneauRechercheTraitements(){
         setController(new ApplicationController());
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(FenetreMenu.getBorderTheme(), 3, true));
 
-        rechercherLabel = new JLabel("Recherchez les proches d'un patient parmis vos consultations");
+        rechercherLabel = new JLabel("Recherchez tous les traitements prescrit sous une mutualité");
         rechercherLabel.setFont(new Font("Arial", Font.BOLD, 20));
         gbc.anchor = GridBagConstraints.WEST;
         gbc.ipadx = 0;
@@ -35,31 +35,25 @@ public class PanneauRechercheProches extends JPanel {
         gbc.gridy = 0;
         this.add(rechercherLabel, gbc);
 
-        patientLabel = new JLabel("Patient :");
-        patientLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        mutualitesLabel = new JLabel("Mutualité :");
+        mutualitesLabel.setFont(new Font("Arial", Font.BOLD, 15));
         gbc.insets = new Insets(30,10,30,10);
         gbc.gridwidth = 1;
         gbc.gridy = 1;
-        this.add(patientLabel, gbc);
+        this.add(mutualitesLabel, gbc);
 
         try{
-            listeObjetPatients = controller.getAllPatientsConsultes(MenuUtilisateur.getUtilisateurActuel().getId());
-            String[] values = new String[listeObjetPatients.size()];
+            listeObjetMutualites = controller.getAllMutualites();
+            String[] values = new String[listeObjetMutualites.size()];
             for(int i = 0; i < values.length; i++) {
-                values[i] = listeObjetPatients.get(i).getPrenom() + " " + listeObjetPatients.get(i).getNom();
+                values[i] = listeObjetMutualites.get(i).getLibelle() + " (" + listeObjetMutualites.get(i).getId() + ")";
             }
-            patientCbx = new JComboBox(values);
-            patientCbx.setMaximumRowCount(10);
+            mutualiteCbx = new JComboBox(values);
+            mutualiteCbx.setMaximumRowCount(10);
             gbc.gridx = 1;
-            this.add(patientCbx, gbc);
+            this.add(mutualiteCbx, gbc);
         }
         catch (AccesDBException exception){
-            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (CodeInvalideException exception){
-            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (FormatNombreException exception){
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }
         catch (ChampsVideException exception){
@@ -88,10 +82,10 @@ public class PanneauRechercheProches extends JPanel {
 
             if(event.getSource() == rechercherBouton){
                 try{
-                    if(listeObjetPatients.size() == 0){
+                    if(listeObjetMutualites.size() == 0){
                         throw new AucuneSelectionException();
                     }
-                    new FenetreRechercheProche(listeObjetPatients.get(patientCbx.getSelectedIndex()).getPatient_id());
+                    new FenetreRechercheTraitement(listeObjetMutualites.get(mutualiteCbx.getSelectedIndex()).getId());
                 }
                 catch (AucuneSelectionException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

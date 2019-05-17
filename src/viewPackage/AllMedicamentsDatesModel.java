@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class AllMedicamentsDatesModel extends AbstractTableModel {
     private ArrayList<String> columnNames;
     private ArrayList<Medicament> medicaments;
-    private ApplicationController controller;
 
     public AllMedicamentsDatesModel(ArrayList<Medicament> medicaments) {
         columnNames = new ArrayList<>();
@@ -22,7 +21,6 @@ public class AllMedicamentsDatesModel extends AbstractTableModel {
         columnNames.add("Caractéristique");
         columnNames.add("Taux de remboursement");
         this.medicaments = medicaments;
-        setController(new ApplicationController());
     }
 
     public int getColumnCount() {
@@ -91,9 +89,5 @@ public class AllMedicamentsDatesModel extends AbstractTableModel {
     public void removeRow(int position){
         medicaments.remove(position);
         fireTableRowsDeleted(position, position);
-    }
-
-    private void setController(ApplicationController controller) {
-        this.controller = controller;
     }
 }

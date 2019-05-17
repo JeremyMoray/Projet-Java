@@ -62,8 +62,8 @@ public class MenuUtilisateur extends JPanel{
 
         soignant.addSeparator();
 
-        //Cette recherche trouve les proches des patients consultés par le soignant à appeller en cas d'urgence
-        rechercheProcheDePatient = new JMenuItem("Rechercher des proches d'un patient (Urgence)");
+        //Cette recherche donne des infos sur tous les traitements ayant un patient sous la mutualité sélectionnée
+        rechercheProcheDePatient = new JMenuItem("Rechercher les traitements prescrit sous cette mutualité");
         soignant.add(rechercheProcheDePatient);
         RechercheListener rechercheProcheDePatientListener = new RechercheListener();
         rechercheProcheDePatient.addActionListener(rechercheProcheDePatientListener);
@@ -240,7 +240,7 @@ public class MenuUtilisateur extends JPanel{
     {
         public void actionPerformed (ActionEvent event) {
             if(event.getSource() == rechercheProcheDePatient){
-                addPanel(new PanneauRechercheProches());
+                addPanel(new PanneauRechercheTraitements());
             }
 
             if(event.getSource() == rechercheMedicamentPatient){
@@ -248,7 +248,7 @@ public class MenuUtilisateur extends JPanel{
             }
 
             if(event.getSource() == recherchePrimePatient){
-                addPanel(new PanneauRecherchePrimes());
+                addPanel(new PanneauRechercheConsultations());
             }
         }
     }

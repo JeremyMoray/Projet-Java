@@ -688,51 +688,6 @@ public class DBAccess implements DataAccess{
         }
     }
 
-    public ArrayList<Patient> getAllPatientsConsultes(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
-        try{
-            Connection connection = SingletonConnection.getInstance();
-            String sql = "select distinct patient.* from patient, consultation where consultation.soignant_id = ? and consultation.patient_id = patient.patient_id;";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-            statement.setInt(1, soignant_id);
-
-            ResultSet data = statement.executeQuery();
-
-            ArrayList<Patient> patients = new ArrayList<>();
-
-            while(data.next()) {
-                GregorianCalendar calendar = new GregorianCalendar();
-                calendar.setTime(data.getDate(6));
-                Patient patient = new Patient(
-                        data.getInt(1),
-                        data.getString(2),
-                        data.getString(3),
-                        data.getString(4),
-                        data.getInt(5),
-                        calendar,
-                        data.getString(7),
-                        data.getString(8),
-                        data.getString(9),
-                        data.getString(10),
-                        data.getString(11),
-                        data.getBoolean(12),
-                        data.getBoolean(13),
-                        data.getBoolean(14),
-                        data.getString(15),
-                        data.getString(16),
-                        data.getDouble(17),
-                        (data.getInt(18) == 0)?null:data.getInt(18)
-                );
-                patients.add(patient);
-            }
-            return patients;
-        }
-        catch(SQLException exception){
-            throw new AccesDBException(exception.getMessage());
-        }
-    }
-
     public ArrayList<Patient> getAllPrimesPatient(Integer soignant_id, GregorianCalendar dateConsultation) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
         try{
             Connection connection = SingletonConnection.getInstance();
@@ -1037,6 +992,44 @@ public class DBAccess implements DataAccess{
         }
     }
 
+    public ArrayList<ArrayList<String>> getAllTraitements(Integer mutualite_id) throws AccesDBException{
+        try{
+            Connection connection = SingletonConnection.getInstance();
+            String sql = "select s.nom, s.prenom, t.frequence, m.nom, m.firme, p.nom, p.prenom " +
+                    "from patient p, traitement t, soignant s, medicament m where p.mutualite_id = ? " +
+                    "and t.patient_id = p.patient_id " +
+                    "and t.soignant_id = s.soignant_id " +
+                    "and t.medicament_id = m.medicament_id " +
+                    "ORDER BY s.nom, s.prenom;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, mutualite_id);
+
+            ResultSet data = statement.executeQuery();
+
+            ArrayList<ArrayList<String>> traitements = new ArrayList<>();
+            ArrayList<String> traitement;
+
+            while(data.next()) {
+                traitement = new ArrayList<>();
+                traitement.add(data.getString(1));
+                traitement.add(data.getString(2));
+                traitement.add(data.getString(3));
+                traitement.add(data.getString(4));
+                traitement.add(data.getString(5));
+                traitement.add(data.getString(6));
+                traitement.add(data.getString(7));
+                traitements.add(traitement);
+            }
+
+            return traitements;
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
     public void addReaction(Reaction reaction) throws AccesDBException, ObjetExistantException{
         try {
             Connection connection = SingletonConnection.getInstance();
@@ -1115,41 +1108,6 @@ public class DBAccess implements DataAccess{
             String sql = "select * from proche;";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-
-            ResultSet data = statement.executeQuery();
-
-            ArrayList<Proche> proches = new ArrayList<>();
-
-            while(data.next()) {
-
-                Proche proche = new Proche(
-                        data.getInt(1),
-                        data.getString(2),
-                        data.getString(3),
-                        data.getString(4),
-                        data.getString(5),
-                        data.getBoolean(6),
-                        data.getBoolean(7),
-                        data.getInt(8)
-                );
-                proches.add(proche);
-            }
-
-            return proches;
-        }
-        catch(SQLException exception){
-            throw new AccesDBException(exception.getMessage());
-        }
-    }
-
-    public ArrayList<Proche> getAllProchesUrgence(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException{
-        try{
-            Connection connection = SingletonConnection.getInstance();
-            String sql = "select * from proche where patient_id = ? and aAppellerSiUrgence = true;";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-            statement.setInt(1, patient_id);
 
             ResultSet data = statement.executeQuery();
 

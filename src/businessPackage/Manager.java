@@ -117,10 +117,6 @@ public class Manager {
         return dao.getAllPatients();
     }
 
-    public ArrayList<Patient> getAllPatientsConsultes(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
-        return dao.getAllPatientsConsultes(soignant_id);
-    }
-
     public ArrayList<Patient> getAllPrimesPatient(Integer soignant_id, GregorianCalendar dateConsultation) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
         return dao.getAllPrimesPatient(soignant_id, dateConsultation);
     }
@@ -155,6 +151,10 @@ public class Manager {
         dao.addTraitement(traitement);
     }
 
+    public ArrayList<ArrayList<String>> getAllTraitements(Integer mutualite_id) throws AccesDBException {
+        return dao.getAllTraitements(mutualite_id);
+    }
+
     public void addReaction(Reaction reaction) throws AccesDBException, ObjetExistantException{
         dao.addReaction(reaction);
     }
@@ -165,10 +165,6 @@ public class Manager {
 
     public ArrayList<Proche> getAllProches() throws AccesDBException, ChampsVideException, CaracteresLimiteException{
         return dao.getAllProches();
-    }
-
-    public ArrayList<Proche> getAllProchesUrgence(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException{
-        return dao.getAllProchesUrgence(patient_id);
     }
 
     public void deleteProche(Integer proche_id) throws AccesDBException{

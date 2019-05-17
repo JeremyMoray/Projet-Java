@@ -12,7 +12,7 @@ import java.awt.event.ItemListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class PanneauRecherchePrimes extends JPanel{
+public class PanneauRechercheConsultations extends JPanel{
 
     private GregorianCalendar dateConsultation;
     private JLabel rechercherLabel, dateMinLabel, dateConsultationLabel;
@@ -21,7 +21,7 @@ public class PanneauRecherchePrimes extends JPanel{
     private JSpinner jourSpinner, moisSpinner, anneeSpinner;
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public PanneauRecherchePrimes(){
+    public PanneauRechercheConsultations(){
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(FenetreMenu.getBorderTheme(), 3, true));
 
@@ -156,7 +156,7 @@ public class PanneauRecherchePrimes extends JPanel{
                         throw new FormatDateException();
                     }
 
-                    new FenetreRecherchePrimes(MenuUtilisateur.getUtilisateurActuel().getId(), dateConsultation);
+                    new FenetreRechercheConsultation(MenuUtilisateur.getUtilisateurActuel().getId(), dateConsultation);
                 }
                 catch (FormatDateException exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);

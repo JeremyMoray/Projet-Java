@@ -101,10 +101,6 @@ public class ApplicationController {
         return manager.getAllPatients();
     }
 
-    public ArrayList<Patient> getAllPatientsConsultes(Integer soignant_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
-        return manager.getAllPatientsConsultes(soignant_id);
-    }
-
     public ArrayList<Patient> getAllPrimesPatient(Integer soignant_id, GregorianCalendar dateConsultation) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
         return manager.getAllPrimesPatient(soignant_id, dateConsultation);
     }
@@ -133,6 +129,10 @@ public class ApplicationController {
         manager.addTraitement(traitement);
     }
 
+    public ArrayList<ArrayList<String>> getAllTraitements(Integer mutualite_id) throws AccesDBException{
+        return manager.getAllTraitements(mutualite_id);
+    }
+
     public void addReaction(Reaction reaction) throws AccesDBException, ObjetExistantException{
         manager.addReaction(reaction);
     }
@@ -143,10 +143,6 @@ public class ApplicationController {
 
     public ArrayList<Proche> getAllProches() throws AccesDBException, ChampsVideException, CaracteresLimiteException{
         return manager.getAllProches();
-    }
-
-    public ArrayList<Proche> getAllProchesUrgence(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException{
-        return manager.getAllProchesUrgence(patient_id);
     }
 
     public void deleteProche(Integer proche_id) throws AccesDBException{

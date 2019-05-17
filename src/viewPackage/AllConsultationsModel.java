@@ -5,12 +5,12 @@ import modelPackage.Patient;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class AllPrimesPatientModel extends AbstractTableModel {
+public class AllConsultationsModel extends AbstractTableModel {
 
     private ArrayList<String> columnNames;
     private ArrayList<Patient> patients;
 
-    public AllPrimesPatientModel(ArrayList<Patient> patients) {
+    public AllConsultationsModel(ArrayList<Patient> patients) {
         columnNames = new ArrayList<>();
         columnNames.add("Prénom");
         columnNames.add("Nom");

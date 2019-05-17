@@ -2,7 +2,6 @@ package viewPackage;
 
 import controllerPackage.ApplicationController;
 import exceptionPackage.*;
-import modelPackage.Patient;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -10,43 +9,30 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
-public class FenetreRecherchePrimes extends JFrame {
+public class FenetreRechercheTraitement extends JFrame{
 
-    private ArrayList<Patient> listePatients;
+    private ArrayList<ArrayList<String>> listeTraitements;
+    private AllTraitementsModel model;
+    private JTable table;
     private ApplicationController controller;
-    private AllPrimesPatientModel model;
     private JButton quitterBouton;
     private GridBagConstraints gbc = new GridBagConstraints();
-    private JTable table;
 
-    public FenetreRecherchePrimes(Integer soignant_id, GregorianCalendar dateConsultation){
-        super("Liste des patients consultés après la date saisie et leurs prime annuelle");
+    public FenetreRechercheTraitement(Integer mutualite_id){
+        super("Liste des traitements prescrits pour les patients couverts par cette mutualité");
         setBounds((int)(FenetreMenu.getWindowWidth() * 0.30), (int)(FenetreMenu.getWindowHeight() * 0.20),
                 (int)(FenetreMenu.getWindowWidth() * 0.40), (int)(FenetreMenu.getWindowHeight() * 0.60));
         setController(new ApplicationController());
 
         try{
-            listePatients = controller.getAllPrimesPatient(soignant_id, dateConsultation);
+            listeTraitements = controller.getAllTraitements(mutualite_id);
         }
         catch (AccesDBException exception){
             JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }
-        catch (ChampsVideException exception){
-            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (CaracteresLimiteException exception){
-            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (CodeInvalideException exception){
-            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (FormatNombreException exception){
-            JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
 
-        model = new AllPrimesPatientModel(listePatients);
+        model = new AllTraitementsModel(listeTraitements);
 
         table = new JTable(model);
 
@@ -59,6 +45,10 @@ public class FenetreRecherchePrimes extends JFrame {
         table.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
         table.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
         table.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+        table.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+        table.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+        table.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+        table.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
