@@ -87,7 +87,7 @@ public class PanneauProfil extends JPanel{
         gbc.gridy = 1;
         this.add(numeroNationalField, gbc);
 
-        motDePasseField = new JPasswordField(MenuUtilisateur.getUtilisateurActuel().getMotDePasse(), 1);
+        motDePasseField = new JPasswordField(1);
         gbc.gridx = 1;
         gbc.gridy = 2;
         this.add(motDePasseField, gbc);

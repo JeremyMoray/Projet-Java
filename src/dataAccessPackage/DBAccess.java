@@ -173,7 +173,7 @@ public class DBAccess implements DataAccess{
             statement = connection.prepareStatement(sql2);
 
             statement.setString(1, soignantModifié.getNumeroNational());
-            statement.setString(2, soignantModifié.getMotDePasse());
+            statement.setString(2, crypter(soignantModifié.getMotDePasse()));
             statement.setString(3, soignantModifié.getNom());
             statement.setString(4, soignantModifié.getPrenom());
             statement.setString(5, soignantModifié.getNumTel());
