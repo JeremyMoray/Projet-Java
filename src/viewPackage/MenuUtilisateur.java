@@ -15,7 +15,7 @@ public class MenuUtilisateur extends JPanel{
     private static Soignant utilisateurActuel;
     private ApplicationController controller;
     private JMenuBar menuBar;
-    private JMenu application, soignant, patient, medicament, allergie, mutualite, autres;
+    private JMenu application, soignant, recherche, patient, medicament, allergie, mutualite, autres;
     private JMenuItem accueil, quitter, monProfil, rechercheTraitements, rechercheMedicamentPatient, rechercheConsultations,
             seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche, ajouterMedicament, listeMedicament, topMedicaments,
             totalPrimesAnuelles, ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide, fermetureThread;
@@ -62,35 +62,39 @@ public class MenuUtilisateur extends JPanel{
 
         soignant.addSeparator();
 
-        //Cette recherche donne des infos sur tous les traitements ayant un patient sous la mutualité sélectionnée
-        rechercheTraitements = new JMenuItem("Rechercher les traitements prescrit sous cette mutualité");
-        soignant.add(rechercheTraitements);
-        RechercheListener rechercheTraitementsListener = new RechercheListener();
-        rechercheTraitements.addActionListener(rechercheTraitementsListener);
-
-
-        soignant.addSeparator();
-
-        //Cette recherche trouve les infos d'un médicament d'un traitement de tous les patients consultés. La date de début du traitement étant choisie entre 2 dates.
-        rechercheMedicamentPatient = new JMenuItem("Rechercher les médicaments d'un patient");
-        soignant.add(rechercheMedicamentPatient);
-        RechercheListener rechercheMedicamentPatientListener = new RechercheListener();
-        rechercheMedicamentPatient.addActionListener(rechercheMedicamentPatientListener);
-
-        soignant.addSeparator();
-
-        //Cette recherche donne les infos sur les consultation d'un soignant
-        rechercheConsultations = new JMenuItem("Rechercher les consultations d'un soignant");
-        soignant.add(rechercheConsultations);
-        RechercheListener rechercheConsultationsListener = new RechercheListener();
-        rechercheConsultations.addActionListener(rechercheConsultationsListener);
-
-        soignant.addSeparator();
-
         seDeconnecter = new JMenuItem("Se déconnecter");
         soignant.add(seDeconnecter);
         SeDeconnecterListener seDeconnecterListener = new SeDeconnecterListener();
         seDeconnecter.addActionListener(seDeconnecterListener);
+
+        //Recherche
+
+        recherche = new JMenu("Recherche");
+        recherche.setMnemonic('R');
+        menuBar.add(recherche);
+
+        //Cette recherche donne des infos sur tous les traitements ayant un patient sous la mutualité sélectionnée
+        rechercheTraitements = new JMenuItem("Rechercher les traitements prescrit sous cette mutualité");
+        recherche.add(rechercheTraitements);
+        RechercheListener rechercheTraitementsListener = new RechercheListener();
+        rechercheTraitements.addActionListener(rechercheTraitementsListener);
+
+
+        recherche.addSeparator();
+
+        //Cette recherche trouve les infos d'un médicament d'un traitement de tous les patients consultés. La date de début du traitement étant choisie entre 2 dates.
+        rechercheMedicamentPatient = new JMenuItem("Rechercher les médicaments d'un patient");
+        recherche.add(rechercheMedicamentPatient);
+        RechercheListener rechercheMedicamentPatientListener = new RechercheListener();
+        rechercheMedicamentPatient.addActionListener(rechercheMedicamentPatientListener);
+
+        recherche.addSeparator();
+
+        //Cette recherche donne les infos sur les consultation d'un soignant
+        rechercheConsultations = new JMenuItem("Rechercher les consultations d'un soignant");
+        recherche.add(rechercheConsultations);
+        RechercheListener rechercheConsultationsListener = new RechercheListener();
+        rechercheConsultations.addActionListener(rechercheConsultationsListener);
 
         //Patient
 
@@ -152,7 +156,7 @@ public class MenuUtilisateur extends JPanel{
         //Allergie
 
         allergie = new JMenu("Allergie");
-        allergie.setMnemonic('r');
+        allergie.setMnemonic('g');
         menuBar.add(allergie);
 
         ajouterAllergie = new JMenuItem("Ajouter une allergie");

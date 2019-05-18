@@ -1,7 +1,6 @@
 package viewPackage;
 
 import modelPackage.InfosConsultation;
-import modelPackage.Patient;
 
 import javax.swing.table.AbstractTableModel;
 import java.text.DateFormat;
@@ -71,7 +70,7 @@ public class AllConsultationsModel extends AbstractTableModel {
                 c = String.class;
                 break;
             case 3:
-                c = DateFormat.class;
+                c = GregorianCalendar.class;
                 break;
             case 4:
                 c = String.class;
