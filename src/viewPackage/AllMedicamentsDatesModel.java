@@ -1,6 +1,5 @@
 package viewPackage;
 
-import controllerPackage.ApplicationController;
 import modelPackage.Medicament;
 
 import javax.swing.table.AbstractTableModel;

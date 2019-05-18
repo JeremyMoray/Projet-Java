@@ -58,6 +58,39 @@ public class DBAccess implements DataAccess{
         }
     }
 
+    public ArrayList<Soignant> getAllSoignants() throws AccesDBException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException {
+        try{
+            Connection connection = SingletonConnection.getInstance();
+            String sql = "select * from soignant;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            ResultSet data = statement.executeQuery();
+
+            ArrayList<Soignant> soignants = new ArrayList<>();
+
+            while(data.next()) {
+
+                Soignant soignant = new Soignant(
+                        data.getInt(1),
+                        data.getString(2),
+                        data.getString(3),
+                        data.getString(4),
+                        data.getString(5),
+                        data.getString(6),
+                        data.getString(7),
+                        data.getString(8)
+                );
+                soignants.add(soignant);
+            }
+
+            return soignants;
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
     public Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException{
         try{
             Connection connection = SingletonConnection.getInstance();
@@ -645,6 +678,50 @@ public class DBAccess implements DataAccess{
         }
     }
 
+    public Patient getPatient(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
+        try{
+            Connection connection = SingletonConnection.getInstance();
+            String sql = "select * from patient where patient_id = ?;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, patient_id);
+
+            ResultSet data = statement.executeQuery();
+
+            data.next();
+
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.setTime(data.getDate(6));
+
+            Patient patient = new Patient(
+                    data.getInt(1),
+                    data.getString(2),
+                    data.getString(3),
+                    data.getString(4),
+                    data.getInt(5),
+                    calendar,
+                    data.getString(7),
+                    data.getString(8),
+                    data.getString(9),
+                    data.getString(10),
+                    data.getString(11),
+                    data.getBoolean(12),
+                    data.getBoolean(13),
+                    data.getBoolean(14),
+                    data.getString(15),
+                    data.getString(16),
+                    data.getDouble(17),
+                    (data.getInt(18) == 0)?null:data.getInt(18)
+            );
+
+            return patient;
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
     public ArrayList<Patient> getAllPatients() throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
         try{
             Connection connection = SingletonConnection.getInstance();
@@ -682,98 +759,6 @@ public class DBAccess implements DataAccess{
                 patients.add(patient);
             }
             return patients;
-        }
-        catch(SQLException exception){
-            throw new AccesDBException(exception.getMessage());
-        }
-    }
-
-    public ArrayList<Patient> getAllPrimesPatient(Integer soignant_id, GregorianCalendar dateConsultation) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
-        try{
-            Connection connection = SingletonConnection.getInstance();
-            String sql = "select distinct patient.* from patient, consultation where consultation.soignant_id = ? " +
-                    "and consultation.patient_id = patient.patient_id " +
-                    "and consultation.dateConsultation >= ?;";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, soignant_id);
-            statement.setDate(2, new java.sql.Date(dateConsultation.getTimeInMillis()));
-
-            ResultSet data = statement.executeQuery();
-
-            ArrayList<Patient> patients = new ArrayList<>();
-
-            while(data.next()) {
-
-                GregorianCalendar calendar = new GregorianCalendar();
-                calendar.setTime(data.getDate(6));
-                Patient patient = new Patient(
-                        data.getInt(1),
-                        data.getString(2),
-                        data.getString(3),
-                        data.getString(4),
-                        data.getInt(5),
-                        calendar,
-                        data.getString(7),
-                        data.getString(8),
-                        data.getString(9),
-                        data.getString(10),
-                        data.getString(11),
-                        data.getBoolean(12),
-                        data.getBoolean(13),
-                        data.getBoolean(14),
-                        data.getString(15),
-                        data.getString(16),
-                        data.getDouble(17),
-                        (data.getInt(18) == 0)?null:data.getInt(18)
-                );
-                patients.add(patient);
-            }
-            return patients;
-        }
-        catch(SQLException exception){
-            throw new AccesDBException(exception.getMessage());
-        }
-    }
-
-    public Patient getPatient(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
-        try{
-            Connection connection = SingletonConnection.getInstance();
-            String sql = "select * from patient where patient_id = ?;";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-            statement.setInt(1, patient_id);
-
-            ResultSet data = statement.executeQuery();
-
-            data.next();
-
-            GregorianCalendar calendar = new GregorianCalendar();
-            calendar.setTime(data.getDate(6));
-
-            Patient patient = new Patient(
-                    data.getInt(1),
-                    data.getString(2),
-                    data.getString(3),
-                    data.getString(4),
-                    data.getInt(5),
-                    calendar,
-                    data.getString(7),
-                    data.getString(8),
-                    data.getString(9),
-                    data.getString(10),
-                    data.getString(11),
-                    data.getBoolean(12),
-                    data.getBoolean(13),
-                    data.getBoolean(14),
-                    data.getString(15),
-                    data.getString(16),
-                    data.getDouble(17),
-                    (data.getInt(18) == 0)?null:data.getInt(18)
-                );
-
-            return patient;
         }
         catch(SQLException exception){
             throw new AccesDBException(exception.getMessage());
@@ -906,6 +891,47 @@ public class DBAccess implements DataAccess{
 
             statement.executeUpdate();
 
+        }
+        catch(SQLException exception){
+            throw new AccesDBException(exception.getMessage());
+        }
+    }
+
+    public ArrayList<InfosConsultation> getAllConsultations(Integer soignant_id) throws AccesDBException {
+        try{
+            Connection connection = SingletonConnection.getInstance();
+            String sql = "select c.dateConsultation, p.nom, p.prenom, p.dateNaissance, m.libelle " +
+                    "from consultation c, patient p, mutualite m " +
+                    "where c.soignant_id = ? " +
+                    "and c.patient_id = p.patient_id " +
+                    "and p.mutualite_id = m.mutualite_id " +
+                    "ORDER BY c.dateConsultation;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, soignant_id);
+
+            ResultSet data = statement.executeQuery();
+
+            ArrayList<InfosConsultation> consultations = new ArrayList<>();
+
+            while(data.next()) {
+                GregorianCalendar dateConsultation = new GregorianCalendar();
+                dateConsultation.setTime(data.getTimestamp(1));
+
+                GregorianCalendar dateNaissance = new GregorianCalendar();
+                dateNaissance.setTime(data.getDate(4));
+
+                InfosConsultation consultation = new InfosConsultation(
+                        dateConsultation,
+                        data.getString(2),
+                        data.getString(3),
+                        dateNaissance,
+                        data.getString(5)
+                );
+                consultations.add(consultation);
+            }
+            return consultations;
         }
         catch(SQLException exception){
             throw new AccesDBException(exception.getMessage());

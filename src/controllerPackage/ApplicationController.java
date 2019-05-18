@@ -17,6 +17,10 @@ public class ApplicationController {
         manager.closeConnection();
     }
 
+    public ArrayList<Soignant> getAllSoignants() throws AccesDBException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException {
+        return manager.getAllSoignants();
+    }
+
     public void addSoignant(Soignant soignant) throws AccesDBException, ChampsExistantException {
         manager.addSoignant(soignant);
     }
@@ -101,10 +105,6 @@ public class ApplicationController {
         return manager.getAllPatients();
     }
 
-    public ArrayList<Patient> getAllPrimesPatient(Integer soignant_id, GregorianCalendar dateConsultation) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
-        return manager.getAllPrimesPatient(soignant_id, dateConsultation);
-    }
-
     public Patient getPatient(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException{
         return manager.getPatient(patient_id);
     }
@@ -119,6 +119,10 @@ public class ApplicationController {
 
     public void addConsultation(Consultation consultation) throws AccesDBException, ObjetExistantException{
         manager.addConsultation(consultation);
+    }
+
+    public ArrayList<InfosConsultation> getAllConsultations(Integer soignant_id) throws AccesDBException {
+        return manager.getAllConsultations(soignant_id);
     }
 
     public void addSouffrance(Souffrance souffrance) throws AccesDBException, ObjetExistantException{

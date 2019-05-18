@@ -27,6 +27,10 @@ public class Manager {
         dao.addSoignant(soignant);
     }
 
+    public ArrayList<Soignant> getAllSoignants() throws AccesDBException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException {
+        return dao.getAllSoignants();
+    }
+
     public Soignant getSoignant(String numNat, String motDePasse) throws AccesDBException, ConnexionException, ChampsVideException, CaracteresLimiteException, FormatNombreException, CodeInvalideException{
         return dao.getSoignant(numNat, motDePasse);
     }
@@ -117,10 +121,6 @@ public class Manager {
         return dao.getAllPatients();
     }
 
-    public ArrayList<Patient> getAllPrimesPatient(Integer soignant_id, GregorianCalendar dateConsultation) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException {
-        return dao.getAllPrimesPatient(soignant_id, dateConsultation);
-    }
-
     public Patient getPatient(Integer patient_id) throws AccesDBException, ChampsVideException, CaracteresLimiteException, CodeInvalideException, FormatNombreException{
         return dao.getPatient(patient_id);
     }
@@ -135,6 +135,10 @@ public class Manager {
 
     public void addConsultation(Consultation consultation) throws AccesDBException, ObjetExistantException{
         dao.addConsultation(consultation);
+    }
+
+    public ArrayList<InfosConsultation> getAllConsultations(Integer soignant_id) throws AccesDBException {
+        return dao.getAllConsultations(soignant_id);
     }
 
     public void addSouffrance(Souffrance souffrance) throws AccesDBException, ObjetExistantException{

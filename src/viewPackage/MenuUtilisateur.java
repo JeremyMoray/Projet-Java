@@ -16,7 +16,7 @@ public class MenuUtilisateur extends JPanel{
     private ApplicationController controller;
     private JMenuBar menuBar;
     private JMenu application, soignant, patient, medicament, allergie, mutualite, autres;
-    private JMenuItem accueil, quitter, monProfil, rechercheProcheDePatient, rechercheMedicamentPatient, recherchePrimePatient,
+    private JMenuItem accueil, quitter, monProfil, rechercheTraitements, rechercheMedicamentPatient, rechercheConsultations,
             seDeconnecter, inscriptionPatient, chercherPatient, supprimerProche, ajouterMedicament, listeMedicament, topMedicaments,
             totalPrimesAnuelles, ajouterAllergie, listeAllergie, ajouterMutualite, listeMutualite, aide, fermetureThread;
     private GridBagConstraints gbc = new GridBagConstraints();
@@ -63,10 +63,10 @@ public class MenuUtilisateur extends JPanel{
         soignant.addSeparator();
 
         //Cette recherche donne des infos sur tous les traitements ayant un patient sous la mutualité sélectionnée
-        rechercheProcheDePatient = new JMenuItem("Rechercher les traitements prescrit sous cette mutualité");
-        soignant.add(rechercheProcheDePatient);
-        RechercheListener rechercheProcheDePatientListener = new RechercheListener();
-        rechercheProcheDePatient.addActionListener(rechercheProcheDePatientListener);
+        rechercheTraitements = new JMenuItem("Rechercher les traitements prescrit sous cette mutualité");
+        soignant.add(rechercheTraitements);
+        RechercheListener rechercheTraitementsListener = new RechercheListener();
+        rechercheTraitements.addActionListener(rechercheTraitementsListener);
 
 
         soignant.addSeparator();
@@ -79,11 +79,11 @@ public class MenuUtilisateur extends JPanel{
 
         soignant.addSeparator();
 
-        //Cette recherche trouve les infos d'un médicament d'un traitement de tous les patients consultés. La date de début du traitement étant choisie entre 2 dates.
-        recherchePrimePatient = new JMenuItem("Rechercher les primes de vos patients consultés");
-        soignant.add(recherchePrimePatient);
-        RechercheListener recherchePrimePatientListener = new RechercheListener();
-        recherchePrimePatient.addActionListener(recherchePrimePatientListener);
+        //Cette recherche donne les infos sur les consultation d'un soignant
+        rechercheConsultations = new JMenuItem("Rechercher les consultations d'un soignant");
+        soignant.add(rechercheConsultations);
+        RechercheListener rechercheConsultationsListener = new RechercheListener();
+        rechercheConsultations.addActionListener(rechercheConsultationsListener);
 
         soignant.addSeparator();
 
@@ -239,7 +239,7 @@ public class MenuUtilisateur extends JPanel{
     private class RechercheListener implements ActionListener
     {
         public void actionPerformed (ActionEvent event) {
-            if(event.getSource() == rechercheProcheDePatient){
+            if(event.getSource() == rechercheTraitements){
                 addPanel(new PanneauRechercheTraitements());
             }
 
@@ -247,7 +247,7 @@ public class MenuUtilisateur extends JPanel{
                 addPanel(new PanneauRechercheMedicaments());
             }
 
-            if(event.getSource() == recherchePrimePatient){
+            if(event.getSource() == rechercheConsultations){
                 addPanel(new PanneauRechercheConsultations());
             }
         }

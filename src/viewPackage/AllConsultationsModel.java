@@ -1,21 +1,29 @@
 package viewPackage;
 
+import modelPackage.InfosConsultation;
 import modelPackage.Patient;
 
 import javax.swing.table.AbstractTableModel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class AllConsultationsModel extends AbstractTableModel {
 
     private ArrayList<String> columnNames;
-    private ArrayList<Patient> patients;
+    private ArrayList<InfosConsultation> consultations;
 
-    public AllConsultationsModel(ArrayList<Patient> patients) {
+    public AllConsultationsModel(ArrayList<InfosConsultation> consultations) {
         columnNames = new ArrayList<>();
-        columnNames.add("Prénom");
+        columnNames.add("Date consultation");
         columnNames.add("Nom");
-        columnNames.add("Prime annuelle");
-        this.patients = patients;
+        columnNames.add("Prénom");
+        columnNames.add("Date naissance");
+        columnNames.add("Mutualité");
+
+        this.consultations = consultations;
     }
 
     public int getColumnCount() {
@@ -23,7 +31,7 @@ public class AllConsultationsModel extends AbstractTableModel {
     }
 
     public int getRowCount() {
-        return patients.size();
+        return (consultations==null)?0:consultations.size();
     }
 
     public String getColumnName(int column) {
@@ -31,11 +39,19 @@ public class AllConsultationsModel extends AbstractTableModel {
     }
 
     public Object getValueAt (int row, int column){
-        Patient patient = patients.get(row);
+        InfosConsultation consultation = consultations.get(row);
         switch(column){
-            case 0 : return patient.getPrenom();
-            case 1: return patient.getNom();
-            case 2: return patient.getPrimeAnuelle();
+            case 0 :
+                DateFormat dateConsultationFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                Date dateConsultationFormatDate = consultation.getDateConsultation().getTime();
+                return dateConsultationFormat.format(dateConsultationFormatDate);
+            case 1: return consultation.getNomPatient();
+            case 2: return consultation.getPrenomPatient();
+            case 3:
+                DateFormat dateNaissanceFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date dateNaissanceFormatDate = consultation.getDateNaissance().getTime();
+                return dateNaissanceFormat.format(dateNaissanceFormatDate);
+            case 4: return consultation.getLibelle();
             default : return null;
         }
     }
@@ -46,7 +62,7 @@ public class AllConsultationsModel extends AbstractTableModel {
         switch (column)
         {
             case 0:
-                c = Integer.class;
+                c = DateFormat.class;
                 break;
             case 1:
                 c = String.class;
@@ -55,6 +71,9 @@ public class AllConsultationsModel extends AbstractTableModel {
                 c = String.class;
                 break;
             case 3:
+                c = DateFormat.class;
+                break;
+            case 4:
                 c = String.class;
                 break;
             default:
@@ -64,7 +83,7 @@ public class AllConsultationsModel extends AbstractTableModel {
     }
 
     public void removeRow(int position){
-        patients.remove(position);
+        consultations.remove(position);
         fireTableRowsDeleted(position, position);
     }
 }
